@@ -2,28 +2,6 @@
 
 A complete static-site redesign for the DenOS operating-system project.
 
-## Run locally
-
-From this directory:
-
-```sh
-python3 -m http.server 8000
-```
-
-Then open <http://localhost:8000>.
-
-No Node.js, package manager, framework, or build step is required. The page uses local HTML/CSS/JavaScript. Google Fonts are an optional enhancement; system-font fallbacks are included.
-
-## Publish
-
-Upload the **contents** of this folder to the root of a static hosting repository. Keep the relative paths intact:
-
-- `index.html`, `styles.css`, `script.js`
-- `assets/`
-- `files/source/`
-- `docs/`
-- `404.html`, `robots.txt`, and `site.webmanifest`
-
 The relative download and documentation links work on a normal static host and GitHub Pages project sites.
 
 ## Included
