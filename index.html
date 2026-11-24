@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f2ee">
+  <meta name="description" content="DenOS is an independent experimental x86-64 operating-system project. Explore its kernel, memory management, storage, networking baseline, Aiden C toolchain, documentation, and source releases.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DenOS — Built below the surface">
+  <meta property="og:description" content="An independent x86-64 operating-system project. Explore the architecture and source.">
+  <meta property="og:image" content="assets/social-card.svg">
+  <meta name="color-scheme" content="light dark">
+  <title>DenOS — Built below the surface</title>
+  <link rel="icon" href="assets/denos-mark.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="read-progress" id="readProgress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="DenOS home">
+      <span class="brand-mark"><img src="assets/denos-mark.svg" alt=""></span>
+      <span class="brand-word">DEN<span>OS</span><small>INDEPENDENT SYSTEMS PROJECT</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#architecture">Architecture</a>
+      <a href="#toolchain">Toolchain</a>
+      <a href="#status">Status</a>
+      <a href="#releases">Releases</a>
+      <a href="docs/index.html">Documentation</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle theme"><span class="theme-glyph">◐</span></button>
+      <a class="header-cta" href="#releases">Get the source <span>↗</span></a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation"><span></span><span></span></button>
+  </header>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#architecture">Architecture <span>01</span></a>
+    <a href="#toolchain">Toolchain <span>02</span></a>
+    <a href="#status">Status <span>03</span></a>
+    <a href="#releases">Releases <span>04</span></a>
+    <a href="docs/index.html">Documentation <span>↗</span></a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <div class="kicker"><span class="kicker-dot"></span> INDEPENDENT X86-64 OPERATING SYSTEM <span class="kicker-rule"></span> 0.4.9</div>
+        <h1>Built below<br>the <span>surface.</span></h1>
+        <p class="hero-lede">DenOS is an operating-system project built from the boot path up. A freestanding kernel, a command-line environment, and a toolchain that is part of the experiment.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#releases">Explore the source <span>↓</span></a>
+          <a class="button button-secondary" href="#architecture">See how it works <span>↘</span></a>
+        </div>
+        <div class="hero-facts">
+          <div><b>64<span>-bit</span></b><small>CPU TARGET</small></div>
+          <div><b>0.4.9</b><small>SOURCE RELEASE</small></div>
+          <div><b> C <span>+</span> ASM</b><small>CORE LANGUAGES</small></div>
+        </div>
+      </div>
+
+      <div class="hero-product reveal">
+        <div class="product-stamp"><span>DENOS / CLI EDITION</span><b>0.4.9</b><small>IN DEVELOPMENT</small></div>
+        <div class="product-window">
+          <div class="window-bar">
+            <div class="window-controls"><i></i><i></i><i></i></div>
+            <span class="window-title">denos — tty1</span>
+            <span class="window-state"><i></i> SESSION PREVIEW</span>
+          </div>
+          <div class="desktop-screen">
+            <div class="screen-sidebar">
+              <div class="sidebar-logo">D<span>/</span></div>
+              <div class="sidebar-active">⌘</div><div>▦</div><div>⌁</div><div>◉</div>
+              <div class="sidebar-bottom">?</div>
+            </div>
+            <div class="screen-content">
+              <div class="screen-heading"><div><small>KERNEL CONSOLE / 01</small><h2>System overview</h2></div><span class="screen-version">DENOS 0.4.9</span></div>
+              <div class="screen-metrics">
+                <div><small>ARCHITECTURE</small><b>x86_64</b><span>LONG MODE</span></div>
+                <div><small>MEMORY MAP</small><b>4-level</b><span>ACTIVE CR3</span></div>
+                <div><small>BOOT MODE</small><b>GRUB</b><span>MULTIBOOT2</span></div>
+              </div>
+              <div class="screen-terminal">
+                <div class="screen-terminal-head"><span>root@denos:~</span><span>DEMO CONSOLE</span></div>
+                <div class="screen-lines">
+                  <p><em>root@denos</em>:~$ <b>system</b></p>
+                  <p class="screen-muted">DenOS 0.4.9 · x86-64 kernel</p>
+                  <p class="screen-muted">Boot path ........ Multiboot2</p>
+                  <p class="screen-muted">Console .......... VGA text</p>
+                  <p class="screen-muted">Storage .......... ATA PIO / DenFS</p>
+                  <p class="screen-muted">Network .......... E1000 / ICMP</p>
+                  <p><em>root@denos</em>:~$ <span class="screen-cursor"></span></p>
+                </div>
+              </div>
+              <div class="screen-footer"><span><i></i> LOCAL PREVIEW</span><span>CLI / TEXT MODE</span></div>
+            </div>
+          </div>
+          <div class="window-foot"><span>NOT A LIVE OS SESSION</span><span>INTERFACE CONCEPT / 01</span></div>
+        </div>
+        <div class="product-caption"><span>01 — DENOS IN THE MAKING</span><span>BOOT · KERNEL · SHELL</span></div>
+      </div>
+      <div class="hero-bottomline"><span>AN INDEPENDENT SYSTEMS PROJECT</span><span class="hero-bottom-mark">SCROLL TO EXPLORE <b>↓</b></span></div>
+    </section>
+
+    <div class="spec-ribbon" aria-label="Project technology">
+      <div class="ribbon-track">
+        <span>GRUB MULTIBOOT2</span><i>✳</i><span>FREESTANDING C</span><i>✳</i><span>NASM</span><i>✳</i><span>X86-64</span><i>✳</i><span>DENFS V3</span><i>✳</i><span>AIDEN C</span><i>✳</i><span>QEMU TARGET</span><i>✳</i>
+        <span>GRUB MULTIBOOT2</span><i>✳</i><span>FREESTANDING C</span><i>✳</i><span>NASM</span><i>✳</i><span>X86-64</span><i>✳</i><span>DENFS V3</span><i>✳</i><span>AIDEN C</span><i>✳</i><span>QEMU TARGET</span><i>✳</i>
+      </div>
+    </div>
+
+    <section class="section architecture-section" id="architecture">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div><div class="eyebrow"><span>01</span> THE SYSTEM</div><h2>More than a boot screen.<br><span>A growing set of foundations.</span></h2></div>
+          <p>The current source tree contains real kernel subsystems and testable components. Here is what the 0.4.9 snapshot actually includes.</p>
+        </div>
+
+        <div class="architecture-grid">
+          <article class="architecture-card card-boot reveal">
+            <div class="card-top"><span>01 / BOOT & CPU</span><span class="line-icon">↗</span></div>
+            <div class="card-visual boot-visual" aria-hidden="true"><div class="boot-ring ring-one"></div><div class="boot-ring ring-two"></div><div class="boot-chip">x86<br><b>64</b></div><span class="boot-node node-a"></span><span class="boot-node node-b"></span></div>
+            <h3>Start at the machine.</h3>
+            <p>GRUB Multiboot2 entry, x86-64 long-mode bootstrap, VGA text console, PS/2 keyboard polling, PIT timing, serial diagnostics, and early CPU exception handling.</p>
+            <div class="card-tags"><span>LONG MODE</span><span>IDT / TSS</span><span>COM1</span></div>
+          </article>
+
+          <article class="architecture-card reveal">
+            <div class="card-top"><span>02 / VIRTUAL MEMORY</span><span class="line-icon">⌁</span></div>
+            <div class="card-visual paging-visual" aria-hidden="true"><div class="page-stack"><i></i><i></i><i></i><i></i></div><div class="page-arrows">↓　↓　↓</div><div class="page-base">PHYSICAL FRAMES</div></div>
+            <h3>Checked page tables.</h3>
+            <p>A four-level x86-64 page-table manager for the active CR3, with 4 KiB mapping operations, huge-page inspection/splitting, permission checks, and a PMM-backed kernel virtual allocator.</p>
+            <div class="card-tags"><span>4-LEVEL</span><span>NX / W^X</span><span>64 MiB VA WINDOW</span></div>
+          </article>
+
+          <article class="architecture-card reveal">
+            <div class="card-top"><span>03 / STORAGE & VFS</span><span class="line-icon">▤</span></div>
+            <div class="card-visual storage-visual" aria-hidden="true"><div class="storage-drive"><span></span></div><div class="storage-lines"><i></i><i></i><i></i><i></i></div></div>
+            <h3>Persistent files, bounded scope.</h3>
+            <p>DenFS v3 over legacy ATA PIO, nested paths, migration checks, copy/move operations, and VFS routing for the root, read-only proc-style views, and device-style nodes.</p>
+            <div class="card-tags"><span>DENFS V3</span><span>ATA PIO</span><span>PROC / DEV</span></div>
+          </article>
+
+          <article class="architecture-card reveal">
+            <div class="card-top"><span>04 / KERNEL SERVICES</span><span class="line-icon">⌘</span></div>
+            <div class="card-visual services-visual" aria-hidden="true"><div class="service-node n1">TASK</div><div class="service-node n2">IPC</div><div class="service-node n3">EVENT</div><div class="service-core">K</div></div>
+            <h3>Kernel-side coordination.</h3>
+            <p>A cooperative task scheduler, bounded IPC queues, event FIFO, service lifecycle registry, device registry, environment variables, and command history.</p>
+            <div class="card-tags"><span>COOPERATIVE</span><span>IPC</span><span>SERVICES</span></div>
+          </article>
+
+          <article class="architecture-card reveal">
+            <div class="card-top"><span>05 / NETWORKING</span><span class="line-icon">⌁</span></div>
+            <div class="card-visual network-visual" aria-hidden="true"><div class="net-node net-one"></div><div class="net-node net-two"></div><div class="net-node net-three"></div><div class="net-link l1"></div><div class="net-link l2"></div><div class="net-link l3"></div><div class="net-label">E1000</div></div>
+            <h3>A small, real network baseline.</h3>
+            <p>PCI discovery and a QEMU E1000 profile with Ethernet transmit/receive, ARP, IPv4 validation, and ICMP echo. It is intentionally not presented as a full Internet stack.</p>
+            <div class="card-tags"><span>QEMU E1000</span><span>ARP</span><span>ICMP</span></div>
+          </article>
+
+          <article class="architecture-card reveal">
+            <div class="card-top"><span>06 / GRAPHICS LIBRARY</span><span class="line-icon">▧</span></div>
+            <div class="card-visual graphics-visual" aria-hidden="true"><div class="gfx-window"><i></i><i></i><i></i><b>GFX</b></div><div class="gfx-pixels"></div></div>
+            <h3>Graphics code without a GUI claim.</h3>
+            <p>A software-rendered kernel graphics API with framebuffer routines, geometry, text, window/event helpers, PS/2 mouse utilities, and QOI decoding. The normal boot stays text-only.</p>
+            <div class="card-tags"><span>FRAMEBUFFER</span><span>SOFTWARE</span><span>QOI</span></div>
+          </article>
+        </div>
+        <div class="architecture-foot"><span>THE SOURCE IS THE SPECIFICATION</span><a href="docs/development-status.html">Read the full development status <b>↗</b></a></div>
+      </div>
+    </section>
+
+    <section class="toolchain-section" id="toolchain">
+      <div class="section-inner toolchain-layout">
+        <div class="toolchain-copy reveal">
+          <div class="eyebrow eyebrow-light"><span>02</span> THE TOOLCHAIN</div>
+          <h2>A language<br>inside the <span>project.</span></h2>
+          <p>Aiden C is DenOS's freestanding C-subset compiler. It translates a bounded language into AEX6 bytecode, which the in-kernel VM interprets. It is a genuine part of the project — and it has clearly stated limits.</p>
+          <div class="toolchain-version"><span>COMPILER</span><b>AIDEN C 5.2.4</b><span class="version-divider"></span><span>BYTECODE</span><b>AEX6</b></div>
+          <a class="light-link" href="docs/aiden-c.html">Explore the Aiden C language guide <span>↗</span></a>
+        </div>
+        <div class="code-showcase reveal">
+          <div class="code-window-bar"><div class="window-controls"><i></i><i></i><i></i></div><span>examples / prime.c</span><span class="code-file-status">AIDEN C</span></div>
+          <div class="code-editor">
+            <div class="code-gutter">01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10<br>11</div>
+            <pre><code><span class="code-comment">// Aiden C · bounded C subset</span>
+<span class="code-key">int</span> is_prime(<span class="code-key">int</span> n) {
+  <span class="code-key">if</span> (n &lt; <span class="code-num">2</span>) <span class="code-key">return</span> <span class="code-num">0</span>;
+  <span class="code-key">for</span> (<span class="code-key">int</span> i = <span class="code-num">2</span>; i * i &lt;= n; i++) {
+    <span class="code-key">if</span> (n % i == <span class="code-num">0</span>) <span class="code-key">return</span> <span class="code-num">0</span>;
+  }
+  <span class="code-key">return</span> <span class="code-num">1</span>;
+}
+
+<span class="code-key">int</span> main() {
+  printf(<span class="code-string">"prime: %d\n"</span>, is_prime(<span class="code-num">97</span>));
+  <span class="code-key">return</span> <span class="code-num">0</span>;
+}</code></pre>
+          </div>
+          <div class="code-window-foot"><span><i></i> SOURCE EXAMPLE</span><span>COMPILE → AEX6 → VM</span></div>
+          <div class="code-callout"><b>01</b><span>Compile in DenOS with <code>cc</code>, then run the generated AEX program with <code>run</code>.</span></div>
+        </div>
+      </div>
+      <div class="toolchain-bottom section-inner"><span>NOT ISO C</span><span>NO NATIVE CODE GENERATION</span><span>NO USER-MODE ISOLATION</span><span>SEE LANGUAGE GUIDE ↗</span></div>
+    </section>
+
+    <section class="section status-section" id="status">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div><div class="eyebrow"><span>03</span> ENGINEERING STATUS</div><h2>Clear about what works.<br><span>Clear about what doesn't.</span></h2></div>
+          <p>DenOS is experimental. The current milestone is substantial, but the boundaries matter. This status is taken from the 0.4.9 development notes and support matrix.</p>
+        </div>
+        <div class="status-grid">
+          <article class="status-card status-done reveal">
+            <div class="status-head"><span class="status-symbol">✓</span><span>IMPLEMENTED FOUNDATIONS</span></div>
+            <h3>In the current source</h3>
+            <ul>
+              <li>Multiboot2 boot path and x86-64 kernel</li>
+              <li>Memory allocator and active-CR3 page tables</li>
+              <li>DenFS v3, ATA PIO and VFS routing</li>
+              <li>Cooperative tasks, IPC, events and services</li>
+              <li>QEMU E1000 / ARP / IPv4 / ICMP baseline</li>
+              <li>Aiden C / AEX6 and kernel graphics library</li>
+            </ul>
+            <a href="docs/support-matrix.html">View support matrix ↗</a>
+          </article>
+          <article class="status-card status-limits reveal">
+            <div class="status-head"><span class="status-symbol">!</span><span>IMPORTANT LIMITS</span></div>
+            <h3>Not production boundaries</h3>
+            <ul>
+              <li>One active CR3; no per-process address spaces</li>
+              <li>No ring-3 isolation or stable syscall ABI</li>
+              <li>DenFS is not journaled or binary-safe</li>
+              <li>Networking has no TCP, UDP, DNS or DHCP</li>
+              <li>Graphics library does not launch a desktop</li>
+              <li>Aiden C is not full ISO C or native code</li>
+            </ul>
+            <a href="docs/development-status.html">Read the limitations ↗</a>
+          </article>
+          <article class="status-card status-next reveal">
+            <div class="status-head"><span class="status-symbol">→</span><span>ROADMAP DIRECTION</span></div>
+            <h3>What comes next</h3>
+            <ul>
+              <li>Filesystem checking and crash-safe metadata</li>
+              <li>Protected user mode and process address spaces</li>
+              <li>Syscall ABI and isolated execution</li>
+              <li>Modern storage, USB and broader hardware</li>
+              <li>DHCP, DNS, sockets and IPv6</li>
+              <li>SDK and package tooling after ABI stability</li>
+            </ul>
+            <a href="docs/roadmap.html">Explore the roadmap ↗</a>
+          </article>
+        </div>
+        <div class="daily-driver-note"><span>READ THIS BEFORE INSTALLING</span><p>DenOS 0.4.9 explicitly describes itself as <b>not a daily-driver replacement</b>. Keep independent backups, use QEMU for experiments, and do not treat the current network or memory facilities as security boundaries.</p></div>
+      </div>
+    </section>
+
+    <section class="validation-band">
+      <div class="section-inner validation-inner">
+        <div class="validation-copy reveal"><div class="eyebrow eyebrow-light"><span>04</span> TESTS & VALIDATION</div><h2>Test the pieces.<br><span>Know the boundary.</span></h2><p>The source includes a host-side regression suite. Passing host tests is useful evidence, but it is not the same as assembling, booting, or testing on physical hardware.</p></div>
+        <div class="validation-stats reveal">
+          <div class="validation-stat"><b>31</b><span>HOST TEST EXECUTABLES<br>DOCUMENTED IN BUILD GUIDE</span></div>
+          <div class="validation-stat"><b>54</b><span>KERNEL C SOURCE FILES<br>INCLUDED IN 0.4.9 ARCHIVE</span></div>
+          <div class="validation-stat"><b>30</b><span>PROJECT MANUALS<br>INCLUDED WITH THIS WEBSITE</span></div>
+        </div>
+        <div class="validation-command"><span>RUN THE DOCUMENTED CHECKS</span><code>make test</code><code>make check</code><a href="docs/building.html">Build & test guide ↗</a></div>
+      </div>
+    </section>
+
+    <section class="section releases-section" id="releases">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div><div class="eyebrow"><span>05</span> SOURCE ARCHIVE</div><h2>Choose a snapshot.<br><span>Open the code.</span></h2></div>
+          <p>These downloads are the original source archives supplied with the project. The 0.4.9 archive is the current site-highlighted version; no prebuilt ISO is included.</p>
+        </div>
+        <div class="release-tools">
+          <div class="release-count"><span class="count-dot"></span><span id="releaseCount">3 SOURCE ARCHIVES</span></div>
+          <label class="release-filter"><span>⌕</span><input type="search" id="releaseSearch" placeholder="Filter by version or keyword..." aria-label="Filter source archives"><kbd>/</kbd></label>
+        </div>
+        <div class="release-list" id="releaseList">
+          <article class="release-row release-latest reveal" data-search="0.4.9 latest cli kernel memory paging filesystem networking aiden c">
+            <div class="release-number">01</div>
+            <div class="release-description">
+              <div class="release-title-line"><h3>DenOS <span>0.4.9</span></h3><span class="release-badge">CURRENT SOURCE</span></div>
+              <p>CLI-focused x86-64 source snapshot with checked page-table management, DenFS/VFS, Aiden C 5.2.4, QEMU E1000 networking, shell/editor improvements, graphics libraries and subsystem tests.</p>
+              <div class="release-tags"><span>CLI EDITION</span><span>X86-64</span><span>C / NASM</span></div>
+            </div>
+            <div class="release-file-info"><b>DenOS-0.4.9.zip</b><span>59.1 MiB · 61,930,599 bytes</span><button class="hash-toggle" type="button" data-hash="5522256ec747d20915a0836a76189c90590a4915677203ab07c93ac8d14455e8">SHA-256 <span>Show hash + copy</span></button><code class="hash-value" hidden>5522256ec747d20915a0836a76189c90590a4915677203ab07c93ac8d14455e8</code></div>
+            <a class="download-button" href="files/source/DenOS-0.4.9.zip" download>Download <span>↓</span></a>
+          </article>
+          <article class="release-row reveal" data-search="0.3.1 archive early version">
+            <div class="release-number">02</div>
+            <div class="release-description">
+              <div class="release-title-line"><h3>DenOS <span>0.3.1</span></h3><span class="archive-badge">ARCHIVE</span></div>
+              <p>Earlier development snapshot. Preserved exactly as provided in the original website package.</p>
+              <div class="release-tags"><span>ARCHIVED SOURCE</span><span>X86-64</span></div>
+            </div>
+            <div class="release-file-info"><b>DenOS 0.3.1.zip</b><span>53.5 KiB · 54,739 bytes</span><button class="hash-toggle" type="button" data-hash="542312d9dee04ad7c8a6183ce59799727614661e05f302fbf85675d9fdd9cd32">SHA-256 <span>Show hash + copy</span></button><code class="hash-value" hidden>542312d9dee04ad7c8a6183ce59799727614661e05f302fbf85675d9fdd9cd32</code></div>
+            <a class="download-button" href="files/source/DenOS%200.3.1.zip" download>Download <span>↓</span></a>
+          </article>
+          <article class="release-row reveal" data-search="0.3 archive original version">
+            <div class="release-number">03</div>
+            <div class="release-description">
+              <div class="release-title-line"><h3>DenOS <span>0.3</span></h3><span class="archive-badge">ARCHIVE</span></div>
+              <p>Original development snapshot. Preserved exactly as provided in the original website package.</p>
+              <div class="release-tags"><span>ARCHIVED SOURCE</span><span>X86-64</span></div>
+            </div>
+            <div class="release-file-info"><b>DenOS 0.3.zip</b><span>39.5 KiB · 40,437 bytes</span><button class="hash-toggle" type="button" data-hash="80913db50701ae628bf09af784606c0397c6a125ad1275572cd586cbe193e166">SHA-256 <span>Show hash + copy</span></button><code class="hash-value" hidden>80913db50701ae628bf09af784606c0397c6a125ad1275572cd586cbe193e166</code></div>
+            <a class="download-button" href="files/source/DenOS%200.3.zip" download>Download <span>↓</span></a>
+          </article>
+          <p class="no-results" id="noReleaseResults" hidden>No matching source archive. Try a version such as 0.4.9.</p>
+        </div>
+        <div class="archive-footnote"><span>!</span><p><b>Archive integrity:</b> SHA-256 values are provided for verification. All three ZIP files were copied byte-for-byte from the supplied website package. The 0.4.9 source archive contains no prebuilt ISO, test binaries, or persistent QEMU data disk.</p></div>
+      </div>
+    </section>
+
+    <section class="build-section" id="build">
+      <div class="section-inner build-layout">
+        <div class="build-copy reveal">
+          <div class="eyebrow eyebrow-light"><span>06</span> BUILD FROM SOURCE</div>
+          <h2>Go from archive<br>to <span>first boot.</span></h2>
+          <p>The maintained build recipe targets x86-64 Ubuntu or Debian. Use an emulator for experiments and keep your data image backed up.</p>
+          <div class="build-requirements"><span>REQUIRED TOOLING</span><div><b>GCC + BINUTILS</b><b>NASM</b><b>GRUB + XORRISO</b><b>MAKE</b><b>QEMU</b><b>MTOOLS</b></div></div>
+          <a class="light-link" href="docs/building.html">Open the full build guide <span>↗</span></a>
+        </div>
+        <div class="build-console reveal">
+          <div class="build-console-head"><span><i></i> QUICK START / UBUNTU OR DEBIAN</span><span>01 — 04</span></div>
+          <div class="build-step"><span>01</span><div><small>INSTALL THE TOOLCHAIN</small><code>sudo apt install build-essential nasm grub-pc-bin grub-common xorriso mtools qemu-system-x86</code></div><button class="copy-button" data-copy="sudo apt install build-essential nasm grub-pc-bin grub-common xorriso mtools qemu-system-x86" aria-label="Copy dependency command">COPY</button></div>
+          <div class="build-step"><span>02</span><div><small>RUN HOST REGRESSION TESTS</small><code>make test</code></div><button class="copy-button" data-copy="make test" aria-label="Copy test command">COPY</button></div>
+          <div class="build-step"><span>03</span><div><small>BUILD THE BOOTABLE ISO</small><code>make</code></div><button class="copy-button" data-copy="make" aria-label="Copy build command">COPY</button></div>
+          <div class="build-step"><span>04</span><div><small>LAUNCH IN QEMU</small><code>make run</code></div><button class="copy-button" data-copy="make run" aria-label="Copy run command">COPY</button></div>
+          <div class="build-console-foot"><span class="build-ready"><i></i> COMMANDS FROM THE INCLUDED BUILD GUIDE</span><span id="copyStatus" aria-live="polite"></span></div>
+        </div>
+      </div>
+      <div class="section-inner build-safety reveal"><div class="safety-icon">!</div><p><b>Protect your data image.</b> <code>make clean</code> removes generated build output and preserves personal disk images. <code>make clean-data</code> deletes <em>denos-data.img</em> and <em>denos-data.vdi</em>; it is destructive. Back up important data first.</p></div>
+    </section>
+
+    <section class="section docs-section" id="documentation">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div><div class="eyebrow"><span>07</span> PROJECT MANUALS</div><h2>Read the actual<br><span>engineering notes.</span></h2></div>
+          <p>Thirty documentation files from the 0.4.9 source archive are included with this website as readable pages, alongside the original Markdown files.</p>
+        </div>
+        <div class="docs-feature-grid">
+          <a class="docs-feature reveal" href="docs/building.html"><span>BUILD / 01</span><b>Build & run guide</b><small>Dependencies, host tests, ISO build, QEMU, disk image handling.</small><span class="docs-arrow">↗</span></a>
+          <a class="docs-feature reveal" href="docs/kernel-architecture.html"><span>KERNEL / 02</span><b>Kernel architecture</b><small>Boot, core subsystems, structure and implementation map.</small><span class="docs-arrow">↗</span></a>
+          <a class="docs-feature reveal" href="docs/virtual-memory.html"><span>MEMORY / 03</span><b>Virtual memory</b><small>Paging APIs, page sizes, mapping checks and known gaps.</small><span class="docs-arrow">↗</span></a>
+          <a class="docs-feature reveal" href="docs/aiden-c.html"><span>LANGUAGE / 04</span><b>Aiden C 5.2.4</b><small>Supported subset, compiler model, AEX bytecode and limits.</small><span class="docs-arrow">↗</span></a>
+          <a class="docs-feature reveal" href="docs/networking.html"><span>NETWORK / 05</span><b>Networking</b><small>E1000, ARP, IPv4/ICMP profile and non-goals.</small><span class="docs-arrow">↗</span></a>
+          <a class="docs-feature reveal" href="docs/support-matrix.html"><span>STATUS / 06</span><b>Support matrix</b><small>Implemented components and explicit unsupported areas.</small><span class="docs-arrow">↗</span></a>
+        </div>
+        <div class="docs-all"><span>30 MANUALS · ORIGINAL MARKDOWN INCLUDED</span><a href="docs/index.html">Browse the complete documentation library <b>↗</b></a></div>
+      </div>
+    </section>
+
+    <section class="closing-section">
+      <div class="section-inner closing-layout">
+        <div class="closing-mark">D<span>/</span></div>
+        <div class="closing-copy"><div class="eyebrow eyebrow-light"><span>THE PROJECT</span> IS STILL IN MOTION</div><h2>Built to be<br><span>understood.</span></h2><p>Explore the source. Read the constraints. Follow the engineering as DenOS grows.</p></div>
+        <div class="closing-actions"><a class="button button-white" href="#releases">Get DenOS source <span>↓</span></a><a href="docs/index.html" class="closing-doc-link">Read the docs ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-inner footer-main">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/denos-mark.svg" alt=""></span><span class="brand-word">DEN<span>OS</span><small>INDEPENDENT SYSTEMS PROJECT</small></span></a>
+      <p>An experimental x86-64 operating-system project.<br>Built from the boot path up.</p>
+      <div class="footer-links"><a href="#architecture">Architecture</a><a href="#releases">Source</a><a href="docs/index.html">Documentation</a></div>
+      <a class="back-top" href="#top">BACK TO TOP ↑</a>
+    </div>
+    <div class="section-inner footer-legal"><span>DENOS / SOURCE RELEASE 0.4.9</span><span>EXPERIMENTAL SOFTWARE · NOT A DAILY-DRIVER OS</span><span>© 2026</span></div>
+  </footer>
+
+  <dialog class="command-dialog" id="commandDialog" aria-label="Site command palette">
+    <form method="dialog" class="command-search-form">
+      <span>⌕</span><input id="commandSearch" type="search" placeholder="Jump to a section or guide…" autocomplete="off" aria-label="Search site navigation">
+      <button class="dialog-close" value="close" aria-label="Close command palette">ESC</button>
+    </form>
+    <div class="command-results" id="commandResults">
+      <button type="button" data-target="#architecture"><span>Architecture</span><kbd>01</kbd></button>
+      <button type="button" data-target="#toolchain"><span>Aiden C toolchain</span><kbd>02</kbd></button>
+      <button type="button" data-target="#status"><span>Development status</span><kbd>03</kbd></button>
+      <button type="button" data-target="#releases"><span>Source releases</span><kbd>04</kbd></button>
+      <button type="button" data-target="docs/index.html"><span>Documentation library</span><kbd>↗</kbd></button>
+      <button type="button" data-target="docs/building.html"><span>Build guide</span><kbd>↗</kbd></button>
+    </div>
+    <div class="dialog-hint">NAVIGATE THE DENOS PROJECT <span>↑ ↓ ENTER ESC</span></div>
+  </dialog>
+
+  <dialog class="terminal-dialog" id="terminalDialog" aria-labelledby="terminalDialogTitle">
+    <div class="terminal-dialog-head"><div><small>INTERACTIVE SITE TOUR</small><h2 id="terminalDialogTitle">DenOS command demo</h2></div><button class="dialog-close" type="button" data-close-terminal aria-label="Close terminal demo">×</button></div>
+    <p>This is a browser-side simulation for exploring documented command areas. It is not connected to a booted DenOS kernel.</p>
+    <div class="demo-terminal">
+      <div class="demo-terminal-output" id="demoOutput" aria-live="polite"><span>DenOS 0.4.9 · Site demo</span><span>Type <b>help</b> to see available examples.</span></div>
+      <form id="demoForm"><label for="demoInput">root@denos:~$</label><input id="demoInput" type="text" spellcheck="false" autocomplete="off" placeholder="help"><button type="submit">RUN</button></form>
+    </div>
+    <div class="demo-suggestions"><button type="button" data-demo-command="help">help</button><button type="button" data-demo-command="paging">paging</button><button type="button" data-demo-command="network">network</button><button type="button" data-demo-command="compiler">compiler</button></div>
+  </dialog>
+
+  <button class="terminal-launch" id="terminalLaunch" type="button" aria-haspopup="dialog"><span>›_</span> Try the console demo</button>
+</body>
+</html>

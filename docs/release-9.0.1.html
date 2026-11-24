@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Release 9.0.1 · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link active" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Release 9.0.1</span></div>
+    <article class="markdown-body"><h1 id="denos-9-0-1-kernel-services-and-desktop-refinement">DenOS 9.0.1 — Kernel Services and Desktop Refinement</h1>
+<h2 id="release-direction">Release direction</h2>
+<p>DenOS 9.0.1 builds on the 9.0.0 Cinnamon-inspired desktop shell. This release focuses on real kernel infrastructure instead of adding decorative mock applications. It adds a VFS mount namespace, cooperative kernel-service scheduling, bounded IPC queues, a kernel event queue, and a refreshed wallpaper set.</p>
+<h2 id="kernel-infrastructure">Kernel infrastructure</h2>
+<ul>
+<li>Longest-prefix VFS routing for the DenFS root, read-only procfs, and minimal devfs.</li>
+<li>Live procfs status views for uptime, memory, tasks, IPC, events, mounts, devices, and network counters.</li>
+<li>Cooperative service scheduler with bounded per-pass work, priority ordering, periodic deadlines, task IDs, run counters, and stop/restart lifecycle.</li>
+<li>E1000 receive polling moved into a scheduled service; heap metadata is checked periodically.</li>
+<li>Fixed-capacity FIFO IPC queues associated with scheduler task IDs, with payload limits and overflow accounting.</li>
+<li>Bounded timestamped event queue with task lifecycle events and drop accounting.</li>
+<li>Shell commands <code>tasks</code>, <code>ps</code>, <code>ipc</code>, <code>events</code>, and <code>mounts</code>, plus absolute-path VFS access for <code>cat</code>, <code>ls</code>, <code>write</code>, <code>mkdir</code>, and <code>rm</code>.</li>
+</ul>
+<h2 id="desktop-refinements">Desktop refinements</h2>
+<ul>
+<li>Rebuilt the home workspace with legible shortcut tiles, a live date/time and network/session widget, and a forest-green default wallpaper.</li>
+<li>Expanded the bottom panel with pinned launchers, an active-task control, storage/network status, clock, notifications, and session actions.</li>
+<li>Reworked the searchable Menu with a larger search field, category rail, clearer application list, and consistent app-specific window glyphs.</li>
+<li>Refined light/dark neutral surfaces, green accent contrast, shadows, borders, and corner radii.</li>
+<li>Removed stale invisible home-screen click areas so blank wallpaper is no longer an accidental launcher.</li>
+<li>Simplified application chrome to compact square window controls and restrained neutral launcher surfaces.</li>
+<li>System Monitor now shows cooperative service counters and network link state.</li>
+<li>Eight new wallpaper designs are supplied as lossless 2560×1440 masters, with compact 640×360 PNG/QOI previews used by the current kernel renderer.</li>
+<li>Added a reproducible wallpaper generation tool and optional <code>make wallpapers</code> target (requires Pillow and NumPy).</li>
+</ul>
+<h2 id="verification">Verification</h2>
+<p><code>make test</code> covers the event queue, IPC queues, VFS path routing, scheduler, storage/migration, calculator, core services, hardware mocks, physical memory, graphics, mouse/window interaction, keyboard polling, framebuffer, QOI, wallpaper integrity, and ARP/IPv4/ICMP protocol behavior. All kernel C translation units compile with the freestanding warning-as-error flags.</p>
+<p>A complete ISO build and QEMU boot/network smoke test were not performed in the current build environment because NASM, GRUB rescue tooling, and QEMU are not installed. Host tests do not validate E1000 DMA operation or real boot behavior.</p>
+<h2 id="still-not-a-full-os">Still not a full OS</h2>
+<p>The scheduler is cooperative and has no saved CPU contexts or task stacks. All built-in apps remain in one kernel address space. There is no ring-3 userspace, preemptive process scheduler, syscall ABI, ELF loader, memory protection, TCP/UDP/DNS/DHCP stack, USB support, or general-purpose driver ecosystem. DenFS remains a small fixed-slot filesystem without journaling. DenOS is an experimental hobby OS, not a daily-driver replacement for Linux Mint.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

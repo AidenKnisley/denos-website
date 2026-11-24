@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Drivers · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link active" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Drivers</span></div>
+    <article class="markdown-body"><h1 id="denos-hardware-drivers">DenOS hardware drivers</h1>
+<p>The maintained target is a QEMU PC machine with an x86-64 CPU, legacy PS/2 keyboard, IDE disk, PIT/RTC, VGA text console, PC speaker, and emulated Intel E1000 NIC.</p>
+<h2 id="console-and-keyboard">Console and keyboard</h2>
+<p>The serial driver initializes an 80×25 VGA text console at <code>0xB8000</code>, controls the hardware cursor, handles basic ANSI cursor/color/erase sequences, and mirrors output to COM1 when the UART scratch-register test succeeds. Keyboard input is polled from the legacy i8042 controller. Shift, caps lock, extended navigation keys, and auxiliary-byte filtering are supported. USB HID and mouse input are not used by this release.</p>
+<h2 id="timer-and-interrupts">Timer and interrupts</h2>
+<p>The PIT is configured to 100 Hz. The timer driver installs IRQ0 in the IDT and routes the interrupt through the PIC. Current scheduled callbacks execute later from normal kernel context, not inside the IRQ handler.</p>
+<h2 id="storage">Storage</h2>
+<p>The ATA driver probes legacy IDE positions, issues IDENTIFY DEVICE, and performs bounded 28-bit LBA PIO transfers. DenFS uses ATA sector operations when a supported disk is available. AHCI, SATA native mode, NVMe, USB mass storage, and removable media are not implemented.</p>
+<h2 id="pci-and-ethernet">PCI and Ethernet</h2>
+<p>PCI configuration mechanism 1 provides device discovery and I/O BAR/command setup. The E1000 driver supports the QEMU Intel 82540EM-compatible device (<code>8086:100E</code>) with MMIO registers and DMA RX/TX rings. The network code supports ARP, IPv4 header validation, and ICMP echo. The supplied QEMU user-net profile is static; DHCP, DNS, TCP/UDP sockets, IPv6, and Wi-Fi are not implemented.</p>
+<h2 id="rtc-speaker-and-diagnostics">RTC, speaker, and diagnostics</h2>
+<p>The CMOS RTC uses stable double sampling, BCD/binary conversion, and range checking. The PC speaker produces bounded PIT channel-2 tones. Boot records, kernel logs, device status, and panic output are available in the text console; COM1 mirrors diagnostics when present.</p>
+<h2 id="safety-notes">Safety notes</h2>
+<p>Drivers use polling and fixed hardware assumptions appropriate to the QEMU target. They are not a broad physical-hardware support claim. Continue to test with QEMU and keep a host-side backup of the data image.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

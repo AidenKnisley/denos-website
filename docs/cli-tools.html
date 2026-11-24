@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Cli Tools · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link active" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Cli Tools</span></div>
+    <article class="markdown-body"><h1 id="denos-command-line-tools">DenOS command-line tools</h1>
+<p>DenOS boots into a text shell. No desktop or graphical shell is started. The kernel graphics library remains in the build for graphics and framebuffer development, and its deterministic image corpus lives under <code>resources/graphics-lab/</code>.</p>
+<h2 id="editing-the-command-line">Editing the command line</h2>
+<p>The command editor supports insertion at the cursor, left/right, Home/End, Delete, Backspace, and history navigation. <code>Ctrl-A</code> and <code>Ctrl-E</code> move to the beginning/end; <code>Ctrl-U</code> clears the line; <code>Ctrl-K</code> clears from the cursor to the end. <code>Tab</code> completes a built-in command in the first word and a file/directory name in the current directory in later words. Completion is deliberately bounded to the current directory and does not yet parse shell quoting or path components.</p>
+<h2 id="file-inspection">File inspection</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep PATTERN FILE</code></td>
+<td>Print matching lines and line numbers; case-sensitive</td>
+</tr>
+<tr>
+<td><code>wc FILE</code></td>
+<td>Count lines, words, and bytes</td>
+</tr>
+<tr>
+<td><code>head FILE</code></td>
+<td>Print the first ten lines</td>
+</tr>
+<tr>
+<td><code>head -n COUNT FILE</code></td>
+<td>Print the first COUNT lines (1..1000)</td>
+</tr>
+<tr>
+<td><code>tail FILE</code></td>
+<td>Print the last ten lines</td>
+</tr>
+<tr>
+<td><code>tail -n COUNT FILE</code></td>
+<td>Print the last COUNT lines (1..1000)</td>
+</tr>
+<tr>
+<td><code>stat PATH</code></td>
+<td>Show VFS type, size, and read-only status</td>
+</tr>
+<tr>
+<td><code>hexdump FILE</code></td>
+<td>Display the first 256 file bytes in hexadecimal and ASCII</td>
+</tr>
+<tr>
+<td><code>tree [PATH]</code></td>
+<td>Show a bounded directory tree (maximum depth six)</td>
+</tr>
+</tbody>
+</table>
+<p>These commands operate on the DenFS/VFS text-file model. The current filesystem API stores NUL-terminated text, so the shell tools are not arbitrary-binary-safe. <code>hexdump</code> is a text-storage diagnostic, not a general block-device dump utility.</p>
+<h2 id="system-commands">System commands</h2>
+<p><code>sysinfo</code>, <code>cpuinfo</code>, <code>uptime</code>, <code>free</code>, <code>pmm</code>, <code>tasks</code>, <code>services</code>, <code>service start|stop NAME</code>, <code>devices</code>, <code>bootlog</code>, <code>df</code>, <code>diskinfo</code>, <code>partitions</code>, <code>mounts</code>, <code>ipc</code>, <code>events</code>, <code>net</code>, <code>ping</code>, <code>sha256</code>, <code>crc32</code>, <code>uuid</code>, and <code>random</code> expose the currently implemented kernel subsystems. See <code>help system</code> and <code>help network</code> in the running system for concise descriptions.</p>
+<h2 id="scope-and-limitations">Scope and limitations</h2>
+<p>This is not a POSIX shell. It currently lacks command pipelines, redirection, job control, process groups, shell scripts, glob expansion, and a Unix process model. The command history is RAM-only. The file inspection commands are built-ins and run in kernel context.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

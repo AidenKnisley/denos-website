@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Adding A System Component · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link active" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Adding A System Component</span></div>
+    <article class="markdown-body"><h1 id="adding-a-denos-system-component">Adding a DenOS system component</h1>
+<p>New kernel code should be a small freestanding C subsystem with a public header, bounded resource use, clear failure paths, and host-side tests where hardware access is not required.</p>
+<h2 id="file-organization">File organization</h2>
+<ul>
+<li>CPU/platform support belongs in <code>kernel/arch/x86_64/</code>.</li>
+<li>Startup, boot arguments, clock, and logging belong in <code>kernel/core/</code>.</li>
+<li>Hardware access belongs in <code>kernel/drivers/</code>.</li>
+<li>Reusable algorithms belong in <code>kernel/lib/</code>.</li>
+<li>Physical memory and heap code belong in <code>kernel/mm/</code>.</li>
+<li>Kernel-wide services belong in <code>kernel/sys/</code>.</li>
+<li>Filesystem backends belong in <code>kernel/fs/</code>.</li>
+</ul>
+<p>Add the <code>.c</code> and <code>.h</code> files in the corresponding folders. The Makefile discovers kernel C files recursively, so no source list update is required. Add explicit host test targets and include them in <code>make test</code>.</p>
+<h2 id="startup-integration">Startup integration</h2>
+<p>If a subsystem needs initialization, call it from <code>kernel/kernel.c</code> after its dependencies are initialized. Validate optional Multiboot2 tags before parsing. Treat absent devices or malformed input as recoverable whenever possible. Register devices and services through the existing registries; keep interrupt handlers bounded and do not call blocking shell functions from interrupt context.</p>
+<h2 id="api-expectations">API expectations</h2>
+<ul>
+<li>Validate all pointers, sizes, capacities, and integer arithmetic.</li>
+<li>Avoid unbounded loops on hardware state; use timeouts or iteration budgets.</li>
+<li>Keep allocations and queues bounded.</li>
+<li>Document whether an API is safe in interrupt context.</li>
+<li>Do not describe structural validation as execution, or a cooperative task as a process.</li>
+<li>Keep cryptographic claims precise: the current PRNG is not cryptographically secure.</li>
+</ul>
+<h2 id="verification">Verification</h2>
+<p>Run the specific host test and then <code>make test</code>. Compile every kernel C file with the project freestanding <code>-Wall -Wextra -Werror</code> flags. A passing host suite is not equivalent to an ISO build or QEMU boot test; report those separately.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

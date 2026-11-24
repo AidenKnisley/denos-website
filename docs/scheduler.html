@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Scheduler · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link active" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Scheduler</span></div>
+    <article class="markdown-body"><h1 id="denos-cooperative-kernel-scheduler">DenOS cooperative kernel scheduler</h1>
+<p>DenOS now has a fixed-capacity cooperative scheduler for kernel services. It
+is an intentional stepping stone toward a process scheduler, not a claim that
+DenOS already supports isolated or preemptively scheduled user processes.</p>
+<h2 id="current-contract">Current contract</h2>
+<ul>
+<li>Up to 24 registered service tasks.</li>
+<li>Stable numeric task IDs, names, priority (0–7), run counters, and deadlines.</li>
+<li>Periodic tasks use PIT ticks for their next eligible run.</li>
+<li>One-shot tasks return <code>SCHEDULER_TASK_DONE</code>; periodic services return
+<code>SCHEDULER_TASK_REPEAT</code>.</li>
+<li>Each call to <code>scheduler_run()</code> executes at most eight callbacks.</li>
+<li>Callbacks run in normal kernel context. The timer interrupt only updates
+the system tick counter; it never invokes a task callback.</li>
+<li>A recursion guard detects accidental nested scheduler entry.</li>
+<li>Stopped slots can be reused; a stopped task can be restarted by ID.</li>
+</ul>
+<p>The scheduler is cooperative. A callback must return promptly and must not
+wait for device input, perform long disk operations, or spin on a timer. It
+has no per-task stack, saved CPU context, address space, or privilege boundary.
+It must not be described as preemptive multitasking.</p>
+<h2 id="built-in-services">Built-in services</h2>
+<p><code>network-poll</code> services the E1000 receive ring from normal kernel context.
+<code>heap-watch</code> checks heap metadata periodically and records a kernel error if
+an integrity check fails. The shell wait loop and bounded network wait paths call the scheduler, so
+background kernel services continue to run while the console is idle or waiting for replies.</p>
+<h2 id="inspecting-tasks">Inspecting tasks</h2>
+<p>Use <code>tasks</code> or <code>ps</code> in the shell. The command reports task ID, state, priority,
+callback count, and name. The shell reads the same kernel scheduler registry and can inspect every registered task.</p>
+<h2 id="next-steps-before-user-processes">Next steps before user processes</h2>
+<ol>
+<li>Add interrupt-safe locking and per-CPU scheduler state.</li>
+<li>Implement page-table management and isolated address spaces.</li>
+<li>Add kernel stacks and a tested context-switch assembly routine.</li>
+<li>Add process wait/exit/reap semantics and scheduler preemption.</li>
+<li>Define a syscall ABI and transition to ring 3.</li>
+<li>Only then consider running user applications outside the kernel.</li>
+</ol>
+<p>Until those milestones are implemented and tested, all DenOS commands and
+services share one kernel address space.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

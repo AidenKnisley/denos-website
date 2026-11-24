@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Terminal · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link active" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Terminal</span></div>
+    <article class="markdown-body"><h1 id="denos-0-4-9-terminal-guide">DenOS 0.4.9 Terminal Guide</h1>
+<p>DenOS boots directly into its text shell. The console uses VGA 80×25 output and legacy PS/2 keyboard polling, with optional COM1 serial mirroring. No GUI terminal or graphical desktop is included.</p>
+<h2 id="1-navigation-and-files">1. Navigation and files</h2>
+<pre><code class="language-text">pwd
+ls
+ls Documents
+cd Documents
+cd ..
+mkdir Projects
+touch ideas.txt
+write ideas.txt My first DenOS note
+cat ideas.txt
+edit ideas.txt
+</code></pre>
+<p><code>cp SOURCE DEST</code>, <code>mv SOURCE DEST</code>, <code>rm FILE</code>, and <code>rmdir EMPTY_DIRECTORY</code> manage files and empty directories. Quoted filenames are supported:</p>
+<pre><code class="language-text">edit "Meeting Notes.txt"
+cp "Meeting Notes.txt" "Meeting Notes backup.txt"
+</code></pre>
+<h2 id="2-history-and-environment">2. History and environment</h2>
+<ul>
+<li>Up/Down moves through the RAM-only command history.</li>
+<li><code>history</code> prints stored commands.</li>
+<li><code>!!</code> repeats the most recent command.</li>
+<li><code>env</code> lists shell variables.</li>
+<li><code>set KEY VALUE</code> and <code>unset KEY</code> change them.</li>
+<li><code>$NAME</code> expands environment variables in a submitted command.</li>
+</ul>
+<p>Default variables include <code>USER</code>, <code>HOME</code>, <code>HOSTNAME</code>, <code>SHELL</code>, <code>PATH</code>, and <code>PWD</code>. This is a small kernel-owned shell environment, not a process environment ABI.</p>
+<h2 id="3-system-inspection">3. System inspection</h2>
+<p>| Command | Description |
+|---|---|
+| <code>sysinfo</code> | CPU vendor, memory, storage, clock, and uptime summary |
+| <code>date</code>, <code>uptime</code> | Hardware clock and monotonic time |
+| <code>free</code>, <code>pmm</code> | Heap and physical page statistics |
+| <code>df</code>, <code>diskinfo</code>, <code>partitions</code> | Storage capacity, disk details, and primary MBR entries |
+| <code>devices</code>, <code>bootlog</code> | Registered hardware and boot diagnostics |
+| <code>tasks</code>, <code>services</code> | Cooperative tasks and registered service state |
+| <code>service start|stop NAME</code> | Start or stop a registered kernel service |
+| <code>ipc</code>, <code>events</code> | Inspect IPC queues and drain queued kernel events |
+| <code>mounts</code> | Show VFS mounts |
+| <code>bootargs</code> | Show parsed Multiboot2 command-line arguments |
+| <code>cat /proc/uptime</code>, <code>cat /proc/meminfo</code> | Read generated kernel status views |</p>
+<h2 id="4-integrity-and-utility-commands">4. Integrity and utility commands</h2>
+<pre><code class="language-text">hash FILE
+sha256 FILE
+crc32 FILE
+uuid
+random
+</code></pre>
+<p><code>random</code> and <code>uuid</code> use a fast non-cryptographic PRNG. They are not suitable for cryptographic secrets. SHA-256 and CRC32 are integrity checks, not signatures or proof of authenticity.</p>
+<h2 id="5-experimental-networking">5. Experimental networking</h2>
+<pre><code class="language-text">net
+ping 10.0.2.2
+</code></pre>
+<p><code>net</code> reports E1000 link, MAC, static IPv4, gateway, and frame counters. <code>ping</code> sends ICMP echo after ARP resolution. The default profile is for QEMU user-mode networking only; DHCP, DNS, TCP/UDP, IPv6, and Wi-Fi are not implemented.</p>
+<h2 id="6-system-limits">6. System limits</h2>
+<p>The shell does not yet implement shell scripts, pipelines, redirection, job control, a POSIX syscall interface, or native ELF execution. Aiden C programs are stored as textual AEX bytecode and run inside the kernel VM; they are not isolated processes. The filesystem stores NUL-terminated text, not arbitrary binary files. The ELF64 validator is a structural utility and does not load or execute native programs.</p>
+<h2 id="9-4-shell-line-editing-and-tools">9.4 shell line editing and tools</h2>
+<p>The prompt supports left/right arrows, Home/End, Delete/Backspace, Ctrl-A/E/U/K, Up/Down history, and Tab completion for built-in commands/current-directory entries. File inspection commands include <code>grep</code>, <code>wc</code>, <code>head</code>, <code>tail</code>, <code>stat</code>, <code>hexdump</code>, and <code>tree</code>. See <code>CLI-TOOLS.md</code> for syntax and limits.</p>
+<p>Use <code>help editor</code> for the Vim-style editor keys and source completion controls.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

@@ -1,0 +1,20 @@
+{
+  "format": "DenOS source archive integrity manifest",
+  "archives": [
+    {
+      "filename": "DenOS-0.4.9.zip",
+      "bytes": 61930599,
+      "sha256": "5522256ec747d20915a0836a76189c90590a4915677203ab07c93ac8d14455e8"
+    },
+    {
+      "filename": "DenOS 0.3.1.zip",
+      "bytes": 54739,
+      "sha256": "542312d9dee04ad7c8a6183ce59799727614661e05f302fbf85675d9fdd9cd32"
+    },
+    {
+      "filename": "DenOS 0.3.zip",
+      "bytes": 40437,
+      "sha256": "80913db50701ae628bf09af784606c0397c6a125ad1275572cd586cbe193e166"
+    }
+  ]
+}

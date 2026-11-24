@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Graphics · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link active" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Graphics</span></div>
+    <article class="markdown-body"><h1 id="denos-graphics-library-9-4-0">DenOS graphics library — 9.4.0</h1>
+<p>The CLI Edition keeps the graphics subsystem as a compiled, tested <strong>kernel library</strong>. The regular boot path remains the VGA text console; it does not start the old desktop or a graphical event loop. The graphics routines can be used by future in-kernel display components, but there is no process-isolated userspace graphics ABI.</p>
+<h2 id="source-and-display-model">Source and display model</h2>
+<ul>
+<li>Implementation: <code>kernel/drivers/graphics.c</code></li>
+<li>Public declarations: <code>kernel/include/gfx.h</code></li>
+<li>Mouse input: <code>kernel/drivers/mouse.c</code> and <code>kernel/include/mouse.h</code></li>
+<li>QOI image decoder: <code>kernel/lib/qoi.c</code> and <code>kernel/include/qoi.h</code></li>
+<li>Anti-aliased UI font: <code>kernel/include/font_ui.h</code></li>
+<li>Host regression tests: <code>tests/graphics_test.c</code>, <code>tests/framebuffer_test.c</code>, <code>tests/graphics_mouse_test.c</code>, and <code>tests/qoi_test.c</code></li>
+</ul>
+<p>The library uses a 640×360 logical 32-bit RGB surface when a supported 1280×720 RGB framebuffer is configured, with a VGA compatibility path for tests/recovery. It is CPU software rendering; it does not use a GPU, OpenGL, Vulkan, hardware page flipping, or a hardware cursor plane. The normal 9.3 CLI boot does not configure/start this graphics output path.</p>
+<h2 id="drawing-api">Drawing API</h2>
+<p>Include <code>gfx.h</code> from kernel code. Important API groups include:</p>
+<ul>
+<li><strong>Lifecycle and display:</strong> <code>gfx_start</code>, <code>gfx_stop</code>, <code>gfx_configure_framebuffer</code>, <code>gfx_width</code>, <code>gfx_height</code>, <code>gfx_display_width</code>, <code>gfx_display_height</code>, <code>gfx_using_framebuffer</code>.</li>
+<li><strong>Pixels and images:</strong> <code>gfx_pixel</code>, <code>gfx_get_pixel</code>, <code>gfx_blit_rgb32</code>, <code>gfx_blit_rgba32</code>, <code>gfx_blit_scaled_rgb32</code>, <code>gfx_blit_scaled_rgba32</code>. Image blits are clipped to the target; source pitch is expressed in 32-bit pixels. RGBA uses <code>0xAARRGGBB</code> alpha blending.</li>
+<li><strong>Geometry:</strong> lines, rectangles, circles, ellipses, triangles, rounded rectangles, gradient rectangles, plus <code>gfx_polygon</code> and <code>gfx_fill_polygon</code> for 3–64 interleaved x/y vertices. Polygon drawing clips scanline spans to the logical surface.</li>
+<li><strong>Text:</strong> compact <code>gfx_text</code>, anti-aliased <code>gfx_text_ui</code> and bold/scale variants, <code>gfx_text_width</code>, <code>gfx_text_centered</code>, and <code>gfx_text_wrapped</code>. Wrapped text returns its rendered height and accepts an explicit line height.</li>
+<li><strong>Controls/composition:</strong> buttons, progress bars, up to four buffered windows, desktop icon helpers, focus/minimize controls, and bounded event queue.</li>
+<li><strong>Input:</strong> polled PS/2 mouse state, button edges, keyboard helpers, and queued input/window events.</li>
+<li><strong>Frame grouping:</strong> <code>gfx_begin_frame</code>, <code>gfx_end_frame</code>, and <code>gfx_present</code> batch updates to reduce flicker and unnecessary framebuffer copies.</li>
+</ul>
+<p>The header is the source of truth for signatures and constants. Coordinates and dimensions are logical pixels; query <code>gfx_width()</code> and <code>gfx_height()</code> rather than assuming a mode.</p>
+<h2 id="fonts-and-image-decoding">Fonts and image decoding</h2>
+<p>The regular/bold anti-aliased UI raster data is based on Cantarell and is distributed under the SIL Open Font License. Attribution is in <code>docs/THIRD-PARTY-NOTICES.md</code>, and the license text is in <code>docs/OFL-1.1.txt</code>. QOI decoding validates dimensions, output capacity, run lengths, and the end marker before returning decoded pixel data.</p>
+<h2 id="validation">Validation</h2>
+<p><code>make test</code> builds and runs the graphics primitive test, the high-resolution framebuffer test, mouse/window interaction tests, and QOI decoding tests. They check RGB precision, clipping, damage updates, alpha blending, scaled blits, ellipses, rounded rectangles, gradients, polygons, text rendering/wrapping, framebuffer pitch, mouse state, windows/events, and malformed images.</p>
+<p>These tests do not boot a visual desktop. The source library is preserved and included in the kernel C source list, but the 9.3 command-line boot intentionally stays text-only.</p>
+<h2 id="current-limitations">Current limitations</h2>
+<ul>
+<li>No GPU acceleration, arbitrary mode switching, shader API, or hardware page flipping.</li>
+<li>No font shaping, full Unicode text shaping, vector path/stroke engine, video decoding, or general image file browser.</li>
+<li>Mouse support is polled PS/2 only; no USB HID or hotplug.</li>
+<li>Window and desktop helpers are kernel-owned composition code, not isolated processes or a userspace window-system protocol.</li>
+<li>The renderer is not initialized by the default CLI boot path.</li>
+</ul>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

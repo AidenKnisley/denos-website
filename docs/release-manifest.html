@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Release Manifest · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link active" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Release Manifest</span></div>
+    <article class="markdown-body"><h1 id="denos-0-4-9-source-manifest">DenOS 0.4.9 source manifest</h1>
+<p>This is the DenOS 0.4.9 CLI source archive. It contains no prebuilt ISO, host test binaries, persistent QEMU data disk, or GUI startup environment. It includes the freestanding x86-64 kernel and boot sources, early exception IDT/TSS fault diagnostics, separate IST1 double-fault and IST2 PIT interrupt stacks, and complete PIT IRQ register/FPU-state preservation; active-CR3 four-level page-table management with huge-page query/splitting, checked mapping APIs, NX/W^X policy and empty dynamic table reclamation; a 64 MiB PMM-backed kernel virtual allocator with rollback/quarantine and PMM ownership validation; DenFS/VFS, scheduler, IPC, services, memory management, ATA/E1000/ARP/IPv4/ICMP, Aiden C/AEX6 compiler and VM, Vim-style editor completion, shell utilities, the retained kernel graphics/framebuffer/mouse API, QOI decoder, UI font and license, 31 host test executables' source/test targets, ten 1600x900 QOI scenes with exact RGBA golden surfaces, the fixture generator, sample Aiden C applications, dedicated page-table and virtual-allocation tests, and subsystem manuals.</p>
+<p>The large <code>.rgba</code> files are deterministic golden surfaces consumed by <code>make qoi-fixtures-test</code>. They are useful test data and account for most of the required expanded tree size; they are not loaded during OS boot.</p>
+<p>The source can be built on a Linux host with GCC, NASM, GRUB utilities, Xorriso, and QEMU. The page-table manager currently edits one active CR3; it does not provide per-process address spaces, demand paging, TLB shootdowns, or SMP locks. Host-side tests and C compilation do not replace a QEMU boot smoke test.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

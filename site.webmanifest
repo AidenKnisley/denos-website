@@ -1,0 +1,15 @@
+{
+  "name": "DenOS",
+  "short_name": "DenOS",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f1f1ec",
+  "theme_color": "#f1f1ec",
+  "icons": [
+    {
+      "src": "assets/denos-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

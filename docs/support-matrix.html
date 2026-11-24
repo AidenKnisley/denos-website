@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Support Matrix · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link active" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Support Matrix</span></div>
+    <article class="markdown-body"><h1 id="denos-0-4-9-support-matrix">DenOS 0.4.9 support matrix</h1>
+<p>This matrix distinguishes implemented behavior from unsupported or planned features. DenOS is an experimental independent x86-64 OS, not a Linux distribution and not Linux-compatible.</p>
+<h2 id="boot-and-hardware">Boot and hardware</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current support</th>
+<th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>x86-64 long mode</td>
+<td>Maintained QEMU <code>qemu64</code> target</td>
+</tr>
+<tr>
+<td>Bootloader</td>
+<td>GRUB Multiboot2</td>
+<td>Memory map and optional command-line tags; no default framebuffer request in CLI path</td>
+</tr>
+<tr>
+<td>Console</td>
+<td>VGA 80×25 text + optional COM1 mirror</td>
+<td>Default boot is text-only</td>
+</tr>
+<tr>
+<td>Graphics library</td>
+<td>Software renderer, framebuffer output, geometry, text, window/event helpers, QOI decoder</td>
+<td>Included/compiled and host-tested, but not initialized by CLI boot; kernel API only</td>
+</tr>
+<tr>
+<td>Keyboard</td>
+<td>Legacy PS/2/i8042 polling</td>
+<td>No USB HID</td>
+</tr>
+<tr>
+<td>Pointer</td>
+<td>PS/2 mouse helper/driver retained</td>
+<td>Not started by default CLI path; no USB HID</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>ATA PIO IDE</td>
+<td>QEMU IDE is the maintained setup</td>
+</tr>
+<tr>
+<td>Filesystem</td>
+<td>DenFS v3</td>
+<td>256 fixed slots, nested paths, 65,535-byte text-file cap, no journal or binary-safe public API</td>
+</tr>
+<tr>
+<td>Virtual filesystem</td>
+<td>Mount routing for <code>/</code>, <code>/proc</code>, and <code>/dev</code></td>
+<td>No POSIX file descriptors, permissions, symlinks, or cross-mount rename</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>CMOS RTC + PIT monotonic ticks</td>
+<td>No time sync or timezone database</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>PC speaker</td>
+<td>Simple tones only</td>
+</tr>
+<tr>
+<td>Ethernet</td>
+<td>Intel E1000 / QEMU</td>
+<td>Cooperative polling; ARP, IPv4 validation, ICMP; static QEMU user-network profile</td>
+</tr>
+<tr>
+<td>Kernel services</td>
+<td>Cooperative scheduler, service registry, fixed IPC queues, event FIFO</td>
+<td>No context switch, per-task stacks, process isolation, or interrupt-safe synchronization</td>
+</tr>
+<tr>
+<td>Utilities</td>
+<td>SHA-256, CRC32, UUID formatting, non-crypto PRNG, UTF-8 validation, parsers</td>
+<td>PRNG not cryptographic; checksums do not verify signatures</td>
+</tr>
+<tr>
+<td>Executable format</td>
+<td>AEX1–AEX6 bytecode interpreter; Aiden C emits AEX6</td>
+<td>Runs in kernel context; no user-mode isolation or native ELF loader</td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>COM1 serial, boot log, panic output</td>
+<td>No remote debugger integration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aiden-c-5-2-4">Aiden C 5.2.4</h2>
+<p>Aiden C supports global/local scalar storage, one-dimensional arrays, bounded scalar pointers, functions/prototypes/recursion, <code>switch</code>, enums, scalar typedefs, <code>sizeof(type/object)</code>, object-like macros and basic conditional directives, plus a growing set of VM-provided string and character helpers. The VM keeps compatibility with AEX1–AEX5.</p>
+<p>The language remains a subset rather than a complete ISO C compiler. Scalar types all occupy signed 64-bit VM cells; headers are not loaded; function-like macros, aggregates (<code>struct</code>/<code>union</code>), floats, native code generation, general libc, and a userspace process ABI are absent. See <code>docs/AIDEN-C.md</code> for exact details.</p>
+<h2 id="kernel-namespace">Kernel namespace</h2>
+<ul>
+<li><code>/proc/uptime</code>, <code>/proc/meminfo</code>, <code>/proc/tasks</code>, <code>/proc/ipc</code>, <code>/proc/events</code>, <code>/proc/mounts</code>, <code>/proc/devices</code>, and <code>/proc/net/dev</code> are generated read-only status views.</li>
+<li><code>/dev/null</code> discards writes; <code>/dev/zero</code> returns a bounded zero-filled text buffer.</li>
+<li>Shell commands <code>tasks</code>, <code>services</code>, <code>service</code>, <code>ipc</code>, <code>events</code>, <code>mounts</code>, and <code>devices</code> inspect/manage kernel services and devices.</li>
+</ul>
+<h2 id="not-yet-supported">Not yet supported</h2>
+<ul>
+<li>Ring-3 user apps, per-process page tables, preemptive process scheduling, syscall ABI, isolated AEX/native executable execution.</li>
+<li>Full ISO C: struct/union layout, floating point, complete preprocessor/header loading, separate translation units, full libc, native compiler backend.</li>
+<li>DHCP, DNS, TCP/UDP sockets, IPv6, Wi-Fi, Bluetooth, browser, or package manager.</li>
+<li>USB host controller, USB storage/HID, AHCI, NVMe, SD cards, broad laptop peripherals.</li>
+<li>GUI startup by default, GPU acceleration, OpenGL/Vulkan, audio codec/HDA/USB audio, media playback.</li>
+<li>POSIX/Linux ABI, glibc/musl, Linux application compatibility, third-party application SDK.</li>
+<li>Multi-user accounts, permissions, encryption, secure boot, filesystem journal, production recovery.</li>
+</ul>
+<h2 id="daily-driver-status">Daily-driver status</h2>
+<p>DenOS is <strong>not a daily-driver replacement</strong> for Mint, Ubuntu, Windows, or macOS. It is an experimental single-address-space kernel with a narrow device set and a non-journaled filesystem. Keep independent backups and use QEMU until repeated ISO boot, storage-recovery, and hardware testing are complete.</p>
+<h2 id="9-4-editor-and-cli-additions">9.4 editor and CLI additions</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Implemented</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C completion</td>
+<td>Keywords, types, Aiden VM built-ins, same-file identifiers; comment/string aware</td>
+<td>Lexical and buffer-local; no semantic types, header indexing or LSP protocol</td>
+</tr>
+<tr>
+<td>Editor check</td>
+<td>Parentheses/brackets/braces, block comments and quoted literal balance</td>
+<td>Not a full grammar parser or compiler diagnostic pass</td>
+</tr>
+<tr>
+<td>Shell line editor</td>
+<td>Cursor movement, insertion, delete, history, basic Tab completion</td>
+<td>No quoting-aware shell parser, path-component completion or scripting</td>
+</tr>
+<tr>
+<td>File inspection</td>
+<td>grep, wc, head, tail, stat, hexdump, tree</td>
+<td>DenFS text-file API is NUL-terminated; hexdump is not a block-device tool</td>
+</tr>
+<tr>
+<td>Graphics test corpus</td>
+<td>Ten deterministic QOI inputs and RGBA golden surfaces</td>
+<td>Developer tests/resources, not boot-loaded assets</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-memory-denos-0-4-9">Virtual memory (DenOS 0.4.9)</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Four-level x86-64 page-table manager</td>
+<td>Implemented</td>
+<td>Attaches to active CR3; bootstrap identity map retained.</td>
+</tr>
+<tr>
+<td>4 KiB map/remap/query/protect/unmap</td>
+<td>Implemented</td>
+<td>Caller owns mapped physical frames; explicit replacement API.</td>
+</tr>
+<tr>
+<td>2 MiB / 1 GiB large-page query and split</td>
+<td>Implemented</td>
+<td>Splits preserve sibling translations.</td>
+</tr>
+<tr>
+<td>NXE, supervisor WP, PGE</td>
+<td>Conditional</td>
+<td>Enabled only when supported by the CPU.</td>
+</tr>
+<tr>
+<td>Per-process address spaces / ring 3</td>
+<td>Not implemented</td>
+<td><code>VMM_USER</code> must not be treated as isolation.</td>
+</tr>
+<tr>
+<td>Demand paging / swap / COW / SMP TLB shootdown</td>
+<td>Not implemented</td>
+<td>Future memory milestones.</td>
+</tr>
+</tbody>
+</table>
+<p>| PMM-backed kernel virtual allocator | Implemented | 64 MiB contiguous-VA window backed by separate PMM frames; independent of fixed <code>kmalloc</code>. |
+| Virtual allocator rollback/quarantine | Implemented | Fails closed on partial unmap/remap/ownership inconsistencies; quarantines uncertain ranges. |
+| Dynamic <code>kmalloc</code> growth | Not implemented | <code>kvalloc</code> is a separate explicit allocation API. |</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

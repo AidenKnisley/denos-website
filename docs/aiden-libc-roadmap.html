@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Aiden Libc Roadmap · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link active" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Aiden Libc Roadmap</span></div>
+    <article class="markdown-body"><h1 id="denos-userland-c-library-foundation">DenOS userland C library foundation</h1>
+<p>This directory introduces a hosted, namespaced support-library prototype under
+<code>userland/libc</code>. It is deliberately separate from the kernel. The current Aiden
+VM does not load headers, link external object files, or provide a POSIX process
+ABI, so these modules are <strong>not yet callable from Aiden C programs running in
+the kernel VM</strong>.</p>
+<h2 id="modules">Modules</h2>
+<p>The tree currently contains 22 modules:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assert</td>
+<td>Explicit assertion-result helper</td>
+</tr>
+<tr>
+<td>args</td>
+<td>Command-line argument lookup</td>
+</tr>
+<tr>
+<td>base64</td>
+<td>Bounded Base64 encoder</td>
+</tr>
+<tr>
+<td>bitmap</td>
+<td>Bounded bit access</td>
+</tr>
+<tr>
+<td>crc32</td>
+<td>CRC-32/ISO-HDLC</td>
+</tr>
+<tr>
+<td>csv</td>
+<td>Bounded CSV field reader with quoted-field support</td>
+</tr>
+<tr>
+<td>ctype</td>
+<td>ASCII character classification and case conversion</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>Gregorian leap-year and date validation</td>
+</tr>
+<tr>
+<td>format</td>
+<td>Integer-to-string conversion</td>
+</tr>
+<tr>
+<td>hashmap</td>
+<td>Open-addressed string-key map</td>
+</tr>
+<tr>
+<td>ini</td>
+<td>INI section/key lookup</td>
+</tr>
+<tr>
+<td>json</td>
+<td>Bounded JSON string-token decoder</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>C-locale baseline</td>
+</tr>
+<tr>
+<td>math</td>
+<td>Basic floating-point helpers</td>
+</tr>
+<tr>
+<td>memory</td>
+<td>Memory set/copy/move/compare</td>
+</tr>
+<tr>
+<td>path</td>
+<td>Path traversal check and basename</td>
+</tr>
+<tr>
+<td>ringbuf</td>
+<td>Bounded byte ring buffer</td>
+</tr>
+<tr>
+<td>stdlib</td>
+<td>Integer parsing, absolute value and bounded-size sorting</td>
+</tr>
+<tr>
+<td>string</td>
+<td>Length, comparison, search and bounded copy</td>
+</tr>
+<tr>
+<td>tokenizer</td>
+<td>In-place delimiter splitting</td>
+</tr>
+<tr>
+<td>utf8</td>
+<td>Strict UTF-8 scalar decoder</td>
+</tr>
+<tr>
+<td>vector</td>
+<td>Dynamically growing generic vector</td>
+</tr>
+</tbody>
+</table>
+<p>All public symbols use the <code>den_</code> prefix to avoid collisions with host libc.
+The modules are ordinary hosted C11/GNU11 source and currently use the host
+allocator for dynamic containers. They must not be linked into the freestanding
+kernel as-is.</p>
+<h2 id="test">Test</h2>
+<p>Run:</p>
+<pre><code class="language-sh">make libc-test
+</code></pre>
+<p>The test is compiled with <code>-Wall -Wextra -Werror</code>. Run the complete regression
+suite with <code>make check</code>.</p>
+<h2 id="important-limitations">Important limitations</h2>
+<p>This is a practical first userland library layer, not a complete ISO C standard
+library. The JSON module currently decodes JSON strings, not complete JSON
+documents. CSV and INI parsers are bounded and intentionally small. The
+floating-point helpers are elementary and are not a replacement for libm.
+The sorting routine uses a bounded temporary element buffer. The map currently
+has no deletion/rehash API. The Base64 module currently encodes but does not
+decode.</p>
+<p>The next integration milestone is a stable ring-3 syscall ABI and a process
+loader. Once that exists, the allocator, file I/O, terminal I/O, process and
+time APIs can be bound to DenOS rather than host facilities.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Aiden C · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link active" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Aiden C</span></div>
+    <article class="markdown-body"><h1 id="aiden-c-5-2-4-language-and-compiler-guide">Aiden C 5.2.4 — language and compiler guide</h1>
+<p>Aiden C is DenOS's freestanding C-subset compiler. It translates a bounded source subset into <strong>AEX6 bytecode</strong>. The kernel VM interprets this image. It does not emit x86-64 machine code, ELF files, or Linux executables.</p>
+<p>The language has been expanded substantially, but it is not a complete ISO C implementation. Its type model, built-ins, preprocessing, executable format, and runtime limits are deliberately smaller than hosted C.</p>
+<h2 id="quick-example">Quick example</h2>
+<pre><code class="language-c">#include &lt;stdio.h&gt; /* accepted as a no-op; no hosted header is loaded */
+
+#define INITIAL 4
+#define MULTIPLIER 5
+
+typedef unsigned long count_t;
+
+enum Mode { MODE_IDLE = 0, MODE_ACTIVE = 2, MODE_DONE = 7 };
+
+count_t total = INITIAL * MULTIPLIER;
+int data[4] = { 2, 3, 5, 7 };
+
+int sum(int *items, int length) {
+    int result = 0;
+    for (int i = 0; i &lt; length; ++i) result += items[i];
+    return result;
+}
+
+int main(void) {
+    int *p = data;
+    p++;
+    switch (MODE_ACTIVE) {
+        case MODE_IDLE: return 1;
+        case MODE_ACTIVE: total += sum(data, 4); break;
+        default: return 2;
+    }
+    printf("total=%d bytes=%d\n", total, sizeof(data));
+    return total == 37 ? 0 : 3;
+}
+</code></pre>
+<p>Compile inside DenOS:</p>
+<pre><code class="language-text">cc hello.c -o hello
+run hello
+cc --version
+cinfo
+</code></pre>
+<h2 id="supported-language-features">Supported language features</h2>
+<h3 id="types-and-declarations">Types and declarations</h3>
+<ul>
+<li><code>void</code> function return types and <code>void</code> parameter lists.</li>
+<li>Common integer spellings: <code>char</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>long long</code>, and signed/unsigned variants.</li>
+<li>All scalar integer declarations map to one signed 64-bit VM cell. This is not C's standard width, signedness, promotion, or overflow model.</li>
+<li><code>enum</code> declarations with named integer constants and explicit/implicit values.</li>
+<li>File-scope scalar <code>typedef</code> aliases for supported integer/enum types.</li>
+<li>Local and file-scope scalar variables.</li>
+<li>Fixed-size, one-dimensional arrays, with brace initializers.</li>
+<li>Scalar pointers up to two <code>*</code> levels in declarations and parameters. Function pointers are not supported.</li>
+<li>Global scalar and array declarations. Uninitialized globals start at zero. Global initializers are constant expressions evaluated by the compiler.</li>
+<li>Local block scope and shadowing of file-scope names.</li>
+</ul>
+<h3 id="expressions">Expressions</h3>
+<ul>
+<li>Decimal, hexadecimal, octal, and binary integer constants, with <code>U</code>/<code>L</code> suffix characters accepted.</li>
+<li>Character and string literals with common C escapes.</li>
+<li>Parenthesized expressions and unary <code>+</code>, <code>-</code>, <code>!</code>, <code>~</code>, dereference <code>*</code>, and address-of <code>&amp;</code>.</li>
+<li>Addition, subtraction, multiplication, division, modulo, comparisons, equality, logical operators, bitwise operations, shifts, and the conditional <code>?:</code> operator.</li>
+<li>Prefix/postfix <code>++</code> and <code>--</code>.</li>
+<li>Compound assignment: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>, <code>&lt;&lt;=</code>, and <code>&gt;&gt;=</code>.</li>
+<li>Array-to-pointer decay, pointer arithmetic measured in VM cells, pointer indexing, and pointer dereference/store.</li>
+<li><code>sizeof(type)</code>, <code>sizeof(type[N])</code>, and <code>sizeof(object-name)</code>. Scalar and pointer size is 8 bytes in the Aiden VM model. <code>sizeof(expression)</code> is not implemented.</li>
+<li>Global initializers support integer constant expressions with parentheses, unary operators, arithmetic, comparisons, bitwise/logical operators, shifts, and <code>?:</code>.</li>
+</ul>
+<h3 id="statements-and-functions">Statements and functions</h3>
+<ul>
+<li>Compound blocks and local declarations.</li>
+<li><code>if</code> / <code>else</code>, <code>while</code>, <code>do</code> / <code>while</code>, and <code>for</code>.</li>
+<li><code>switch</code>, <code>case</code>, <code>default</code>, <code>break</code>, and <code>continue</code>. Case labels are integer or enum constants. Switches support up to 64 case labels.</li>
+<li><code>return</code> with or without a value.</li>
+<li>User functions, prototypes, parameters, recursive and mutually recursive calls.</li>
+<li><code>main</code> must have no parameters and must be defined.</li>
+<li>Up to 32 user-defined functions, 16 parameters per function, and 64 active VM call frames.</li>
+</ul>
+<h3 id="limited-preprocessor">Limited preprocessor</h3>
+<p>Supported directives:</p>
+<ul>
+<li>Object-like <code>#define NAME replacement</code> macros, recursively expanded up to 8 nested replacements.</li>
+<li><code>#undef NAME</code>.</li>
+<li><code>#if 0</code> and <code>#if 1</code> only.</li>
+<li><code>#ifdef NAME</code>, <code>#ifndef NAME</code>, <code>#else</code>, and <code>#endif</code>.</li>
+<li><code>#include</code> and <code>#pragma</code> lines are accepted but ignored. They do not load header contents or a standard library.</li>
+</ul>
+<p>The preprocessor has fixed limits of 48 macros, 31 characters per macro name, and 127 replacement bytes. Recursive expansion is diagnosed. Function-like macros, <code>#elif</code>, <code>#error</code> semantics, <code>defined(...)</code>, token pasting (<code>##</code>), and stringification (<code>#</code>) are not implemented.</p>
+<h2 id="built-in-functions">Built-in functions</h2>
+<p>The VM provides a small set of console functions:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Supported behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>printf</code></td>
+<td><code>%d</code>, <code>%i</code>, <code>%c</code>, <code>%s</code>, and <code>%%</code></td>
+</tr>
+<tr>
+<td><code>puts</code></td>
+<td>Print one string and a newline</td>
+</tr>
+<tr>
+<td><code>putchar</code></td>
+<td>Print one character</td>
+</tr>
+<tr>
+<td><code>getchar</code></td>
+<td>Read one character</td>
+</tr>
+<tr>
+<td><code>scanf</code></td>
+<td>Line-based <code>%d</code>, <code>%i</code>, and <code>%c</code> conversions to scalar addresses</td>
+</tr>
+<tr>
+<td><code>strlen</code></td>
+<td>Length of a bounded NUL-terminated VM string</td>
+</tr>
+<tr>
+<td><code>strcmp</code>, <code>strncmp</code></td>
+<td>Lexical string comparison</td>
+</tr>
+<tr>
+<td><code>strcpy</code>, <code>strncpy</code>, <code>strcat</code></td>
+<td>Copy/concatenate into a writable character array</td>
+</tr>
+<tr>
+<td><code>strchr</code>, <code>strrchr</code>, <code>strstr</code></td>
+<td>Search for a character or substring; return a VM pointer handle</td>
+</tr>
+<tr>
+<td><code>atoi</code></td>
+<td>Parse a signed decimal integer with overflow detection</td>
+</tr>
+<tr>
+<td><code>abs</code>, <code>labs</code></td>
+<td>Absolute value; traps on signed minimum overflow</td>
+</tr>
+<tr>
+<td><code>isdigit</code>, <code>isalpha</code>, <code>isspace</code></td>
+<td>ASCII character classification</td>
+</tr>
+<tr>
+<td><code>toupper</code>, <code>tolower</code></td>
+<td>ASCII case conversion</td>
+</tr>
+</tbody>
+</table>
+<p><code>scanf</code> <code>%i</code> recognizes decimal, octal, and hexadecimal integer input. <code>scanf</code> accepts addresses such as <code>&amp;number</code>. This is not a hosted stdio implementation: there is no format width/precision support, file stream, <code>fopen</code>, <code>fread</code>, or general libc.</p>
+<p><code>#include &lt;stdio.h&gt;</code>, <code>&lt;string.h&gt;</code>, and <code>&lt;ctype.h&gt;</code> are accepted as no-ops; the built-ins are implemented directly in the VM. A header line does not load declarations or link a hosted library. Additional <code>printf</code> integer conversions include <code>%u</code>, <code>%x</code>, <code>%X</code>, <code>%o</code>, and <code>%p</code>; flags, width, precision, and length modifiers are consumed but padding/precision semantics are not implemented. <code>%p</code> prints the VM's tagged pointer value, not a host or physical address.</p>
+<h2 id="vm-memory-and-pointer-model">VM memory and pointer model</h2>
+<p>Aiden pointers are tagged addresses into the VM's bounded cell arrays. They are not physical/virtual x86-64 pointers and cannot access arbitrary hardware or kernel addresses. Global pointers resolve into the bounded global-cell table; local pointers resolve within live VM memory. Invalid/stale addresses fault. Direct array indexing has runtime bounds checks.</p>
+<p>Each scalar occupies one 64-bit VM cell, including <code>char</code>. Character arrays therefore use one VM cell per character rather than C's one-byte object representation. String routines operate on those cells; <code>strncpy</code> lengths are cell/character counts. <code>sizeof</code> reports the VM cell representation (8 bytes per scalar/array element), not standard C target ABI sizes. Pointer arithmetic advances in VM cells, not bytes. The language does not yet model the standard C object representation, effective type, strict aliasing, byte-addressable object layout, or C's pointer provenance rules. It is safer than unchecked host pointer dereferencing, but it is not an ISO C memory model.</p>
+<h2 id="resource-limits">Resource limits</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th style="text-align:right">Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source file</td>
+<td style="text-align:right">8,192 bytes</td>
+</tr>
+<tr>
+<td>Emitted instructions</td>
+<td style="text-align:right">768</td>
+</tr>
+<tr>
+<td>String, integer-constant, and global-initializer data combined</td>
+<td style="text-align:right">2,048 bytes</td>
+</tr>
+<tr>
+<td>Identifier</td>
+<td style="text-align:right">31 characters</td>
+</tr>
+<tr>
+<td>Active declarations per function</td>
+<td style="text-align:right">160 symbols, including visible globals</td>
+</tr>
+<tr>
+<td>File-scope variable names</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td>File-scope data</td>
+<td style="text-align:right">256 cells</td>
+</tr>
+<tr>
+<td>VM local/temporary memory</td>
+<td style="text-align:right">4,096 cells per active frame</td>
+</tr>
+<tr>
+<td>Nested control-flow records</td>
+<td style="text-align:right">32</td>
+</tr>
+<tr>
+<td>Switch labels</td>
+<td style="text-align:right">64 per switch</td>
+</tr>
+<tr>
+<td>Enum constants</td>
+<td style="text-align:right">128</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td style="text-align:right">32</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td style="text-align:right">16 per function</td>
+</tr>
+<tr>
+<td>VM call frames</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td>Macro definitions</td>
+<td style="text-align:right">48</td>
+</tr>
+<tr>
+<td>Macro replacement</td>
+<td style="text-align:right">127 bytes</td>
+</tr>
+<tr>
+<td>Macro expansion depth</td>
+<td style="text-align:right">8</td>
+</tr>
+</tbody>
+</table>
+<p>The VM also enforces an instruction budget, stack bounds, call-frame limits, array bounds, executable size limits, and runtime division/modulo faults.</p>
+<h2 id="aex-executable-compatibility">AEX executable compatibility</h2>
+<p>Aiden C 5.2.4 emits textual-hex <code>AEX6</code> images. The AEX6 header contains code count, combined data byte count, global-cell count, and reserved flags. Each instruction is an opcode plus a 32-bit operand. The trailing data area holds strings/constants followed by the initialized global-cell bytes.</p>
+<p>The VM accepts older AEX1, AEX2, AEX3, AEX4, and AEX5 images. AEX6 adds global load, store, and address operations while retaining the earlier opcodes. Do not load AEX6 images into an older DenOS VM.</p>
+<h2 id="not-supported-yet">Not supported yet</h2>
+<p>Aiden C still does not implement:</p>
+<ul>
+<li><code>struct</code>, <code>union</code>, bitfields, or user-defined aggregate layout.</li>
+<li>Floating-point types or floating-point operations.</li>
+<li>Function pointers, callbacks, or pointer-to-function declarations.</li>
+<li>Multidimensional arrays, variable-length arrays, flexible arrays, or general array parameter declarations.</li>
+<li>Full C declarator grammar, pointer typedefs, array typedefs, typedef scope, <code>extern</code>/linkage, translation-unit linking, or separate object files.</li>
+<li>Pointer-to-array types, arbitrary pointer casting, <code>void *</code> conversion rules, pointer subtraction/comparison semantics, or the standard byte-level object model.</li>
+<li>Full <code>const</code> correctness, <code>volatile</code>/<code>restrict</code>, atomic types, or standard integer promotion/conversion rules.</li>
+<li><code>switch</code> with ranges or nonconstant case expressions; case labels are integer/enum constants.</li>
+<li>Function-like macros, <code>#elif</code>, macro expansion in all preprocessing contexts, <code>defined(...)</code>, complete conditional-expression preprocessing, header-file loading, macro include guards via loaded headers, or the full standard preprocessor.</li>
+<li><code>sizeof(expression)</code>, <code>_Alignof</code>, designated initializers, compound literals, variadic functions, and the comma operator.</li>
+<li>The C standard library, hosted file I/O, <code>malloc</code>/<code>free</code>, <code>errno</code>, locale-aware character rules, time, or process APIs. The built-ins listed above are a small VM-specific subset, not a complete libc.</li>
+<li>Native x86-64 code generation, object files, relocations, ELF executable emission, or user-mode execution.</li>
+</ul>
+<p>The compiler should be described as an expanded C subset, not “almost fully ISO C” or “GCC-compatible.” Its fixed resource limits and single-cell type model are intentional current constraints.</p>
+<h2 id="tests">Tests</h2>
+<p>Run <code>make test</code> from the project root. The compiler/VM tests cover legacy AEX1–AEX5 images, AEX6 global scalars/arrays/pointers, local shadowing, macros, conditionals, typedefs, switch/enums, function calls and recursion, arithmetic and pointer faults, array bounds, formatted I/O, string copy/search/compare functions, ASCII character helpers, malformed images, and instruction-budget enforcement. A separate host test compiles every bundled source under <code>userland/apps/</code>.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

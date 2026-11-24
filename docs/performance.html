@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Performance · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link active" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Performance</span></div>
+    <article class="markdown-body"><h1 id="denos-performance-notes">DenOS performance notes</h1>
+<p>DenOS 0.4.9 boots to a text console and does not start its graphics renderer during the normal shell path. The software renderer, framebuffer presentation code, UI font, mouse helpers, and QOI decoder are present and compiled for kernel display components. The primary active display path still writes character/attribute cells to VGA text memory.</p>
+<h2 id="main-runtime-costs">Main runtime costs</h2>
+<ul>
+<li>DenFS keeps fixed-size file slots and directory metadata in kernel memory. Its fixed layout simplifies lookup but reserves much more memory than a variable-length block allocator would.</li>
+<li>The physical page manager tracks usable pages parsed from the Multiboot2 memory map. The kernel heap is separate and provides the small allocations used by current services.</li>
+<li>The cooperative scheduler checks registered callbacks from normal kernel context. Each scheduler pass has a fixed run budget; callbacks must remain short and must not block for long periods.</li>
+<li>E1000 receive is polled. Network polling is registered as a cooperative service; it is not an interrupt-driven network stack.</li>
+<li>The text editor and filesystem are bounded by fixed buffers and current DenFS limits.</li>
+<li>The graphics library uses static logical/presentation/window buffers; its memory footprint is reserved by the linked kernel even though the CLI path does not initialize a desktop. Inspect <code>kernel/drivers/graphics.c</code> before increasing surface or window dimensions.</li>
+</ul>
+<h2 id="current-optimization-priorities">Current optimization priorities</h2>
+<p>Prioritize storage cache and integrity checks, shorter critical sections, interrupt-safe synchronization, network RX scheduling, and measurable scheduler/allocator benchmarks. A future process scheduler and separate address spaces will require a different memory and execution model; performance work on the current callback scheduler should not be mistaken for process isolation.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Editor · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link active" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Editor</span></div>
+    <article class="markdown-body"><h1 id="denos-text-editor-and-c-completion">DenOS text editor and C completion</h1>
+<p>The default editor remains a small VGA text-mode Vim-style editor. It does not start a window manager or GUI. C completion is implemented inside the editor and uses the current buffer; it does not require a language-server process or filesystem index.</p>
+<h2 id="completion">Completion</h2>
+<p>Open a <code>.c</code> or <code>.h</code> file with <code>edit file.c</code>. Enter insert mode with <code>i</code>, <code>a</code>, <code>A</code>, <code>I</code>, <code>o</code>, or <code>O</code>. When the cursor follows an identifier prefix of at least two characters, the editor offers:</p>
+<ul>
+<li>Aiden C/C keywords and common C type names.</li>
+<li>Built-ins implemented by the Aiden C VM, including console, string and ASCII character helpers.</li>
+<li>Identifiers found elsewhere in the current source file, including functions and local/global names.</li>
+</ul>
+<p>The collector skips C line comments, block comments, string literals and character literals. It stores at most 24 suggestions, each bounded to 31 characters. Identifiers discovered in the current buffer are prioritized, followed by Aiden C VM built-ins, type aliases, and language keywords. Suggestions render in a floating, VS Code-inspired dropdown over the text area: the selected row is blue-highlighted, each entry has a compact kind icon, and its kind (<code>function</code>, <code>type</code>, <code>keyword</code>, or <code>symbol</code>) appears at the right. The list keeps the current selection visible while cycling.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Down</code> / <code>Ctrl-N</code></td>
+<td>Select the next suggestion</td>
+</tr>
+<tr>
+<td><code>Up</code> / <code>Ctrl-P</code></td>
+<td>Select the previous suggestion</td>
+</tr>
+<tr>
+<td><code>Tab</code></td>
+<td>Accept the highlighted item; function candidates add <code>()</code></td>
+</tr>
+<tr>
+<td><code>Esc</code></td>
+<td>Dismiss the dropdown for the current prefix; press again to leave insert mode</td>
+</tr>
+<tr>
+<td><code>:set nocomplete</code></td>
+<td>Disable C suggestions</td>
+</tr>
+<tr>
+<td><code>:set complete</code></td>
+<td>Re-enable C suggestions</td>
+</tr>
+</tbody>
+</table>
+<p>When a function suggestion is accepted, <code>()</code> is inserted and the cursor is placed between the parentheses unless an opening parenthesis is already present. The text inserted by completion belongs to the current undo checkpoint.</p>
+<p>Completion is lexical and buffer-local. It is not a full semantic C language server: it does not resolve types, overloads, scopes precisely, project headers, external declarations, argument signatures, or compiler diagnostics. The list may include an identifier used in an unrelated scope or omit a name that is not present in the current file.</p>
+<h2 id="editing-keys">Editing keys</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h/j/k/l</code> or arrows</td>
+<td>Move</td>
+</tr>
+<tr>
+<td><code>w</code>, <code>b</code></td>
+<td>Move by identifier word</td>
+</tr>
+<tr>
+<td><code>0</code>, <code>$</code>, <code>gg</code>, <code>G</code></td>
+<td>Beginning/end of line or file</td>
+</tr>
+<tr>
+<td><code>i</code>, <code>a</code>, <code>I</code>, <code>A</code></td>
+<td>Insert at cursor, after cursor, first non-space or line end</td>
+</tr>
+<tr>
+<td><code>o</code>, <code>O</code></td>
+<td>Open a line below or above</td>
+</tr>
+<tr>
+<td><code>x</code>, <code>D</code>, <code>dd</code></td>
+<td>Delete character, to end of line, or whole line</td>
+</tr>
+<tr>
+<td><code>yy</code>, <code>p</code>, <code>P</code></td>
+<td>Yank and paste a line</td>
+</tr>
+<tr>
+<td><code>u</code>, <code>Ctrl-R</code></td>
+<td>Undo and redo the last edit checkpoint</td>
+</tr>
+<tr>
+<td><code>/pattern</code>, <code>?pattern</code>, <code>n</code>, <code>N</code></td>
+<td>Search forward/backward and repeat</td>
+</tr>
+<tr>
+<td><code>:w</code>, <code>:q</code>, <code>:q!</code>, <code>:wq</code>, <code>:x</code></td>
+<td>Save, quit, discard, save and quit</td>
+</tr>
+<tr>
+<td><code>:check</code></td>
+<td>Check delimiter, comment and literal balance</td>
+</tr>
+<tr>
+<td><code>:make</code>, <code>:compile</code></td>
+<td>Compile the current buffer as Aiden C and show compiler diagnostics</td>
+</tr>
+<tr>
+<td><code>:set number</code>, <code>:set nonumber</code></td>
+<td>Toggle line numbers</td>
+</tr>
+</tbody>
+</table>
+<p><code>:make</code> and <code>:compile</code> compile the current buffer with the built-in Aiden C compiler and report the generated AEX image size or compiler diagnostic. The editor keeps its output image in static storage to avoid consuming the small kernel stack. Compilation does not execute the program. <code>:check</code> is a structural preflight only. It checks parentheses, brackets, braces, block comments, and quoted literals; it does not parse C grammar or replace <code>cc</code>.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

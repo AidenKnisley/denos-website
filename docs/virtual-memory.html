@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Virtual Memory · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link active" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Virtual Memory</span></div>
+    <article class="markdown-body"><h1 id="denos-virtual-memory-manager-0-4-9">DenOS virtual-memory manager (0.4.9)</h1>
+<p><code>kernel/mm/paging.c</code> is the first general x86-64 page-table manager in DenOS. It operates on the active four-level page-table root; it does not yet create isolated process address spaces. The bootstrap identity map is retained.</p>
+<h2 id="current-bootstrap-contract">Current bootstrap contract</h2>
+<p><code>kernel/arch/x86_64/boot.asm</code> builds PML4/PDPT/page-directory structures and identity maps the first 4 GiB using 2 MiB leaves. The PMM manages page frames below 1 GiB and reserves the linked kernel image, boot structures, and Multiboot information. The mapper currently allocates page-table pages through that PMM and dereferences them through the bootstrap identity map. Do not assume physical frames above the identity-mapped window can be directly accessed.</p>
+<h2 id="api">API</h2>
+<p>Declared in <code>kernel/include/paging.h</code>:</p>
+<pre><code class="language-c">int paging_init(void);
+int paging_is_initialized(void);
+int paging_nx_enabled(void);
+int vmm_map_page(u64 virtual_address, u64 physical_address, u64 flags);
+int vmm_remap_page(u64 virtual_address, u64 physical_address, u64 flags);
+int vmm_unmap_page(u64 virtual_address, vmm_mapping_t *old_mapping);
+int vmm_protect_page(u64 virtual_address, u64 flags);
+int vmm_query(u64 virtual_address, vmm_mapping_t *mapping);
+int vmm_get_stats(vmm_stats_t *stats);
+</code></pre>
+<ul>
+<li>All mapping and protection operations use 4 KiB virtual/physical alignment. Virtual addresses must be canonical under four-level paging. Physical frame addresses must fit the CPU-reported physical-address width.</li>
+<li><code>vmm_map_page</code> refuses to overwrite any existing mapping.</li>
+<li><code>vmm_remap_page</code> explicitly replaces an existing leaf mapping; if the VA is absent it creates the mapping. The old physical frame remains caller-owned.</li>
+<li><code>vmm_query</code> reports the effective translation, effective permissions after parent-level restrictions, and the original leaf page size (4 KiB, 2 MiB, or 1 GiB).</li>
+<li>A 4 KiB operation inside an existing 2 MiB/1 GiB mapping splits the huge mapping while preserving neighboring physical translations and leaf permissions.</li>
+<li><code>vmm_unmap_page</code> removes one 4 KiB translation. It returns the old physical address if requested and never frees the data frame. Empty intermediate page-table pages allocated through PMM are reclaimed. Static bootstrap page-table pages are reserved and remain in place.</li>
+<li><code>vmm_protect_page</code> changes leaf permissions. Existing parent-level restrictions still apply; it does not silently make a restrictive ancestor writable.</li>
+<li><code>VMM_WRITE</code>, <code>VMM_USER</code>, <code>VMM_WRITE_THROUGH</code>, <code>VMM_CACHE_DISABLE</code>, <code>VMM_GLOBAL</code>, and <code>VMM_NO_EXECUTE</code> are the supported request flags. <code>VMM_USER</code> is only a page-table permission bit: there is no ring-3 ABI or isolated user address space yet, so it is <strong>not</strong> a security boundary. Do not rely on it to protect programs.</li>
+</ul>
+<h2 id="hardware-behavior">Hardware behavior</h2>
+<p>At initialization, the manager attaches to CR3, detects the physical-address width, enables EFER.NXE if supported, sets CR0.WP, and enables CR4.PGE if supported. Writable new leaf mappings must also request <code>VMM_NO_EXECUTE</code> when NX is available (W^X). Global mappings are rejected if PGE is unavailable. Mapping changes invalidate the edited virtual address with <code>invlpg</code>.</p>
+<p>Page-table modifications disable local maskable interrupts around the mutation. This is only suitable for the current single-CPU, non-preemptive execution model. There is no SMP lock, cross-CPU TLB shootdown, PCID management, recursive map, or concurrent address-space switching.</p>
+<h2 id="pmm-backed-virtual-allocations">PMM-backed virtual allocations</h2>
+<p><code>kernel/mm/vmalloc.c</code> owns a dedicated 64 MiB window at <code>VMALLOC_BASE</code> (<code>0xFFFF900000000000</code>) with 16,384 page slots. It is initialized after PMM and the page-table manager. <code>kvalloc(size, flags)</code> reserves a contiguous VA range and maps individually allocated PMM frames into it; the returned pointer is virtually contiguous but the physical frames are not guaranteed contiguous. <code>kvfree(pointer)</code> requires the exact pointer returned by <code>kvalloc</code>. The allocator does not accept <code>VMM_USER</code>.</p>
+<p>The allocator preflights all mappings and PMM ownership before free. On partial unmap failure it attempts to restore already removed mappings. If mapping rollback or restoration fails, it marks the entire virtual range quarantined and never reuses it; <code>paging</code>/<code>vmstat</code> reports the quarantine count and bytes. This favors a bounded leak over freeing a frame that may still be referenced by a PTE. The API is serialized only by local interrupt masking and is not SMP-safe.</p>
+<p><code>kvalloc</code> is separate from <code>kmalloc</code>: the existing 1 MiB heap remains unchanged and does not automatically expand into this virtual window. DMA users must not assume the frames are physically contiguous.</p>
+<h2 id="shell-inspection">Shell inspection</h2>
+<p>Use <code>paging</code> or <code>vmstat</code> to inspect initialization, NX, supervisor write protection, global-page support, dynamic page-table page count, map/unmap counters, and failed operations.</p>
+<h2 id="not-implemented">Not implemented</h2>
+<p>This manager is not a process-memory subsystem. It does not yet provide: per-process CR3 roots, kernel/user split enforcement, page ownership/refcounts, demand paging, copy-on-write, swap, shared-memory mappings, guard-page policy, automatic stack/heap growth, ASLR, page-fault recovery, or dynamic heap growth. The PMM still manages only the first GiB. A future address-space layer must define ownership and shared-kernel mappings before it can safely switch CR3.</p>
+<h2 id="tests">Tests</h2>
+<p><code>make paging-test</code> runs the page-table manager tests; <code>make vmalloc-test</code> exercises virtual allocations, ownership validation, exhaustion, rollback, quarantine and reuse. <code>make check-kernel-c</code> checks all freestanding kernel C translation units. <code>make test</code> includes the paging test; <code>make check</code> runs both test and C-check targets. The host tests use synthetic page tables and allocator stubs, so they do not validate privileged CR3/CR0/CR4/MSR instructions or real TLB behavior. A QEMU boot and fault/mapping smoke test is still required.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

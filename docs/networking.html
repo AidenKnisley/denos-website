@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Networking · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link active" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Networking</span></div>
+    <article class="markdown-body"><h1 id="denos-experimental-networking">DenOS experimental networking</h1>
+<p>DenOS 9.0.0 adds an intentionally narrow Ethernet path for the maintained QEMU PC configuration. This is an initial driver and protocol milestone, not a complete Internet stack.</p>
+<h2 id="supported-target">Supported target</h2>
+<ul>
+<li>PCI configuration mechanism 1 discovery (I/O ports <code>0xCF8</code> / <code>0xCFC</code>).</li>
+<li>Intel 82540EM-compatible E1000 device (<code>8086:100E</code>).</li>
+<li>32-bit MMIO BAR, PCI memory decoding and bus mastering.</li>
+<li>Fixed, statically allocated DMA descriptor rings and 2 KiB packet buffers.</li>
+<li>Ethernet frame transmit/receive, ARP request/reply, IPv4 header/checksum validation, and ICMP echo request/reply.</li>
+<li>Static QEMU user-network profile: guest <code>10.0.2.15/24</code>, gateway <code>10.0.2.2</code>.</li>
+</ul>
+<p>The driver uses polling. It does not install an E1000 interrupt handler. Receive-ring polling runs as a bounded cooperative kernel service; the <code>ping</code> wait loop also services pending packets. The service scheduler runs from the kernel shell wait loop and from the bounded <code>ping</code> wait loop.</p>
+<h2 id="run-it">Run it</h2>
+<p>The supplied <code>make run</code> target attaches an E1000 device to QEMU's user-mode network backend. From the DenOS terminal:</p>
+<pre><code class="language-text">net
+ping 10.0.2.2
+</code></pre>
+<p><code>net</code> reports adapter/link state, MAC address, configured IPv4 address, gateway, and frame counters. <code>ping</code> resolves the target using ARP and sends one ICMP echo request.</p>
+<p>If the E1000 device is absent, uses an unsupported BAR layout, or cannot be initialized, the adapter remains offline and the rest of the OS continues booting.</p>
+<h2 id="important-limits">Important limits</h2>
+<ul>
+<li>No DHCP; the address is a QEMU-specific static profile.</li>
+<li>No DNS resolver, UDP socket API, TCP, IPv6, Wi-Fi, Bluetooth, VLAN, routing, firewall, or network configuration application.</li>
+<li>ARP cache currently holds one peer entry.</li>
+<li>IPv4 processing currently accepts ICMP only; there is no general-purpose socket layer.</li>
+<li>The driver supports the QEMU 82540EM/E1000 target, not every Intel NIC revision or arbitrary physical hardware.</li>
+<li>DMA buffers are identity-mapped kernel memory under the bootstrap's 4 GiB mapping. A future virtual-memory/IOMMU design must replace this assumption.</li>
+<li>The interface is not a security boundary and must not be used to process untrusted traffic on a real network.</li>
+</ul>
+<h2 id="implementation-map">Implementation map</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kernel/drivers/pci.c</code></td>
+<td>PCI configuration-space discovery and bus-master enablement</td>
+</tr>
+<tr>
+<td><code>kernel/drivers/e1000.c</code></td>
+<td>E1000 MMIO registers, descriptor rings, DMA, polling and frame I/O</td>
+</tr>
+<tr>
+<td><code>kernel/net.c</code></td>
+<td>Ethernet, ARP, IPv4 validation, ICMP echo and static QEMU profile</td>
+</tr>
+<tr>
+<td><code>kernel/include/net.h</code></td>
+<td>Network status and ping interface</td>
+</tr>
+<tr>
+<td><code>tests/net_protocol_test.c</code></td>
+<td>Host tests for ARP replies, IPv4 validation and ICMP checksums</td>
+</tr>
+</tbody>
+</table>
+<p>The host protocol tests do not validate DMA operation or QEMU packet exchange. Those require an emulator smoke test after the ISO is built and booted.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

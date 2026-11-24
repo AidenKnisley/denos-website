@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Roadmap · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link active" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Roadmap</span></div>
+    <article class="markdown-body"><h1 id="denos-roadmap">DenOS roadmap</h1>
+<p>This roadmap prioritizes memory safety, storage integrity, hardware support, and a real user/kernel boundary over decorative interface work. Checkmarks mean implemented and wired into the current kernel.</p>
+<h2 id="9-0-1-kernel-service-foundation-retained">9.0.1 — kernel service foundation (retained)</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Cooperative scheduler with priorities, intervals, task IDs, run counters, and bounded run budget.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>E1000 network polling and periodic heap integrity check.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>VFS mount namespace with DenFS root, read-only procfs, and basic devfs.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Per-task bounded IPC queues and timestamped kernel event queue.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>DenFS v3 with nested paths and recognized v1/v2 migration.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>PCI discovery and QEMU E1000/ARP/IPv4/ICMP network baseline.</li>
+</ul>
+<h2 id="9-1-0-command-line-kernel-expansion-retained">9.1.0 — command-line kernel expansion (retained)</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Remove GUI renderer, application pages, PS/2 mouse subsystem, image decoder, and wallpaper assets from the build.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Boot directly into VGA text console with COM1 diagnostics.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add Multiboot2 boot argument parsing and <code>safe-mode</code> network suppression.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add monotonic clock conversions and a non-cryptographic PRNG.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add UUID v4 formatting, SHA-256, CRC32, integer/IPv4 parsing, UTF-8 validation, bitmaps, and ring buffers.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add environment variables, <code>$NAME</code> expansion, command history, Up/Down history navigation, and <code>!!</code> repeat.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add cooperative service registry with start/stop lifecycle.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add MBR partition inspection and ELF64 structure validation libraries.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add host tests for the new algorithms and services.</li>
+</ul>
+<h2 id="9-2-0-aiden-c-and-execution-hardening">9.2.0 — Aiden C and execution hardening</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Restore the Aiden C subset compiler and in-kernel AEX VM to the CLI branch.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add user-defined functions, prototypes, parameters, recursion, and mutual recursion through AEX3-compatible execution.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add AEX4 array index guards and reject truncated/trailing executable data.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Stop VM execution on signed division/modulo by zero and validate <code>scanf</code> pointers against the active function frame.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Integrate <code>cc</code>, <code>run</code>, <code>cinfo</code>, and topic-based help into the shell.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Compile every bundled C sample in the host regression suite.</li>
+</ul>
+<h2 id="9-3-0-aiden-c-and-graphics-library-expansion">9.3.0 — Aiden C and graphics library expansion</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Upgrade compiler images to AEX6 with bounded global scalar/array storage and global address operations; retain AEX1–AEX5 VM compatibility.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add object-like macros, <code>#undef</code>, basic <code>#if</code>/<code>#ifdef</code> conditionals, scalar typedefs, enums, <code>switch</code>, <code>sizeof(type/object)</code>, and global constant expressions.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add bounded string/character built-ins: <code>strlen</code>, comparison/copy/concatenation/search routines, <code>atoi</code>, absolute-value and ASCII character helpers.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Extend <code>printf</code> with unsigned, hexadecimal, octal, and VM-pointer conversions; support <code>%s</code> with VM character-array pointers.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Restore the kernel graphics library, framebuffer/window/mouse helpers, UI font, QOI decoder, license, and host regression tests to the CLI source tree.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add clipped polygon outlines/fills, scaled RGB/RGBA blits, and word-wrapped anti-aliased UI text.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add regression tests for string APIs, character helpers, formatted output, polygons, and wrapped text.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add function-like macros, full <code>#if</code> expression parsing, actual header loading, and multiple translation units.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add <code>struct</code>/<code>union</code> layout, member access, standard object sizes/alignment, and stronger type checking.</li>
+</ul>
+<h2 id="9-4-storage-reliability-and-binary-i-o">9.4 — storage reliability and binary I/O</h2>
+<ul>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add a non-destructive filesystem checker and explicit read-only recovery mode.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add metadata checksums and crash-safe metadata updates.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add backup/export/import utility and restoration tests.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Replace fixed-slot DenFS with variable-length block allocation and a free-space bitmap.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add binary-safe file I/O, timestamps, attributes, and a stable block-device abstraction.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add GPT parsing and stronger partition consistency checks.</li>
+</ul>
+<h2 id="9-5-execution-and-memory-protection">9.5 — execution and memory protection</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add GDT/TSS, CPU exception reporting, page-fault decoding, and a #DF IST1 stack.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Give PIT IRQ0 a separate IST2 stack and preserve every GPR plus x87/SSE state.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add virtual memory mapping and per-task address spaces.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add saved CPU contexts, per-task kernel stacks, and preemptive process scheduling.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Define a syscall ABI and privilege boundary.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add ring-3 user-mode execution and memory protection.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Extend ELF64 validation into a loader with segment mapping, relocations, and user stack creation.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Move device-independent utilities and shell programs into userspace.</li>
+</ul>
+<h2 id="9-6-hardware-and-networking">9.6 — hardware and networking</h2>
+<ul>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add interrupt-safe locking and deferred work queues.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add USB host controller and USB HID.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add AHCI/NVMe storage drivers.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add initial E1000/ARP/IPv4/ICMP QEMU networking.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add portable NIC abstraction, DHCP, DNS, UDP/TCP sockets, and IPv6.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add modern audio hardware support.</li>
+</ul>
+<h2 id="10-x-application-ecosystem">10.x — application ecosystem</h2>
+<ul>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add a signed package format and package manager after the userspace ABI stabilizes.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add SDK and third-party program packaging.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Reconsider a graphical environment only after process isolation, input abstractions, and a reliable graphics driver stack exist.</li>
+</ul>
+<h2 id="release-gates">Release gates</h2>
+<p>Before describing a release as suitable for everyday use:</p>
+<ol>
+<li>Reproducible ISO build in a documented environment.</li>
+<li>Repeated QEMU boot tests and kernel panic/recovery tests.</li>
+<li>Storage power-loss and filesystem consistency testing.</li>
+<li>Verified data backup and restoration.</li>
+<li>Device and network tests beyond mocks.</li>
+<li>User-mode isolation and a stable syscall ABI.</li>
+<li>No destructive default cleanup behavior.</li>
+</ol>
+<h2 id="9-4-0-cli-editor-and-graphics-validation">9.4.0 — CLI/editor and graphics validation</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add buffer-local C keyword/type/Aiden built-in and same-file identifier completion to the Vim-style editor.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add completion acceptance/cycling and structural delimiter/comment/literal check.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Improve shell command-line editing, history, command/file Tab completion, and text-inspection commands.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add reproducible QOI/RGBA graphics fixtures and per-pixel decoder regression coverage.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add syntax-aware diagnostics and project/header symbol indexing.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add protected user mode, address spaces, syscall ABI and isolated process execution.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add preemptive scheduling, SMP and interrupt-driven device I/O.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add a modern block storage stack, journaling filesystem, DHCP/DNS and TCP/UDP networking.</li>
+</ul>
+<h2 id="9-4-1-reliability-baseline">9.4.1 reliability baseline</h2>
+<ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Install CPU exception handlers before subsystem startup; capture GPRs, RIP/RSP/RFLAGS, error codes, and page-fault CR2/flags.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Add a 64-bit TSS with a dedicated #DF IST emergency stack.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Preserve all GPRs and x87/SSE state in the timer IRQ stub.</li>
+<li>Next: validated page-table management, kernel heap growth from PMM, and a protected user-mode ABI.</li>
+</ul>
+<h2 id="9-5-1-additive-userland-library-milestone">9.5.1 additive userland library milestone</h2>
+<p>The initial 22-module hosted support library prototype is under <code>userland/libc</code>. The next integration prerequisite is the protected user-process/syscall ABI. Until then, the modules must remain separate from the freestanding kernel and the AEX VM. Full ISO C conformance remains a distinct compiler and ABI project.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

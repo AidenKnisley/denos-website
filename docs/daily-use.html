@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Daily Use · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link active" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Daily Use</span></div>
+    <article class="markdown-body"><h1 id="everyday-use-of-denos-0-4-9">Everyday use of DenOS 0.4.9</h1>
+<p>DenOS starts directly in a keyboard-driven VGA text console. There is no graphical desktop or mouse-driven session in this release. The kernel graphics library remains available in source/build for future kernel display work; it is not started during the CLI session.</p>
+<h2 id="first-session">First session</h2>
+<p>After the kernel initializes its memory, storage, VFS, timer, scheduler, and optional network adapter, it prints a shell prompt. Type <code>help</code> for the built-in command reference. The first mount creates <code>/home/user</code>, <code>Documents</code>, <code>Downloads</code>, <code>bin</code>, and <code>tmp</code>, plus a short welcome file.</p>
+<h2 id="navigate-and-manage-files">Navigate and manage files</h2>
+<pre><code class="language-text">pwd
+ls
+cd Documents
+touch notes.txt
+write notes.txt My DenOS notes
+cat notes.txt
+edit notes.txt
+</code></pre>
+<p>Paths may be relative to the current directory or absolute within the DenOS namespace. Quote filenames containing spaces. <code>cp</code> and <code>mv</code> currently operate on files; folder deletion only succeeds when the folder is empty.</p>
+<h2 id="shell-history-and-environment">Shell history and environment</h2>
+<p>Use Up/Down to browse the current boot's command history. <code>!!</code> repeats the most recent command. History is held in RAM and is not persistent across reboot.</p>
+<pre><code class="language-text">env
+set PROJECT DenOS
+ echo $PROJECT
+unset PROJECT
+</code></pre>
+<p>Variable expansion uses <code>$NAME</code>. The environment is a small fixed table; it is not a POSIX process environment. <code>HOSTNAME</code>, <code>USER</code>, <code>HOME</code>, <code>SHELL</code>, and <code>PATH</code> are seeded at startup.</p>
+<h2 id="inspect-system-state">Inspect system state</h2>
+<pre><code class="language-text">sysinfo
+bootlog
+devices
+services
+tasks
+mounts
+cat /proc/meminfo
+cat /proc/net/dev
+</code></pre>
+<p><code>services</code> lists cooperative kernel services. <code>service stop network-poll</code> and <code>service start network-poll</code> control the registered network polling task when it exists. Stopping it stops background RX polling; <code>ping</code> still performs its own bounded polling while waiting.</p>
+<h2 id="checksums-and-network-diagnostics">Checksums and network diagnostics</h2>
+<pre><code class="language-text">sha256 notes.txt
+crc32 notes.txt
+net
+ping 10.0.2.2
+</code></pre>
+<p>The PRNG behind <code>random</code> and <code>uuid</code> is non-cryptographic. Do not use it to create secrets, private keys, or authentication tokens. Networking currently targets the QEMU E1000 user-network setup and supports ARP/IPv4/ICMP only.</p>
+<h2 id="compile-and-run-c-programs">Compile and run C programs</h2>
+<p>Aiden C is a small C subset that compiles to AEX bytecode interpreted by the kernel. For example:</p>
+<pre><code class="language-text">edit hello.c
+cc hello.c -o hello
+run hello
+</code></pre>
+<p>Use <code>help programming</code> or <code>cinfo</code> for the supported grammar, built-ins, and limits. Aiden C supports global/local values, one-dimensional arrays with runtime bounds checks, bounded scalar pointers, functions/prototypes/recursion, <code>switch</code>, enums, scalar typedefs, object-like macros and limited conditionals. The VM also provides <code>strlen</code>, <code>strcmp</code>, <code>strcpy</code>, <code>strcat</code>, <code>strstr</code>, <code>atoi</code>, absolute-value and ASCII <code>ctype</code> helpers. It does not produce native x86-64 code and is not a complete ISO C implementation; see <code>docs/AIDEN-C.md</code> for details.</p>
+<h2 id="editing-and-shutdown">Editing and shutdown</h2>
+<p><code>edit FILE</code> opens the small built-in text editor. The filesystem is text-oriented, so AEX bytecode is saved as hexadecimal text rather than a raw binary. AEX programs execute in kernel context and are not isolated; only run trusted programs. Use <code>halt</code> to stop QEMU or <code>reboot</code> to restart it.</p>
+<h2 id="backups">Backups</h2>
+<p>DenFS has no journal. Back up <code>denos-data.img</code> while QEMU is shut down. See <a href="recovery.html">Recovery</a> before changing an existing data image.</p>
+<h2 id="graphics-source">Graphics source</h2>
+<p>Use <code>help graphics</code> for a quick overview of the retained kernel renderer. Its expanded API is declared in <code>kernel/include/gfx.h</code>; it is not a command-line desktop program.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

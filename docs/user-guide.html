@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>User Guide · DenOS docs</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to documentation</a>
+<header class="docs-top">
+  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
+  <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
+</header>
+<div class="docs-shell">
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
+<a class="side-link" href="aiden-c.html">Aiden C</a>
+<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
+<a class="side-link" href="building.html">Building</a>
+<a class="side-link" href="cli-tools.html">Cli Tools</a>
+<a class="side-link" href="daily-use.html">Daily Use</a>
+<a class="side-link" href="development-status.html">Development Status</a>
+<a class="side-link" href="drivers.html">Drivers</a>
+<a class="side-link" href="editor.html">Editor</a>
+<a class="side-link" href="events.html">Events</a>
+<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
+<a class="side-link" href="files-and-storage.html">Files And Storage</a>
+<a class="side-link" href="graphics.html">Graphics</a>
+<a class="side-link" href="ipc.html">Ipc</a>
+<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
+<a class="side-link" href="memory-management.html">Memory Management</a>
+<a class="side-link" href="networking.html">Networking</a>
+<a class="side-link" href="performance.html">Performance</a>
+<a class="side-link" href="recovery.html">Recovery</a>
+<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
+<a class="side-link" href="release-9.0.html">Release 9.0</a>
+<a class="side-link" href="release-manifest.html">Release Manifest</a>
+<a class="side-link" href="roadmap.html">Roadmap</a>
+<a class="side-link" href="scheduler.html">Scheduler</a>
+<a class="side-link" href="support-matrix.html">Support Matrix</a>
+<a class="side-link" href="terminal.html">Terminal</a>
+<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
+<a class="side-link active" href="user-guide.html">User Guide</a>
+<a class="side-link" href="vfs.html">Vfs</a>
+<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+</aside>
+  <main class="docs-main" id="content">
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>User Guide</span></div>
+    <article class="markdown-body"><h1 id="denos-0-4-9-user-guide">DenOS 0.4.9 — User Guide</h1>
+<p>DenOS is an experimental 64-bit command-line OS. It boots to a VGA text console. The kernel graphics library, mouse helpers, UI font, and QOI decoder are retained and expanded in source/build, but the desktop is not started by normal CLI boot.</p>
+<h2 id="1-first-boot">1. First boot</h2>
+<p>The kernel initializes the serial/VGA text console, validates Multiboot2 information, attempts to initialize the physical page manager, starts the heap, mounts DenFS and the VFS namespace, configures the PIT clock, and starts cooperative kernel services. An Intel E1000 network adapter is initialized when present unless <code>safe-mode</code> was supplied in the boot arguments.</p>
+<p>First mount creates:</p>
+<pre><code class="language-text">/home/user/
+├── Documents/
+│   └── Welcome to DenOS.txt
+├── Downloads/
+├── bin/
+└── tmp/
+/var/log/
+/etc/
+</code></pre>
+<p>There is no login or password model. All current commands run in the same kernel address space.</p>
+<h2 id="2-shell-use">2. Shell use</h2>
+<p>The prompt shows the configured user, host name, and current directory. Enter <code>help</code> for commands. Up/Down browses command history and <code>!!</code> repeats the latest command. History is RAM-only.</p>
+<p>Basic navigation:</p>
+<pre><code class="language-text">pwd
+ls
+cd Documents
+cd /home/user
+</code></pre>
+<p>Text files:</p>
+<pre><code class="language-text">touch notes.txt
+write notes.txt Notes for my project
+cat notes.txt
+edit notes.txt
+</code></pre>
+<p><code>cp</code>, <code>mv</code>, <code>rm</code>, <code>mkdir</code>, and <code>rmdir</code> provide file and empty-directory management. DenFS uses fixed-size metadata and text content slots; it is not a POSIX or binary-safe filesystem.</p>
+<h2 id="3-environment-and-boot-configuration">3. Environment and boot configuration</h2>
+<p><code>env</code> lists variables. <code>set KEY VALUE</code> creates or changes a value. <code>unset KEY</code> removes it. <code>$NAME</code> expands during command processing. The environment is a fixed-size kernel shell table rather than a per-process POSIX environment.</p>
+<p><code>bootargs</code> shows the Multiboot2 kernel command line. Add <code>safe-mode</code> to the GRUB kernel line to skip E1000 initialization. Key/value arguments such as <code>loglevel=debug</code> are preserved for inspection; not every key has a subsystem consumer yet.</p>
+<h2 id="4-kernel-services">4. Kernel services</h2>
+<p><code>services</code> lists the registered background kernel services. <code>service stop NAME</code> and <code>service start NAME</code> control them. The current scheduler is cooperative: it runs callbacks in the shell/normal-kernel path, does not switch CPU stacks, and does not isolate tasks.</p>
+<p>Other inspection commands include <code>tasks</code>, <code>ipc</code>, <code>events</code>, <code>devices</code>, <code>mounts</code>, <code>bootlog</code>, <code>free</code>, <code>pmm</code>, <code>df</code>, and <code>diskinfo</code>. The VFS exposes read-only generated status files under <code>/proc</code> and small pseudo-devices under <code>/dev</code>.</p>
+<h2 id="5-networking">5. Networking</h2>
+<p>The experimental network path targets QEMU's emulated Intel E1000 adapter with a static user-network IPv4 configuration. <code>net</code> prints link/MAC/IP/counters. <code>ping 10.0.2.2</code> tests ARP and ICMP with QEMU's user-mode gateway. DHCP, DNS, TCP, UDP sockets, IPv6, Wi-Fi, and arbitrary physical NIC support are not implemented.</p>
+<h2 id="6-utilities">6. Utilities</h2>
+<ul>
+<li><code>hash FILE</code> — FNV-1a 32-bit hash.</li>
+<li><code>sha256 FILE</code> — SHA-256 digest for text stored in DenFS.</li>
+<li><code>crc32 FILE</code> — CRC32 checksum.</li>
+<li><code>uuid</code> — formats a UUID v4 using the kernel's non-cryptographic PRNG.</li>
+<li><code>random</code> — displays a non-cryptographic pseudo-random value.</li>
+<li><code>partitions</code> — reads and validates primary MBR partition entries when an ATA disk is present.</li>
+</ul>
+<p>The ELF64 module validates the structure of a byte buffer, but DenFS and the shell do not yet provide a binary-safe executable loader. Validation is not execution.</p>
+<h2 id="7-aiden-c-compiler">7. Aiden C compiler</h2>
+<p>Aiden C compiles a documented subset of C to AEX6 bytecode, interpreted by the in-kernel VM. The shell workflow is:</p>
+<pre><code class="language-text">edit hello.c
+cc hello.c -o hello
+run hello
+</code></pre>
+<p>The compiler supports global/local scalar variables, one-dimensional fixed arrays, bounded pointers, block scopes, <code>if</code>/<code>else</code>, loops, <code>switch</code>, enums, scalar typedefs, object-like macros and conditional directives, function declarations/prototypes, recursion, and the VM built-ins described in <a href="aiden-c.html">Aiden C</a>. The standard-style string/character helpers are implemented by the VM rather than linked from libc. AEX1 through AEX5 files remain readable by the newer VM.</p>
+<p>The implementation is still a subset: all scalar values use signed 64-bit VM cells; headers are not loaded, preprocessing is limited, and there are no structs/unions, floating point, function pointers, native code generation, byte-addressable C object layout, or hosted standard library. Arrays are one-dimensional and bounds-checked at runtime. Functions have fixed limits. Programs run with kernel privilege and are not isolated.</p>
+<h2 id="9-shutdown-and-recovery">9. Shutdown and recovery</h2>
+<p>Use <code>halt</code> or <code>reboot</code>. DenFS does not have journaling or power-loss recovery. Shut down the VM before copying <code>denos-data.img</code>. Do not treat the system as a daily-driver OS while its storage and driver paths remain experimental.</p>
+<h2 id="8-graphics-library">8. Graphics library</h2>
+<p>The source retains an expanded kernel graphics library in <code>kernel/drivers/graphics.c</code>, declared by <code>kernel/include/gfx.h</code>. It includes framebuffer output, alpha/scaled image blits, polygons, rounded geometry, gradients, anti-aliased text, word wrapping, mouse/event helpers, and QOI decoding. It is compiled and host-tested, but this CLI release does not start the desktop at boot. See <a href="graphics.html">Graphics</a>.</p>
+<h2 id="virtual-memory-diagnostics">Virtual-memory diagnostics</h2>
+<p>Use <code>paging</code> or <code>vmstat</code> to inspect the active four-level page-table manager, NX/WP/PGE availability, dynamically allocated page-table pages, mapping operations, and failures. The command reports the current kernel mapping manager; it does not indicate that DenOS has isolated processes or a ring-3 userspace.</p>
+</article>
+    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+  </main>
+</div>
+</body></html>

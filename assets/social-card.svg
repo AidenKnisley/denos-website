@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#f1f1ec"/>
+<path d="M650 0h550v630H650z" fill="#111820"/>
+<g opacity=".14" stroke="#4058ed"><path d="M0 65H650M0 130H650M0 195H650M0 260H650M0 325H650M0 390H650M0 455H650M0 520H650M0 585H650"/><path d="M65 0V630M130 0V630M195 0V630M260 0V630M325 0V630M390 0V630M455 0V630M520 0V630M585 0V630"/></g>
+<rect x="84" y="81" width="54" height="54" rx="12" fill="#4058ed"/>
+<path d="M98 93h13c11 0 17 6 17 15s-6 15-17 15H98V93zm8 7v16h4c6 0 9-2 9-8s-3-8-9-8h-4z" fill="#fff"/>
+<text x="84" y="236" font-family="Arial,sans-serif" font-size="86" font-weight="800" letter-spacing="-6" fill="#151a22">Built below</text>
+<text x="84" y="326" font-family="Arial,sans-serif" font-size="86" font-weight="800" letter-spacing="-6" fill="#4058ed">the surface.</text>
+<text x="87" y="394" font-family="monospace" font-size="18" letter-spacing="3" fill="#68717c">DENOS / INDEPENDENT X86-64 OS PROJECT</text>
+<rect x="710" y="130" width="410" height="350" rx="7" fill="#0b1116" stroke="#40515d" stroke-width="2"/>
+<path d="M710 173H1120" stroke="#34434e"/>
+<circle cx="733" cy="151" r="5" fill="#e08c7d"/><circle cx="751" cy="151" r="5" fill="#e6c36c"/><circle cx="769" cy="151" r="5" fill="#9bbf79"/>
+<text x="799" y="155" font-family="monospace" font-size="12" fill="#b1bbc3">DENOS — TTY 1</text>
+<text x="754" y="235" font-family="monospace" font-size="24" fill="#b9ff68">root@denos:~$</text>
+<text x="754" y="279" font-family="monospace" font-size="19" fill="#e4e9e8">system</text>
+<text x="754" y="323" font-family="monospace" font-size="17" fill="#92a2ad">ARCHITECTURE  x86_64</text>
+<text x="754" y="356" font-family="monospace" font-size="17" fill="#92a2ad">MEMORY        4-LEVEL</text>
+<text x="754" y="389" font-family="monospace" font-size="17" fill="#92a2ad">BOOT          MULTIBOOT2</text>
+<text x="754" y="422" font-family="monospace" font-size="17" fill="#92a2ad">VERSION       0.4.9</text>
+<text x="754" y="455" font-family="monospace" font-size="17" fill="#b9ff68">█</text>
+<text x="88" y="560" font-family="monospace" font-size="13" letter-spacing="2" fill="#88939a">FREESTANDING C  /  NASM  /  GRUB  /  QEMU TARGET</text>
+</svg>
