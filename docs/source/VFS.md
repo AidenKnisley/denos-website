@@ -9,7 +9,7 @@ of the root DenFS volume.
 
 | Mount | Backend | Access |
 |---|---|---|
-| `/` | DenFS v3 (ATA persistent storage or RAM fallback) | Read/write |
+| `/` | DenFS v4 (ATA persistent storage or RAM fallback) | Read/write |
 | `/proc` | Kernel-generated procfs views | Read-only |
 | `/dev` | Minimal pseudo-device filesystem | Read/write where supported |
 
@@ -40,7 +40,7 @@ inspection; this is not yet a general binary file-descriptor API.
 A filesystem backend supplies callbacks for read, write, mkdir, remove, stat,
 and directory enumeration. Read/write and mutation callbacks are optional;
 stat and list are required for a mount. Mount paths are absolute, normalized,
-and limited to the existing 63-character path representation. The VFS rejects
+and limited to the DenFS 255-character path representation. The VFS rejects
 mount-prefix lookalikes (for example `/proc-old` is not under `/proc`) and
 uses the most-specific mount when paths overlap.
 

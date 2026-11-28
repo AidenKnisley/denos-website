@@ -45,11 +45,11 @@ kernel as-is.
 Run:
 
 ```sh
-make libc-test
+make -f tests/Makefile libc-test
 ```
 
 The test is compiled with `-Wall -Wextra -Werror`. Run the complete regression
-suite with `make check`.
+suite with `make -f tests/Makefile check`.
 
 ## Important limitations
 

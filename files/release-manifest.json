@@ -1,20 +1,39 @@
 {
   "format": "DenOS source archive integrity manifest",
+  "current_release": "0.5.7",
   "archives": [
+    {
+      "filename": "DenOS-0.5.7.zip",
+      "bytes": 32617850,
+      "sha256": "245d66d4e8ddc8a233b616cd9797996d6fbe59eba12b8c3220ec8b63a1171951",
+      "release": "0.5.7",
+      "status": "current"
+    },
     {
       "filename": "DenOS-0.4.9.zip",
       "bytes": 61930599,
-      "sha256": "5522256ec747d20915a0836a76189c90590a4915677203ab07c93ac8d14455e8"
+      "sha256": "5522256ec747d20915a0836a76189c90590a4915677203ab07c93ac8d14455e8",
+      "release": "0.4.9",
+      "status": "archived"
     },
     {
       "filename": "DenOS 0.3.1.zip",
       "bytes": 54739,
-      "sha256": "542312d9dee04ad7c8a6183ce59799727614661e05f302fbf85675d9fdd9cd32"
+      "sha256": "542312d9dee04ad7c8a6183ce59799727614661e05f302fbf85675d9fdd9cd32",
+      "release": "0.3.1",
+      "status": "archived"
     },
     {
       "filename": "DenOS 0.3.zip",
       "bytes": 40437,
-      "sha256": "80913db50701ae628bf09af784606c0397c6a125ad1275572cd586cbe193e166"
+      "sha256": "80913db50701ae628bf09af784606c0397c6a125ad1275572cd586cbe193e166",
+      "release": "0.3",
+      "status": "archived"
     }
+  ],
+  "notes": [
+    "The DenOS 0.5.7 public source archive excludes the persistent denos-data.img disk and generated BearSSL build/cache artifacts.",
+    "The first make build creates a fresh 32 MiB data image when none exists.",
+    "No prebuilt ISO is included."
   ]
 }

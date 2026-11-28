@@ -1,4 +1,4 @@
-# DenOS virtual-memory manager (0.4.9)
+# DenOS virtual-memory manager (0.5.0)
 
 `kernel/mm/paging.c` is the first general x86-64 page-table manager in DenOS. It operates on the active four-level page-table root; it does not yet create isolated process address spaces. The bootstrap identity map is retained.
 
@@ -56,4 +56,4 @@ This manager is not a process-memory subsystem. It does not yet provide: per-pro
 
 ## Tests
 
-`make paging-test` runs the page-table manager tests; `make vmalloc-test` exercises virtual allocations, ownership validation, exhaustion, rollback, quarantine and reuse. `make check-kernel-c` checks all freestanding kernel C translation units. `make test` includes the paging test; `make check` runs both test and C-check targets. The host tests use synthetic page tables and allocator stubs, so they do not validate privileged CR3/CR0/CR4/MSR instructions or real TLB behavior. A QEMU boot and fault/mapping smoke test is still required.
+`make -f tests/Makefile paging-test` runs the page-table manager tests; `make -f tests/Makefile vmalloc-test` exercises virtual allocations, ownership validation, exhaustion, rollback, quarantine and reuse. `make -f tests/Makefile check-kernel-c` checks all freestanding kernel C translation units. `make -f tests/Makefile test` includes the paging test; `make -f tests/Makefile check` runs both test and C-check targets. The host tests use synthetic page tables and allocator stubs, so they do not validate privileged CR3/CR0/CR4/MSR instructions or real TLB behavior. A QEMU boot and fault/mapping smoke test is still required.

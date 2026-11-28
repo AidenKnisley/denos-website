@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111820">
-<title>Files And Storage · DenOS docs</title>
+<meta name="description" content="Files and Storage — DenFS v4 — DenOS 0.5.7 project documentation.">
+<title>Files and Storage — DenFS v4 · DenOS 0.5.7 docs</title>
 <link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="docs.css">
 </head>
@@ -14,155 +15,173 @@
   <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
 </header>
 <div class="docs-shell">
-  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
-<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
-<a class="side-link" href="aiden-c.html">Aiden C</a>
-<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
-<a class="side-link" href="building.html">Building</a>
-<a class="side-link" href="cli-tools.html">Cli Tools</a>
-<a class="side-link" href="daily-use.html">Daily Use</a>
-<a class="side-link" href="development-status.html">Development Status</a>
-<a class="side-link" href="drivers.html">Drivers</a>
-<a class="side-link" href="editor.html">Editor</a>
-<a class="side-link" href="events.html">Events</a>
-<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
-<a class="side-link active" href="files-and-storage.html">Files And Storage</a>
-<a class="side-link" href="graphics.html">Graphics</a>
-<a class="side-link" href="ipc.html">Ipc</a>
-<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
-<a class="side-link" href="memory-management.html">Memory Management</a>
-<a class="side-link" href="networking.html">Networking</a>
-<a class="side-link" href="performance.html">Performance</a>
-<a class="side-link" href="recovery.html">Recovery</a>
-<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
-<a class="side-link" href="release-9.0.html">Release 9.0</a>
-<a class="side-link" href="release-manifest.html">Release Manifest</a>
-<a class="side-link" href="roadmap.html">Roadmap</a>
-<a class="side-link" href="scheduler.html">Scheduler</a>
-<a class="side-link" href="support-matrix.html">Support Matrix</a>
-<a class="side-link" href="terminal.html">Terminal</a>
-<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
-<a class="side-link" href="user-guide.html">User Guide</a>
-<a class="side-link" href="vfs.html">Vfs</a>
-<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.5.7</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">CURRENT MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding a DenOS system component</a>
+<a class="side-link" href="aiden-c.html">Aiden C 5.3.0 — language and compiler guide</a>
+<a class="side-link" href="aiden-libc-roadmap.html">DenOS userland C library foundation</a>
+<a class="side-link" href="building.html">Building DenOS 0.5.7</a>
+<a class="side-link" href="cli-tools.html">DenOS command-line tools</a>
+<a class="side-link" href="daily-use.html">Everyday use of DenOS 0.5.7</a>
+<a class="side-link" href="development-status.html">DenOS development status — 0.5.7</a>
+<a class="side-link" href="drivers.html">DenOS hardware drivers</a>
+<a class="side-link" href="editor.html">DenOS text editor and C completion</a>
+<a class="side-link" href="events.html">DenOS kernel event queue</a>
+<a class="side-link" href="exceptions-and-panics.html">CPU exceptions and kernel panic diagnostics</a>
+<a class="side-link active" href="files-and-storage.html">Files and Storage — DenFS v4</a>
+<a class="side-link" href="graphics.html">DenOS graphics internals — inactive on normal boot</a>
+<a class="side-link" href="ipc.html">DenOS kernel message queues</a>
+<a class="side-link" href="kernel-architecture.html">DenOS kernel architecture</a>
+<a class="side-link" href="memory-management.html">DenOS 0.5.7 memory management</a>
+<a class="side-link" href="networking.html">DenOS 0.5.7 networking and terminal web reader</a>
+<a class="side-link" href="performance.html">DenOS performance notes</a>
+<a class="side-link" href="recovery.html">DenOS data backup, migration, and recovery</a>
+<a class="side-link" href="release-manifest.html">DenOS 0.5.7 source manifest</a>
+<a class="side-link" href="roadmap.html">DenOS roadmap</a>
+<a class="side-link" href="scheduler.html">DenOS cooperative kernel scheduler</a>
+<a class="side-link" href="support-matrix.html">DenOS 0.5.7 support matrix</a>
+<a class="side-link" href="terminal.html">DenOS 0.5.7 Terminal Guide</a>
+<a class="side-link" href="third-party-notices.html">Third-party notices</a>
+<a class="side-link" href="user-guide.html">DenOS 0.5.7 — User Guide</a>
+<a class="side-link" href="vfs.html">DenOS virtual filesystem namespace</a>
+<a class="side-link" href="virtual-memory.html">DenOS virtual-memory manager (0.5.0)</a>
+
+<div class="side-label">HISTORICAL NOTES</div>
+<a class="side-link" href="release-9.0.html">DenOS 9.0.0 — Release notes · archived</a>
+<a class="side-link" href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement · archived</a>
+
 </aside>
   <main class="docs-main" id="content">
-    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Files And Storage</span></div>
-    <article class="markdown-body"><h1 id="files-and-storage-denfs-v3">Files and Storage — DenFS v3</h1>
-<p>DenOS 0.4.9 uses DenFS v3, a fixed-slot persistent filesystem with directory paths. It is designed for small local text files and settings, not large binary files or high-throughput storage.</p>
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Files and Storage — DenFS v4</span></div>
+    <article class="markdown-body"><h1 id="files-and-storage--denfs-v4">Files and Storage — DenFS v4</h1>
+<p>DenOS 0.5.7 uses DenFS v4, a fixed-slot persistent filesystem with nested directories and long readable paths. It is designed for small local text files and settings, not large binary files or high-throughput storage.</p>
 <h2 id="1-storage-model">1. Storage model</h2>
-<p>DenFS stores a small directory table and one fixed-size data slot for each entry. A directory consumes a directory-table entry but no file-data slot content. Files and directories are addressed by normalized relative paths such as <code>home/user/Documents/notes.txt</code>.</p>
+<p>DenFS stores a directory table and one fixed-size data slot for each entry. A directory consumes a metadata entry but no file-data slot content. Files and directories use normalized relative paths such as <code>home/user/documents/Project Notes.md</code>.</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>Property</th>
-<th style="text-align:right">DenFS v3</th>
+<th style="text-align: right;">DenFS v4</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Directory entries</td>
-<td style="text-align:right">256</td>
+<td style="text-align: right;">256</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Maximum stored path/name</td>
-<td style="text-align:right">63 bytes plus NUL</td>
+<td style="text-align: right;">255 bytes plus NUL</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>File data slot</td>
-<td style="text-align:right">65,536 bytes</td>
+<td style="text-align: right;">65,536 bytes</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Maximum file contents</td>
-<td style="text-align:right">65,535 bytes</td>
+<td style="text-align: right;">65,535 bytes</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Data sectors per slot</td>
-<td style="text-align:right">128 × 512 bytes</td>
+<td style="text-align: right;">128 × 512 bytes</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Directory record</td>
-<td style="text-align:right">72 bytes</td>
+<td style="text-align: right;">264 bytes</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Directory table</td>
-<td style="text-align:right">36 sectors</td>
+<td style="text-align: right;">132 sectors</td>
 </tr>
-<tr>
+<tr class="even">
 <td>First data LBA</td>
-<td style="text-align:right">37</td>
+<td style="text-align: right;">133</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Required disk size</td>
-<td style="text-align:right">32,805 sectors (16,796,160 bytes)</td>
+<td style="text-align: right;">32,901 sectors (16,845,312 bytes)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Default QEMU data image</td>
-<td style="text-align:right">32 MiB</td>
+<td style="text-align: right;">32 MiB</td>
 </tr>
 </tbody>
 </table>
-<p>The usable file-content pool is <code>256 × 65,535</code> bytes (approximately 16 MiB). The fixed-slot design is simple and predictable but wastes space inside partially filled slots. The filesystem has no extents, journal, file permissions, timestamps, symbolic links, sparse files, or crash-recovery log.</p>
+<p>The usable file-content pool is <code>256 × 65,535</code> bytes (approximately 16 MiB). The fixed-slot design is simple and predictable but wastes space inside partially filled slots. The filesystem has no extents, journal, permissions, timestamps, symbolic links, sparse files, or crash-recovery log.</p>
 <h2 id="2-first-boot-directory-layout">2. First-boot directory layout</h2>
-<p>First boot creates:</p>
-<pre><code class="language-text">home/
+<p>First boot creates a lowercase home layout. The Aiden C sample installer places source files in matching <code>examples/</code>, <code>utilities/</code>, and <code>games/</code> folders. Existing capitalized legacy folders on older volumes are left untouched and are not duplicated on a fresh volume:</p>
+<pre class="text"><code>home/
 └── user/
-    ├── Documents/
-    ├── Downloads/
+    ├── documents/
+    │   ├── welcome.md
+    │   └── quick-notes.md
+    ├── downloads/
+    ├── projects/
+    │   └── hello.c
+    ├── examples/       # bundled Aiden C learning examples
+    ├── utilities/      # bundled Aiden C utility programs
+    ├── games/          # bundled Aiden C game sources
+    ├── pictures/
+    ├── music/
+    ├── videos/
+    ├── screenshots/
     ├── bin/
     └── tmp/
 etc/
+└── denos/
 var/
-└── log/
-</code></pre>
-<p>The shell starts in <code>home/user</code>. Relative paths are resolved against the current working directory; leading <code>/</code> paths are rooted at the DenOS filesystem namespace.</p>
+└── log/</code></pre>
+<p>The shell starts in <code>home/user</code>. Paths are case-sensitive. Relative paths resolve against the current working directory; leading <code>/</code> paths are rooted at the DenOS filesystem namespace.</p>
 <h2 id="3-path-safety">3. Path safety</h2>
-<p>The path layer rejects empty path components and repeated separators, <code>.</code> or <code>..</code> components in stored filenames, control bytes and device/path separator characters inside names, names longer than the 63-byte path limit, parent components that are not directories, and attempts to remove a non-empty directory. The normalizer rejects attempts to escape above the filesystem root.</p>
+<p>The path layer accepts printable ASCII names and spaces, up to 255 bytes for a complete stored path. It rejects empty path components, <code>.</code> and <code>..</code> in stored names, control bytes, backslashes, colons, leading/trailing separators, parent components that are not directories, and attempts to remove non-empty directories. The normalizer can process <code>.</code> and <code>..</code> in user input but refuses traversal above the root.</p>
 <h2 id="4-file-and-directory-operations">4. File and directory operations</h2>
 <p>The kernel filesystem API includes:</p>
-<pre><code class="language-c">int fs_write(const char *path, const char *data);
-const char *fs_read(const char *path);
-int fs_touch(const char *path);
-int fs_mkdir(const char *path);
-int fs_remove(const char *path);
-int fs_copy(const char *source, const char *destination);
-int fs_move(const char *source, const char *destination);
-int fs_is_directory(const char *path);
-usize fs_entry_count_in_dir(const char *directory);
-int fs_get_entry_in_dir(const char *directory, usize index,
-                        char *name, usize name_capacity,
-                        usize *size, int *entry_type);
-</code></pre>
-<p><code>fs_copy</code> and <code>fs_move</code> currently support files, not whole directory trees. <code>fs_remove</code> removes files and empty folders. A directory with children is rejected with <code>FS_ERROR_DIRECTORY_NOT_EMPTY</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_write<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>data<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>fs_read<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_touch<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_mkdir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_mkdir_p<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_remove<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_copy<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>source<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>destination<span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_move<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>source<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>destination<span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_rename<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>source<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>destination<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_exists<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_is_file<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_is_directory<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>usize fs_entry_count_in_dir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>directory<span class="op">);</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fs_get_entry_in_dir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>directory<span class="op">,</span> usize index<span class="op">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">char</span> <span class="op">*</span>name<span class="op">,</span> usize name_capacity<span class="op">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                        usize <span class="op">*</span>size<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>entry_type<span class="op">);</span></span></code></pre></div>
+<p><code>fs_touch</code> is idempotent for an existing file but rejects an existing directory with <code>FS_ERROR_IS_DIRECTORY</code>. <code>fs_copy</code>, <code>fs_move</code>, and <code>fs_rename</code> operate on files, not whole directory trees. <code>fs_remove</code> removes files and empty folders. A directory with children is rejected with <code>FS_ERROR_DIRECTORY_NOT_EMPTY</code>.</p>
 <p>The read API returns a pointer into the filesystem's in-memory cache. Treat it as read-only and do not retain it across another filesystem read if stable contents are needed. <code>fs_write</code> writes a NUL-terminated text buffer; arbitrary binary files are not yet a supported public feature. ELF validation and checksum utilities operate on buffers supplied by kernel code; this does not make DenFS a binary-safe filesystem.</p>
 <h2 id="5-persistence-and-mount-behavior">5. Persistence and mount behavior</h2>
-<p>When the ATA disk is available, DenFS reads metadata and file data from the attached image. The kernel keeps an in-memory cache for lookup and editing, then persists changes to the ATA disk. When no disk is attached, the filesystem runs in a RAM fallback mode. <code>df</code> reports the filesystem's current backing/capacity information.</p>
-<p>The standard QEMU image is named <code>denos-data.img</code>. The <code>make run</code> target attaches it explicitly as the primary IDE master (<code>if=ide,index=0</code>), which is the legacy PIO controller supported by the current ATA driver. The current driver does <strong>not</strong> support AHCI/SATA controllers or NVMe. In VirtualBox or another VM manager, attach a disk to an IDE controller; a SATA-only disk will not be detected and the kernel will correctly report RAM fallback. Booting an ISO without attaching the data image creates only a temporary RAM session.</p>
-<p>When persistent storage is mounted, a file write is only reported as committed after the ATA data and directory writes complete. If an ATA write or flush fails, DenFS rolls back the in-memory entry, disables further persistent writes for that boot, and exposes the storage fault through <code>diskinfo</code>, <code>bootlog</code>, and the save error. If the disk fails while booting, a failed file-data read now aborts the mount instead of presenting a partially loaded directory as healthy. Files saved while the system is in RAM fallback are explicitly labelled <strong>RAM only</strong> by the editor and <code>write</code> command.</p>
+<p>When the ATA disk is available, DenFS reads metadata and file data from the attached image. The kernel keeps an in-memory cache for lookup and editing, then persists changes to the ATA disk. When no disk is attached, the filesystem runs in RAM fallback mode. <code>df</code> reports current backing and capacity information.</p>
+<p>The standard QEMU image is named <code>denos-data.img</code>. The <code>make run</code> target attaches it as the primary IDE master (<code>if=ide,index=0</code>), which is the legacy PIO controller supported by the current ATA driver. The current driver does <strong>not</strong> support AHCI/SATA controllers or NVMe. In VirtualBox or another VM manager, attach a disk to an IDE controller; a SATA-only disk will not be detected and the kernel will correctly report RAM fallback. Booting an ISO without attaching the data image creates only a temporary RAM session.</p>
+<p>When persistent storage is mounted, a file write is reported as committed only after ATA data and directory writes complete. If an ATA write or flush fails, DenFS rolls back the in-memory entry, disables further persistent writes for that boot, and exposes the storage fault through <code>diskinfo</code>, <code>bootlog</code>, and the save error. A failed file-data read aborts the mount instead of presenting a partially loaded directory as healthy. Files saved in RAM fallback are temporary.</p>
 <p>Troubleshooting a RAM fallback:</p>
-<ol>
-<li>Run <code>make run</code> from the DenOS project directory; do not boot the ISO with a bare <code>-cdrom</code> command.</li>
-<li>Check that <code>denos-data.img</code> exists beside the Makefile and is at least 16,796,160 bytes (<code>make storage-upgrade</code> expands an older image safely, making a <code>.backup</code>).</li>
-<li>In DenOS, run <code>diskinfo</code> and <code>bootlog</code>. The boot log gives the ATA probe or mount failure reason.</li>
-<li>Do not use <code>make clean-data</code> unless you intentionally want to remove the persistent filesystem image. <code>make clean</code> preserves it.</li>
+<ol type="1">
+<li>Run <code>make run</code> from the project directory; do not boot the ISO with a bare <code>-cdrom</code> command.</li>
+<li>Check that <code>denos-data.img</code> exists beside the Makefile and is at least 16,845,312 bytes (back it up and enlarge it manually when necessary; see <code>docs/RECOVERY.md</code>).</li>
+<li>In DenOS, run <code>diskinfo</code> and <code>bootlog</code> to see the ATA probe or mount failure reason.</li>
+<li>The root Makefile has no destructive data-removal target. <code>make clean</code> preserves the data image; remove it manually only after a verified backup.</li>
 </ol>
-<h2 id="6-v1-v2-migration-to-v3">6. v1/v2 migration to v3</h2>
-<p>DenOS 0.4.9 recognizes two previous superblock layouts:</p>
+<h2 id="6-v1v2v3-migration-to-v4">6. v1/v2/v3 migration to v4</h2>
+<p>DenOS 0.5.7 recognizes three previous superblock layouts:</p>
 <ul>
 <li>v1: 48 entries, 16 KiB data slots, 7 directory sectors, flat file names.</li>
 <li>v2: 128 entries, 32 KiB data slots, 18 directory sectors, nested file and directory paths.</li>
+<li>v3: 256 entries, 64 KiB data slots, 36 directory sectors, up to 63-byte stored paths.</li>
 </ul>
-<p>On mount, recognized v1 or v2 entries are loaded into RAM, the v3 metadata/data layout is created, and existing file contents and v2 directory entries are copied into the new slot positions. Unknown filesystem formats are not reformatted. If migration fails, DenOS falls back to RAM and reports that a backup should be retained.</p>
+<p>On mount, recognized v1/v2/v3 entries are loaded into RAM, the v4 metadata/data layout is created, and existing file contents and directory entries are copied to their new slots. Legacy names are preserved within their original supported lengths. Unknown filesystem formats are not reformatted. If migration fails, DenOS falls back to RAM; retain the backup.</p>
 <p>Migration is not a substitute for a backup. Always preserve a copy of the raw image until you have booted the new release and verified your files.</p>
 <h2 id="7-expanding-an-older-disk-image">7. Expanding an older disk image</h2>
-<p>The v3 layout requires at least 16,796,160 bytes. The recommended image is 32 MiB. An older image may be only 8 MiB; expand it before <code>make run</code>:</p>
-<pre><code class="language-bash">make storage-upgrade
-</code></pre>
-<p>This target copies an existing image to <code>denos-data.img.backup</code> if that backup does not already exist, then extends the image to 32 MiB without shortening the existing sectors. If the file is already at least 32 MiB, it is left unchanged.</p>
+<p>The v4 layout requires at least 16,845,312 bytes. The recommended image is 32 MiB. An older or undersized image may be expanded before <code>make run</code>. Stop the VM, create and verify a backup, then extend the image to 32 MiB:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> denos-data.img denos-data.img.backup</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">truncate</span> <span class="at">-s</span> 32M denos-data.img</span></code></pre></div>
+<p>The build does not resize existing images automatically, and <code>run</code> refuses an undersized image. This avoids modifying a filesystem image without an explicit backup.</p>
 <h2 id="8-capacity-and-future-work">8. Capacity and future work</h2>
-<p>The current maximums are deliberately modest. The next filesystem milestone should move to variable-length extents or a block allocator, use a free-space bitmap, add checksums/journaling, and support larger files. Metadata should eventually include timestamps, attributes, and permissions. A real recovery utility should verify metadata before performing an in-place migration.</p>
+<p>The current maximums are deliberately modest. The next filesystem milestone should move to variable-length extents or a block allocator, use a free-space bitmap, add checksums/journaling, and support larger files. Metadata should eventually include timestamps, attributes, and permissions. A recovery utility should verify metadata before an in-place migration.</p>
 </article>
-    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+    <footer class="docs-footer"><span>DenOS 0.5.7 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
   </main>
 </div>
 </body></html>

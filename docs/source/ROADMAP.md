@@ -8,12 +8,12 @@ This roadmap prioritizes memory safety, storage integrity, hardware support, and
 - [x] E1000 network polling and periodic heap integrity check.
 - [x] VFS mount namespace with DenFS root, read-only procfs, and basic devfs.
 - [x] Per-task bounded IPC queues and timestamped kernel event queue.
-- [x] DenFS v3 with nested paths and recognized v1/v2 migration.
+- [x] DenFS v4 with 255-character paths and recognized v1/v2/v3 migration.
 - [x] PCI discovery and QEMU E1000/ARP/IPv4/ICMP network baseline.
 
 ## 9.1.0 — command-line kernel expansion (retained)
 
-- [x] Remove GUI renderer, application pages, PS/2 mouse subsystem, image decoder, and wallpaper assets from the build.
+- [x] Establish the original text-shell-only boot path and remove graphical app pages; the low-level renderer was later restored as an inactive kernel development library in 9.3.0.
 - [x] Boot directly into VGA text console with COM1 diagnostics.
 - [x] Add Multiboot2 boot argument parsing and `safe-mode` network suppression.
 - [x] Add monotonic clock conversions and a non-cryptographic PRNG.
@@ -69,8 +69,10 @@ This roadmap prioritizes memory safety, storage integrity, hardware support, and
 - [ ] Add interrupt-safe locking and deferred work queues.
 - [ ] Add USB host controller and USB HID.
 - [ ] Add AHCI/NVMe storage drivers.
-- [x] Add initial E1000/ARP/IPv4/ICMP QEMU networking.
-- [ ] Add portable NIC abstraction, DHCP, DNS, UDP/TCP sockets, and IPv6.
+- [x] Add E1000/ARP/IPv4/ICMP QEMU networking.
+- [x] Add bounded UDP, DHCP client, DNS A-record resolver/cache, synchronous TCP client and HTTP text page reader.
+- [x] Add optional BearSSL TLS 1.2 HTTPS with certificate-chain, hostname and date validation.
+- [ ] Add NIC abstraction, IPv6, automatic DHCP lease renewal, TLS 1.3/revocation checks, robust concurrent TCP sockets and TCP server support.
 - [ ] Add modern audio hardware support.
 
 ## 10.x — application ecosystem
@@ -101,7 +103,7 @@ Before describing a release as suitable for everyday use:
 - [ ] Add syntax-aware diagnostics and project/header symbol indexing.
 - [ ] Add protected user mode, address spaces, syscall ABI and isolated process execution.
 - [ ] Add preemptive scheduling, SMP and interrupt-driven device I/O.
-- [ ] Add a modern block storage stack, journaling filesystem, DHCP/DNS and TCP/UDP networking.
+- [ ] Add a modern block storage stack and journaling filesystem; complete secure/concurrent networking, TLS 1.3/revocation checks and IPv6.
 
 
 ## 9.4.1 reliability baseline

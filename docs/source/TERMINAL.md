@@ -1,23 +1,23 @@
-# DenOS 0.4.9 Terminal Guide
+# DenOS 0.5.7 Terminal Guide
 
-DenOS boots directly into its text shell. The console uses VGA 80×25 output and legacy PS/2 keyboard polling, with optional COM1 serial mirroring. No GUI terminal or graphical desktop is included.
+DenOS always boots directly into its VGA 80×25 text console. There is no GUI, window manager, framebuffer boot mode, or `desktop` command. The shell uses legacy PS/2 keyboard polling and optionally mirrors output to COM1.
 
 ## 1. Navigation and files
 
 ```text
 pwd
 ls
-ls Documents
-cd Documents
+ls documents
+cd documents
 cd ..
-mkdir Projects
+mkdir scratch-project
 touch ideas.txt
 write ideas.txt My first DenOS note
 cat ideas.txt
 edit ideas.txt
 ```
 
-`cp SOURCE DEST`, `mv SOURCE DEST`, `rm FILE`, and `rmdir EMPTY_DIRECTORY` manage files and empty directories. Quoted filenames are supported:
+`cp SOURCE DEST`, `mv SOURCE DEST`, `rm FILE`, and `rmdir EMPTY_DIRECTORY` manage files and empty directories. DenFS v4 supports paths and filenames up to 255 bytes; quoted filenames are supported:
 
 ```text
 edit "Meeting Notes.txt"
@@ -63,14 +63,17 @@ random
 
 `random` and `uuid` use a fast non-cryptographic PRNG. They are not suitable for cryptographic secrets. SHA-256 and CRC32 are integrity checks, not signatures or proof of authenticity.
 
-## 5. Experimental networking
+## 5. Networking and text browser
 
 ```text
 net
-ping 10.0.2.2
+dhcp
+dns example.com
+ping example.com
+web http://HOST/PATH
 ```
 
-`net` reports E1000 link, MAC, static IPv4, gateway, and frame counters. `ping` sends ICMP echo after ARP resolution. The default profile is for QEMU user-mode networking only; DHCP, DNS, TCP/UDP, IPv6, and Wi-Fi are not implemented.
+QEMU starts with a static `10.0.2.x` profile. `dhcp` requests a lease on another Ethernet network. `dns` resolves an IPv4 A record, `ping` accepts an address or hostname, and `web` reads HTTP or verified HTTPS pages as text in the normal build; HTTPS uses TLS 1.2 only. Use PageUp/PageDown or Up/Down to scroll; Home/End jump to the ends, `L` opens links, `1`-`9` opens a quick link, `G` enters a URL, `B`/`F` navigate history, `I` opens the image gallery, and `Q` exits. The limited HTML renderer supports common text blocks, basic CSS visibility rules, literal-string `document.write()` calls, and non-interlaced 8-bit PNG/QOI/uncompressed BMP images; it does not implement full CSS layout or a general JavaScript engine. IPv6, Wi-Fi, cookies, forms, and multiple concurrent TCP connections are unsupported. See `NETWORKING.md` for security and build details.
 
 ## 6. System limits
 

@@ -16,7 +16,7 @@ The ATA driver probes legacy IDE positions, issues IDENTIFY DEVICE, and performs
 
 ## PCI and Ethernet
 
-PCI configuration mechanism 1 provides device discovery and I/O BAR/command setup. The E1000 driver supports the QEMU Intel 82540EM-compatible device (`8086:100E`) with MMIO registers and DMA RX/TX rings. The network code supports ARP, IPv4 header validation, and ICMP echo. The supplied QEMU user-net profile is static; DHCP, DNS, TCP/UDP sockets, IPv6, and Wi-Fi are not implemented.
+PCI configuration mechanism 1 provides device discovery and I/O BAR/command setup. The E1000 driver supports the QEMU Intel 82540EM-compatible device (`8086:100E`) with MMIO registers and DMA RX/TX rings. The network stack layers ARP/IPv4/ICMP, UDP, DHCP client, DNS A-record resolver/cache, one synchronous TCP client, and an HTTP/HTTPS text reader over the E1000 driver. HTTPS is included by default (BearSSL TLS 1.2) with chain/hostname/date checks; see `NETWORKING.md`. QEMU starts with a static user-network profile; `dhcp` requests a lease elsewhere. TLS 1.3, revocation checks, IPv6, Wi-Fi, concurrent sockets, a TCP server, and fragment reassembly are not implemented. See `NETWORKING.md`.
 
 ## RTC, speaker, and diagnostics
 

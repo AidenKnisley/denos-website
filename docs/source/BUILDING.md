@@ -1,93 +1,95 @@
-# Building DenOS 0.4.9
+# Building DenOS 0.5.7
 
-This guide covers host regression tests, the freestanding kernel build, and running the text-console OS in QEMU.
+The root Makefile intentionally has only three user commands: `build`, `run`, and `clean`. Running plain `make` is equivalent to `make build`.
 
-## Supported build host
+## Build tools
 
-The maintained build recipe targets x86-64 Ubuntu or Debian. Equivalent toolchains may work on other Linux distributions. Native Windows builds are not supported; use Linux or a VM.
-
-Required tools:
-
-- GCC and GNU binutils
-- NASM
-- GRUB utilities with Multiboot2 support
-- Xorriso and mtools
-- GNU Make
-- QEMU x86 system emulator
-
-On Ubuntu/Debian:
+The maintained build host is x86-64 Linux. Install the required tools on Debian or Ubuntu:
 
 ```sh
 sudo apt update
-sudo apt install build-essential nasm grub-pc-bin grub-common \
-    xorriso mtools qemu-system-x86
+sudo apt install build-essential nasm grub-pc-bin grub-common xorriso mtools qemu-system-x86 python3
 ```
 
-## Build and test
+## Build
+
+From the project root:
 
 ```sh
-make test
-make
+make build
 ```
 
-`make test` runs 31 host-side test executables covering Aiden C/AEX1-AEX6 compatibility, Vim-style C completion and high-resolution QOI golden images, global storage/pointers, string and character built-ins, array bounds traps, user-defined functions, recursion, formatted I/O, compiler diagnostics, and every bundled C sample, plus IPC, events, VFS routing, cooperative scheduling, ATA PIO and DenFS migration, calculator arithmetic, core services, hardware mocks, PMM, keyboard polling, E1000 packet protocol handling, SHA-256/CRC32/UUID utilities, parsers, UTF-8 validation, bitmaps, ring buffers, environment and history, Multiboot2 boot arguments, MBR partition parsing, ELF64 structural validation, and service lifecycle management. These tests do not boot the kernel.
+This compiles all kernel C files with freestanding warning-as-error flags, assembles the x86-64 entry/interrupt code with NASM, links `build-tls/denos.elf`, and creates `build-tls/denos.iso` with GRUB by default (`build/` when `TLS=0`). App examples are embedded automatically. HTTPS is included in the normal build. `make build TLS=0` is available only when an HTTP-only image is specifically needed.
 
-`make` compiles every kernel C source (including `graphics.c`, `mouse.c`, and the QOI decoder) with freestanding warning-as-error flags, assembles the x86-64 entry/interrupt code, links `build/denos.elf`, and creates `build/denos.iso` with GRUB. The graphics library is linked but the default CLI boot does not initialize a desktop.
+`make` with no target also builds the ISO. Generated files are kept in `build-tls/` by default (`build/` when `TLS=0`).
 
-Build output is kept under `build/`. `make clean` removes build output but preserves personal disk images.
-
-## Data disk
-
-A successful default build creates a 32 MiB `denos-data.img` if no image exists. DenFS v3 requires at least 16,796,160 bytes. Expand an older image before booting:
-
-```sh
-make storage-upgrade
-```
-
-The command creates an adjacent `.backup` before extending an existing smaller image. Keep that backup until the new kernel has mounted the data and the important files have been checked.
-
-## Run in QEMU
+## Run
 
 ```sh
 make run
-# Optional display override:
+```
+
+The run target builds first when necessary, then starts QEMU with 512 MiB RAM, the DenOS ISO, the persistent ATA data image, and an E1000 adapter connected to QEMU user networking. The default display is GTK. Select SDL with:
+
+```sh
 make run QEMU_DISPLAY=sdl
 ```
 
-The run target launches a separate QEMU GTK window by default (`-display gtk`), with 512 MiB guest RAM, standard VGA text output, the GRUB ISO, and `denos-data.img` on the primary IDE controller. It attaches an E1000 network adapter to QEMU user-mode networking. The guest boots directly to an ANSI-capable 80×25 text console; COM1 diagnostics are saved to `build/serial.log`. Use `make run QEMU_DISPLAY=sdl` to select SDL when GTK is unavailable.
+Serial diagnostics are written to `build-tls/serial.log` by default (`build/serial.log` when `TLS=0`). The guest boots directly into the DenOS text shell.
 
-## Useful targets
+## Persistent data disk
 
-| Target | Meaning | Data safety |
-|---|---|---|
-| `make` | Build ISO; create a new data image if absent | Preserves existing image |
-| `make test` | Run all host regression tests | Does not touch guest data |
-| `make run` | Start QEMU with ISO, data disk, and E1000 | Writes to guest disk |
-| `make clean` | Remove generated build directory | Preserves data images |
-| `make storage-upgrade` | Back up and expand an older image | Retains backup |
-| `make clean-data` | Delete data images | Destructive |
+On the first successful build, DenOS creates `denos-data.img` as a 32 MiB zero-filled disk if the file does not already exist. Existing disk images are never overwritten by `build` or `clean`.
+
+DenFS v4 requires at least 16,845,312 bytes. `run` rejects a smaller existing image instead of silently changing user data. To enlarge an older image, stop the VM and make a backup first:
+
+```sh
+cp -a denos-data.img denos-data.img.backup
+truncate -s 32M denos-data.img
+```
+
+Keep the backup until DenOS has booted and you have verified your files.
+
+## HTTPS support
+
+The normal `make build` and `make run` commands include BearSSL TLS 1.2 and generate certificate trust anchors from the host system CA bundle. The project includes the BearSSL source tree; when it is absent, fetch and verify it with:
+
+```sh
+./tools/fetch_bearssl.sh third_party/BearSSL
+```
+
+Build and run normally; no extra flag is needed:
+
+```sh
+make build
+make run
+```
+
+A specific host CA bundle can be selected with `TLS_CA_BUNDLE=/path/to/ca-bundle.pem` for both commands. Use `TLS=0` to opt out of TLS. Otherwise the trust-root generator uses the system CA bundle. BearSSL is compiled freestanding with its Unix and Win32 clock backends disabled; DenOS supplies verification time from its RTC. HTTPS currently supports TLS 1.2 only, and certificate revocation checks are not implemented. Treat it as experimental, not suitable for sensitive activity.
+
+## Clean
+
+```sh
+make clean
+```
+
+This removes generated `build/` and `build-tls/` files. It preserves `denos-data.img`, so your DenOS files remain intact.
+
+## Developer regression tests
+
+The root Makefile stays limited to the three normal workflow commands. The host regression and static checks live in a separate Makefile:
+
+```sh
+make -f tests/Makefile test
+make -f tests/Makefile check
+```
+
+`test` builds and runs the host-side unit/integration suite. `check` additionally compiles every kernel C translation unit with freestanding warnings-as-errors, checks stack-frame usage, validates TLS adapter/freestanding configuration, and runs the userland library tests. These tests do not replace assembling the NASM sources, creating the ISO, or testing a real QEMU boot.
 
 ## Troubleshooting
 
-### `nasm: command not found`
-
-Install NASM. Host-side tests do not require the assembler, but the bootable kernel does.
-
-### GRUB cannot create the ISO
-
-Check `grub-mkrescue`, `xorriso`, `mtools`, and the GRUB PC binaries.
-
-### Storage falls back to RAM
-
-Check that QEMU attached `denos-data.img` as the primary IDE disk and that it is at least 16,796,160 bytes. The kernel will not automatically format unknown or malformed volumes.
-
-### Keyboard input does not work
-
-The current kernel uses legacy PS/2/i8042 polling. USB keyboards and USB HID are not implemented. Use QEMU's standard emulated keyboard.
-
-### A host test fails
-
-Run the failing binary under `build/` directly. Do not use `make clean-data` as a troubleshooting step.
-
-
-`make paging-test` runs the active-CR3 page-table suite; `make vmalloc-test` runs PMM-backed virtual-allocation tests. `make check-kernel-c` checks every kernel C translation unit with freestanding warning-as-error flags. `make check` runs the full host regression suite followed by the kernel C check. None of these commands replaces assembling NASM, linking the kernel, building the ISO, or launching a QEMU boot test.
+- `nasm: command not found`: install the `nasm` package.
+- `grub-mkrescue` or `xorriso` missing: install `grub-pc-bin`, `grub-common`, and `xorriso`.
+- `qemu-system-x86_64` missing: install `qemu-system-x86`.
+- Storage falls back to RAM: verify that QEMU attached `denos-data.img` as the primary IDE disk and that it is at least 16,845,312 bytes.
+- Keyboard input does not work: the current kernel uses legacy PS/2/i8042 polling; USB HID is not implemented. Use QEMU's standard emulated keyboard.

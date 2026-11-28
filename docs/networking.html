@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111820">
-<title>Networking · DenOS docs</title>
+<meta name="description" content="DenOS 0.5.7 networking and terminal web reader — DenOS 0.5.7 project documentation.">
+<title>DenOS 0.5.7 networking and terminal web reader · DenOS 0.5.7 docs</title>
 <link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="docs.css">
 </head>
@@ -14,103 +15,179 @@
   <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
 </header>
 <div class="docs-shell">
-  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
-<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
-<a class="side-link" href="aiden-c.html">Aiden C</a>
-<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
-<a class="side-link" href="building.html">Building</a>
-<a class="side-link" href="cli-tools.html">Cli Tools</a>
-<a class="side-link" href="daily-use.html">Daily Use</a>
-<a class="side-link" href="development-status.html">Development Status</a>
-<a class="side-link" href="drivers.html">Drivers</a>
-<a class="side-link" href="editor.html">Editor</a>
-<a class="side-link" href="events.html">Events</a>
-<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
-<a class="side-link" href="files-and-storage.html">Files And Storage</a>
-<a class="side-link" href="graphics.html">Graphics</a>
-<a class="side-link" href="ipc.html">Ipc</a>
-<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
-<a class="side-link" href="memory-management.html">Memory Management</a>
-<a class="side-link active" href="networking.html">Networking</a>
-<a class="side-link" href="performance.html">Performance</a>
-<a class="side-link" href="recovery.html">Recovery</a>
-<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
-<a class="side-link" href="release-9.0.html">Release 9.0</a>
-<a class="side-link" href="release-manifest.html">Release Manifest</a>
-<a class="side-link" href="roadmap.html">Roadmap</a>
-<a class="side-link" href="scheduler.html">Scheduler</a>
-<a class="side-link" href="support-matrix.html">Support Matrix</a>
-<a class="side-link" href="terminal.html">Terminal</a>
-<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
-<a class="side-link" href="user-guide.html">User Guide</a>
-<a class="side-link" href="vfs.html">Vfs</a>
-<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.5.7</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">CURRENT MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding a DenOS system component</a>
+<a class="side-link" href="aiden-c.html">Aiden C 5.3.0 — language and compiler guide</a>
+<a class="side-link" href="aiden-libc-roadmap.html">DenOS userland C library foundation</a>
+<a class="side-link" href="building.html">Building DenOS 0.5.7</a>
+<a class="side-link" href="cli-tools.html">DenOS command-line tools</a>
+<a class="side-link" href="daily-use.html">Everyday use of DenOS 0.5.7</a>
+<a class="side-link" href="development-status.html">DenOS development status — 0.5.7</a>
+<a class="side-link" href="drivers.html">DenOS hardware drivers</a>
+<a class="side-link" href="editor.html">DenOS text editor and C completion</a>
+<a class="side-link" href="events.html">DenOS kernel event queue</a>
+<a class="side-link" href="exceptions-and-panics.html">CPU exceptions and kernel panic diagnostics</a>
+<a class="side-link" href="files-and-storage.html">Files and Storage — DenFS v4</a>
+<a class="side-link" href="graphics.html">DenOS graphics internals — inactive on normal boot</a>
+<a class="side-link" href="ipc.html">DenOS kernel message queues</a>
+<a class="side-link" href="kernel-architecture.html">DenOS kernel architecture</a>
+<a class="side-link" href="memory-management.html">DenOS 0.5.7 memory management</a>
+<a class="side-link active" href="networking.html">DenOS 0.5.7 networking and terminal web reader</a>
+<a class="side-link" href="performance.html">DenOS performance notes</a>
+<a class="side-link" href="recovery.html">DenOS data backup, migration, and recovery</a>
+<a class="side-link" href="release-manifest.html">DenOS 0.5.7 source manifest</a>
+<a class="side-link" href="roadmap.html">DenOS roadmap</a>
+<a class="side-link" href="scheduler.html">DenOS cooperative kernel scheduler</a>
+<a class="side-link" href="support-matrix.html">DenOS 0.5.7 support matrix</a>
+<a class="side-link" href="terminal.html">DenOS 0.5.7 Terminal Guide</a>
+<a class="side-link" href="third-party-notices.html">Third-party notices</a>
+<a class="side-link" href="user-guide.html">DenOS 0.5.7 — User Guide</a>
+<a class="side-link" href="vfs.html">DenOS virtual filesystem namespace</a>
+<a class="side-link" href="virtual-memory.html">DenOS virtual-memory manager (0.5.0)</a>
+
+<div class="side-label">HISTORICAL NOTES</div>
+<a class="side-link" href="release-9.0.html">DenOS 9.0.0 — Release notes · archived</a>
+<a class="side-link" href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement · archived</a>
+
 </aside>
   <main class="docs-main" id="content">
-    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Networking</span></div>
-    <article class="markdown-body"><h1 id="denos-experimental-networking">DenOS experimental networking</h1>
-<p>DenOS 9.0.0 adds an intentionally narrow Ethernet path for the maintained QEMU PC configuration. This is an initial driver and protocol milestone, not a complete Internet stack.</p>
-<h2 id="supported-target">Supported target</h2>
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>DenOS 0.5.7 networking and terminal web reader</span></div>
+    <article class="markdown-body"><h1 id="denos-057-networking-and-terminal-web-reader">DenOS 0.5.7 networking and terminal web reader</h1>
+<p>DenOS 0.5.7 contains an early, bounded IPv4 client stack for the supported Intel E1000 device. It is designed for learning and QEMU networking, not as a complete or security-hardened Internet stack.</p>
+<h2 id="supported-hardware-and-link">Supported hardware and link</h2>
 <ul>
-<li>PCI configuration mechanism 1 discovery (I/O ports <code>0xCF8</code> / <code>0xCFC</code>).</li>
-<li>Intel 82540EM-compatible E1000 device (<code>8086:100E</code>).</li>
-<li>32-bit MMIO BAR, PCI memory decoding and bus mastering.</li>
-<li>Fixed, statically allocated DMA descriptor rings and 2 KiB packet buffers.</li>
-<li>Ethernet frame transmit/receive, ARP request/reply, IPv4 header/checksum validation, and ICMP echo request/reply.</li>
-<li>Static QEMU user-network profile: guest <code>10.0.2.15/24</code>, gateway <code>10.0.2.2</code>.</li>
+<li>PCI configuration-space discovery and the QEMU Intel 82540EM-compatible E1000 (<code>8086:100E</code>).</li>
+<li>32-bit MMIO BAR, PCI memory decoding/bus mastering, fixed DMA RX/TX rings, and cooperative polling.</li>
+<li>Ethernet II, ARP request/reply, an eight-entry expiring ARP cache, IPv4 header/checksum validation, and ICMP echo.</li>
+<li>IPv4 UDP checksums and a bounded datagram receive queue for kernel clients.</li>
+<li>Static QEMU user-network defaults: guest <code>10.0.2.15/24</code>, gateway <code>10.0.2.2</code>, DNS server <code>10.0.2.3</code>.</li>
 </ul>
-<p>The driver uses polling. It does not install an E1000 interrupt handler. Receive-ring polling runs as a bounded cooperative kernel service; the <code>ping</code> wait loop also services pending packets. The service scheduler runs from the kernel shell wait loop and from the bounded <code>ping</code> wait loop.</p>
-<h2 id="run-it">Run it</h2>
-<p>The supplied <code>make run</code> target attaches an E1000 device to QEMU's user-mode network backend. From the DenOS terminal:</p>
-<pre><code class="language-text">net
+<p>The NIC is polled rather than interrupt-driven. IPv4 fragments are dropped; there is no fragment reassembly. The maintained hardware target is QEMU's E1000 model, not every physical NIC.</p>
+<h2 id="getting-online">Getting online</h2>
+<p><code>make run</code> attaches an E1000 device to QEMU's user-mode NAT network. The static defaults are suitable for that QEMU network:</p>
+<pre class="text"><code>net
 ping 10.0.2.2
-</code></pre>
-<p><code>net</code> reports adapter/link state, MAC address, configured IPv4 address, gateway, and frame counters. <code>ping</code> resolves the target using ARP and sends one ICMP echo request.</p>
-<p>If the E1000 device is absent, uses an unsupported BAR layout, or cannot be initialized, the adapter remains offline and the rest of the OS continues booting.</p>
-<h2 id="important-limits">Important limits</h2>
+ping example.com</code></pre>
+<p>On another Ethernet network, request a lease explicitly:</p>
+<pre class="text"><code>dhcp
+net
+ping example.com</code></pre>
+<p>The DHCP client performs Discover/Offer/Request/Ack, checks the transaction ID and client MAC, validates option lengths, offered address/netmask, and selected-server identity, and applies router and DNS options. Lease renewal, release, expiry tracking, option overload, and persistent lease storage are not implemented. A DHCP failure leaves the previous configuration in place.</p>
+<h2 id="dns-and-diagnostics">DNS and diagnostics</h2>
+<pre class="text"><code>dns example.com
+ping example.com</code></pre>
+<p>The resolver asks the configured DNS server for IPv4 A records, validates the transaction and question, follows up to eight CNAME aliases (including compressed names), and caches successful answers using the minimum TTL across the alias chain (capped at one day). TTL-zero answers are not cached. Numeric IPv4 strings bypass DNS. AAAA/IPv6, search domains, DNS-over-TLS/HTTPS, and configurable resolver lists are not implemented.</p>
+<p><code>net</code> displays link state, MAC, address, netmask, gateway, DNS, RX/TX counters, and whether the current configuration came from DHCP or the built-in static profile.</p>
+<h2 id="terminal-web-reader">Terminal web reader</h2>
+<p>The <code>web</code> command fetches pages and renders readable text in the terminal:</p>
+<pre class="text"><code>web https://example.com/
+web http://example.com/</code></pre>
+<p>HTTPS is compiled into the normal build through the vendored BearSSL source. It uses TLS 1.2 only and offers ECDHE with AES-128-GCM or ChaCha20-Poly1305. The client sends SNI and checks the server name against the certificate, validates the certificate chain against a static trust-anchor list generated from the build host's system CA bundle, and checks certificate validity dates against the hardware RTC. If RDRAND is unavailable or fails, the clock is invalid, the CA list is empty, or any TLS/certificate check fails, the connection is rejected. It never retries the URL as unencrypted HTTP.</p>
+<h3 id="build-and-run-https-support">Build and run HTTPS support</h3>
+<p>The normal <code>make build</code> image includes HTTPS. The DenOS archive includes the pinned BearSSL source. When the source tree is absent, fetch it and verify its SHA-256 with <code>./tools/fetch_bearssl.sh third_party/BearSSL</code>. The build generates trust anchors from the host CA bundle automatically:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> run</span></code></pre></div>
+<p>To use a specific PEM/CRT CA bundle with the normal build:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build TLS_CA_BUNDLE=/path/to/ca-bundle.pem</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> run TLS_CA_BUNDLE=/path/to/ca-bundle.pem</span></code></pre></div>
+<p>BearSSL objects are built freestanding with fortification disabled and both BearSSL host clock backends explicitly disabled (<code>BR_USE_UNIX_TIME=0</code>, <code>BR_USE_WIN32_TIME=0</code>). DenOS supplies the verification date from its RTC with <code>br_x509_minimal_set_time()</code>, so the BearSSL object must not import the host <code>time()</code> API. The build host needs a C compiler, GNU Make, an archiver, and a system CA bundle. <code>curl</code> or <code>wget</code>, <code>sha256sum</code>, and <code>tar</code> are needed only when fetching BearSSL in a checkout where the vendored source tree is absent. The target CPU must implement a working x86 RDRAND instruction. The RTC is expected to be set to UTC and to a correct current date/time; an inaccurate clock can cause valid certificates to fail or, more seriously, weaken expiry checks. QEMU is launched with <code>+rdrand</code> and <code>-rtc base=utc</code> for the virtual CPU and UTC hardware clock.</p>
+<p>BearSSL 0.6 supports TLS 1.2 but not TLS 1.3. Its minimal X.509 engine validates signatures, issuer/subject relationships, key usage, basic constraints, critical extensions, certificate dates, and the requested server name, but it does not perform certificate revocation checks. This implementation is an experimental OS integration, not a production-hardened browser or TLS stack. Do not use it for banking, passwords, or other sensitive activity until it has been independently reviewed and tested against real servers.</p>
+<p>The vendored BearSSL 0.6 source is distributed under the MIT License; its copyright and license notices remain in <code>third_party/BearSSL</code>. Upstream describes this version as beta-quality, and its minimal X.509 verifier omits revocation checks. Treat this OS integration as experimental and not suitable for sensitive use. See <code>docs/THIRD-PARTY-NOTICES.md</code>.</p>
+<p>The terminal reader sends an HTTP/1.0 GET, supports one absolute HTTP or HTTPS redirect, accepts basic HTTP response framing including chunked transfer encoding, rejects duplicate/conflicting <code>Content-Length</code> and <code>Transfer-Encoding</code> headers and checks <code>Content-Length</code> for short responses. It renders common block-level HTML (headings, paragraphs, lists, tables, preformatted blocks, quotes, and separators), decodes a small safe subset of entities, wraps output for the 80-column console, and pages long documents. Use PageUp/PageDown or Up/Down to scroll, Home/End to jump, <code>L</code> to browse links, <code>1</code>-<code>9</code> to open a quick link, <code>G</code> to enter a URL, <code>B</code>/<code>F</code> to move backward/forward, <code>I</code> to browse images, and <code>Q</code> to exit. Relative, parent-directory (<code>../</code>), query-only, root-relative, protocol-relative, and absolute HTTP(S) links are resolved; a bounded back/forward history is kept. HTML entities are decoded in URL attributes. HTTPS-to-HTTP redirects are refused.</p>
+<p>The HTML renderer supports common text-oriented block structure (headings, paragraphs, lists, tables, quotes, preformatted blocks, separators, and inline emphasis/link markers). Its CSS subset handles <code>display:none</code> and <code>visibility:hidden</code> rules for simple tag, <code>.class</code>, and <code>#id</code> selectors, plus matching inline styles and the HTML <code>hidden</code> attribute; it does not perform full browser layout or style calculation. Inline scripts support only literal-string <code>document.write()</code>/<code>document.writeln()</code> calls; this is not a general JavaScript engine and does not run expressions, variables, loops, event handlers, or external scripts. Image references are collected in the <code>I</code> gallery; the graphics viewer decodes non-interlaced 8-bit PNG (grayscale, RGB, indexed/palette, grayscale-alpha, and RGBA), QOI, and uncompressed 24-bit/32-bit BMP, compositing transparency over white. JPEG, SVG, animated formats, interlaced/high-bit-depth PNG, external stylesheets, cookies, and form submission are not implemented. Image response data is capped at about 60 KiB and decoded images at 640×480. Response storage is bounded; oversized or interrupted pages are marked as truncated.</p>
+<p>A TCP/TLS idle operation waits up to six seconds before reporting a transport timeout. BearSSL error 31 is <code>BR_ERR_IO</code>; DenOS writes an additional <code>TLS transport detail</code> line to COM1/<code>build-tls/serial.log</code> (or <code>build/serial.log</code> when <code>TLS=0</code>) so it can be distinguished from certificate or TLS protocol failures. The detail identifies receive timeout, peer reset, peer EOF without <code>close_notify</code>, failed/unacknowledged send, or a closed peer receive window. A TLS error still aborts the connection and never disables verification.</p>
+<p>This remains a limited terminal text web client, not a graphical or standards-compliant browser. It supports one synchronous TCP client connection at a time, keyboard-operated links, a limited text renderer, and the documented image formats. There is no general JavaScript runtime, CSS box layout, mouse interaction, cookies, form submission, external CSS/JavaScript, JPEG/SVG/GIF decoding, fragment navigation, or multi-tab support.</p>
+<h2 id="protocol-and-security-limits">Protocol and security limits</h2>
 <ul>
-<li>No DHCP; the address is a QEMU-specific static profile.</li>
-<li>No DNS resolver, UDP socket API, TCP, IPv6, Wi-Fi, Bluetooth, VLAN, routing, firewall, or network configuration application.</li>
-<li>ARP cache currently holds one peer entry.</li>
-<li>IPv4 processing currently accepts ICMP only; there is no general-purpose socket layer.</li>
-<li>The driver supports the QEMU 82540EM/E1000 target, not every Intel NIC revision or arbitrary physical hardware.</li>
-<li>DMA buffers are identity-mapped kernel memory under the bootstrap's 4 GiB mapping. A future virtual-memory/IOMMU design must replace this assumption.</li>
-<li>The interface is not a security boundary and must not be used to process untrusted traffic on a real network.</li>
+<li>E1000 only; no Wi-Fi, USB NIC, VLAN, IPv6, or other network drivers.</li>
+<li>ARP/IPv4/ICMP/UDP and a deliberately small DHCP/DNS/TCP client subset.</li>
+<li>One synchronous TCP connection; no listening sockets, concurrent sockets, retransmission queue, SACK, window scaling, congestion control, or out-of-order reassembly.</li>
+<li>No IPv4 fragment reassembly, ICMP error handling, routing daemon, firewall, NAT, packet-filter API, or network configuration UI.</li>
+<li>DHCP lease renewal/expiry is not managed automatically.</li>
+<li>DNS supports IPv4 A lookup and bounded CNAME-chain following; AAAA/IPv6 remains unsupported.</li>
+<li>TLS 1.2 only in the normal BearSSL-enabled build; no TLS 1.3, certificate revocation (CRL/OCSP), client certificates, or secure time synchronization.</li>
+<li>The normal <code>make build</code>/<code>make run</code> workflow includes BearSSL HTTPS; use <code>TLS=0</code> only to make an HTTP-only image.</li>
+<li>Fixed buffers, bounded queues, and polling are used throughout. This code is not a security boundary and has not been validated against hostile Internet traffic.</li>
+<li>DMA buffers rely on the current identity-mapped physical-memory setup. An IOMMU-aware DMA allocator is future work.</li>
 </ul>
 <h2 id="implementation-map">Implementation map</h2>
 <table>
 <thead>
-<tr>
-<th>File</th>
+<tr class="header">
+<th>Source</th>
 <th>Responsibility</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>kernel/drivers/pci.c</code></td>
-<td>PCI configuration-space discovery and bus-master enablement</td>
+<td>PCI discovery and command-register setup</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>kernel/drivers/e1000.c</code></td>
-<td>E1000 MMIO registers, descriptor rings, DMA, polling and frame I/O</td>
+<td>E1000 MMIO, DMA descriptor rings, polling and frame I/O</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>kernel/net.c</code></td>
-<td>Ethernet, ARP, IPv4 validation, ICMP echo and static QEMU profile</td>
+<td>Ethernet, ARP cache, IPv4 and ICMP</td>
 </tr>
-<tr>
+<tr class="even">
+<td><code>kernel/net/udp.c</code></td>
+<td>UDP checksums, send and bounded receive queue</td>
+</tr>
+<tr class="odd">
+<td><code>kernel/net/dhcp.c</code></td>
+<td>DHCP client and lease validation</td>
+</tr>
+<tr class="even">
+<td><code>kernel/net/dns.c</code></td>
+<td>A/CNAME resolver, compressed-name validation and TTL cache</td>
+</tr>
+<tr class="odd">
+<td><code>kernel/net/tcp.c</code></td>
+<td>Single synchronous TCP client connection</td>
+</tr>
+<tr class="even">
+<td><code>kernel/net/tls.c</code></td>
+<td>BearSSL TLS 1.2 transport, SNI and X.509 validation</td>
+</tr>
+<tr class="odd">
+<td><code>kernel/net/bearssl_compat.c</code></td>
+<td>Minimal freestanding C runtime symbols required by BearSSL</td>
+</tr>
+<tr class="even">
+<td><code>kernel/net/http.c</code></td>
+<td>HTTP/HTTPS GET, response parsing and HTML-to-text rendering</td>
+</tr>
+<tr class="odd">
 <td><code>kernel/include/net.h</code></td>
-<td>Network status and ping interface</td>
+<td>Public network status and client API</td>
 </tr>
-<tr>
+<tr class="even">
+<td><code>kernel/include/net_internal.h</code></td>
+<td>Internal protocol interfaces</td>
+</tr>
+<tr class="odd">
+<td><code>tools/fetch_bearssl.sh</code></td>
+<td>Pinned source download and SHA-256 verification</td>
+</tr>
+<tr class="even">
+<td><code>tools/generate_tls_roots.sh</code></td>
+<td>Generate static trust anchors from the build host CA bundle</td>
+</tr>
+<tr class="odd">
 <td><code>tests/net_protocol_test.c</code></td>
-<td>Host tests for ARP replies, IPv4 validation and ICMP checksums</td>
+<td>ARP, IPv4, ICMP and checksum tests</td>
+</tr>
+<tr class="even">
+<td><code>tests/net_transport_test.c</code></td>
+<td>Emulated DHCP, DNS, TCP and HTTP peer tests</td>
 </tr>
 </tbody>
 </table>
-<p>The host protocol tests do not validate DMA operation or QEMU packet exchange. Those require an emulator smoke test after the ISO is built and booted.</p>
+<p>Host tests exercise packet logic with an emulated peer. The TLS adapter syntax check uses a test-only BearSSL API stub; it does not prove a real certificate handshake. <code>make -f tests/Makefile check-stack-usage</code> also compiles each kernel C unit with GCC stack-usage reports and enforces an 8 KiB per-function-frame budget. A real TLS smoke test requires an ISO build and live QEMU/Internet testing.</p>
 </article>
-    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+    <footer class="docs-footer"><span>DenOS 0.5.7 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
   </main>
 </div>
 </body></html>

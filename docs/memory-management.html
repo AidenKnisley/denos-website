@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111820">
-<title>Memory Management · DenOS docs</title>
+<meta name="description" content="DenOS 0.5.7 memory management — DenOS 0.5.7 project documentation.">
+<title>DenOS 0.5.7 memory management · DenOS 0.5.7 docs</title>
 <link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="docs.css">
 </head>
@@ -14,41 +15,44 @@
   <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
 </header>
 <div class="docs-shell">
-  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
-<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
-<a class="side-link" href="aiden-c.html">Aiden C</a>
-<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
-<a class="side-link" href="building.html">Building</a>
-<a class="side-link" href="cli-tools.html">Cli Tools</a>
-<a class="side-link" href="daily-use.html">Daily Use</a>
-<a class="side-link" href="development-status.html">Development Status</a>
-<a class="side-link" href="drivers.html">Drivers</a>
-<a class="side-link" href="editor.html">Editor</a>
-<a class="side-link" href="events.html">Events</a>
-<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
-<a class="side-link" href="files-and-storage.html">Files And Storage</a>
-<a class="side-link" href="graphics.html">Graphics</a>
-<a class="side-link" href="ipc.html">Ipc</a>
-<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
-<a class="side-link active" href="memory-management.html">Memory Management</a>
-<a class="side-link" href="networking.html">Networking</a>
-<a class="side-link" href="performance.html">Performance</a>
-<a class="side-link" href="recovery.html">Recovery</a>
-<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
-<a class="side-link" href="release-9.0.html">Release 9.0</a>
-<a class="side-link" href="release-manifest.html">Release Manifest</a>
-<a class="side-link" href="roadmap.html">Roadmap</a>
-<a class="side-link" href="scheduler.html">Scheduler</a>
-<a class="side-link" href="support-matrix.html">Support Matrix</a>
-<a class="side-link" href="terminal.html">Terminal</a>
-<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
-<a class="side-link" href="user-guide.html">User Guide</a>
-<a class="side-link" href="vfs.html">Vfs</a>
-<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.5.7</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">CURRENT MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding a DenOS system component</a>
+<a class="side-link" href="aiden-c.html">Aiden C 5.3.0 — language and compiler guide</a>
+<a class="side-link" href="aiden-libc-roadmap.html">DenOS userland C library foundation</a>
+<a class="side-link" href="building.html">Building DenOS 0.5.7</a>
+<a class="side-link" href="cli-tools.html">DenOS command-line tools</a>
+<a class="side-link" href="daily-use.html">Everyday use of DenOS 0.5.7</a>
+<a class="side-link" href="development-status.html">DenOS development status — 0.5.7</a>
+<a class="side-link" href="drivers.html">DenOS hardware drivers</a>
+<a class="side-link" href="editor.html">DenOS text editor and C completion</a>
+<a class="side-link" href="events.html">DenOS kernel event queue</a>
+<a class="side-link" href="exceptions-and-panics.html">CPU exceptions and kernel panic diagnostics</a>
+<a class="side-link" href="files-and-storage.html">Files and Storage — DenFS v4</a>
+<a class="side-link" href="graphics.html">DenOS graphics internals — inactive on normal boot</a>
+<a class="side-link" href="ipc.html">DenOS kernel message queues</a>
+<a class="side-link" href="kernel-architecture.html">DenOS kernel architecture</a>
+<a class="side-link active" href="memory-management.html">DenOS 0.5.7 memory management</a>
+<a class="side-link" href="networking.html">DenOS 0.5.7 networking and terminal web reader</a>
+<a class="side-link" href="performance.html">DenOS performance notes</a>
+<a class="side-link" href="recovery.html">DenOS data backup, migration, and recovery</a>
+<a class="side-link" href="release-manifest.html">DenOS 0.5.7 source manifest</a>
+<a class="side-link" href="roadmap.html">DenOS roadmap</a>
+<a class="side-link" href="scheduler.html">DenOS cooperative kernel scheduler</a>
+<a class="side-link" href="support-matrix.html">DenOS 0.5.7 support matrix</a>
+<a class="side-link" href="terminal.html">DenOS 0.5.7 Terminal Guide</a>
+<a class="side-link" href="third-party-notices.html">Third-party notices</a>
+<a class="side-link" href="user-guide.html">DenOS 0.5.7 — User Guide</a>
+<a class="side-link" href="vfs.html">DenOS virtual filesystem namespace</a>
+<a class="side-link" href="virtual-memory.html">DenOS virtual-memory manager (0.5.0)</a>
+
+<div class="side-label">HISTORICAL NOTES</div>
+<a class="side-link" href="release-9.0.html">DenOS 9.0.0 — Release notes · archived</a>
+<a class="side-link" href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement · archived</a>
+
 </aside>
   <main class="docs-main" id="content">
-    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Memory Management</span></div>
-    <article class="markdown-body"><h1 id="denos-0-4-9-memory-management">DenOS 0.4.9 memory management</h1>
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>DenOS 0.5.7 memory management</span></div>
+    <article class="markdown-body"><h1 id="denos-057-memory-management">DenOS 0.5.7 memory management</h1>
 <p>DenOS currently has two allocators with different jobs. The current system is still one kernel-owned execution context; these allocators do not yet provide isolated process address spaces. Do not confuse a physical page address with a kernel heap pointer.</p>
 <h2 id="physical-page-manager">Physical page manager</h2>
 <p><code>kernel/mm/pmm.c</code> parses the Multiboot2 information block passed by GRUB. It accepts the Multiboot2 boot magic (<code>PMM_BOOT_MAGIC</code>) and the memory-map tag (tag type 6, version 0). Each memory map entry must be at least 24 bytes. Only type-1 usable ranges become allocatable. All non-usable entries are treated as reserved.</p>
@@ -59,15 +63,14 @@
 <li>The Multiboot2 information block itself, when it is inside the mapped window.</li>
 </ul>
 <p>Public API (<code>kernel/include/pmm.h</code>):</p>
-<pre><code class="language-c">int pmm_init(u32 boot_magic, const void *multiboot_info,
-             u64 kernel_start, u64 kernel_end);
-void *pmm_alloc_page(void);
-int pmm_free_page(void *page);
-int pmm_page_is_allocated(const void *page);
-int pmm_get_stats(pmm_stats_t *stats);
-int pmm_is_initialized(void);
-u64 pmm_address_limit(void);
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pmm_init<span class="op">(</span>u32 boot_magic<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>multiboot_info<span class="op">,</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>             u64 kernel_start<span class="op">,</span> u64 kernel_end<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span>pmm_alloc_page<span class="op">(</span><span class="dt">void</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pmm_free_page<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>page<span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pmm_page_is_allocated<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>page<span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pmm_get_stats<span class="op">(</span>pmm_stats_t <span class="op">*</span>stats<span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pmm_is_initialized<span class="op">(</span><span class="dt">void</span><span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>u64 pmm_address_limit<span class="op">(</span><span class="dt">void</span><span class="op">);</span></span></code></pre></div>
 <p><code>pmm_alloc_page()</code> returns a 4096-byte-aligned identity-mapped address and clears the complete page before returning it. It returns <code>NULL</code> when the manager is not initialized or no free page remains. <code>pmm_free_page()</code> returns zero only for an allocated, managed, non-reserved, page-aligned address; it rejects null, unaligned, out-of-range, reserved, unmanaged, and already-free addresses. <code>pmm_page_is_allocated()</code> provides a non-mutating ownership check for a frame previously returned by PMM.</p>
 <p><code>pmm_stats_t</code> reports managed, free, currently allocated, and reserved page counts, plus memory-map entry diagnostics. Reserved pages are tracked independently from allocated pages. An allocated page is one obtained by <code>pmm_alloc_page()</code> and not yet returned by <code>pmm_free_page()</code>.</p>
 <p>The PMM uses static bitmaps in the kernel image, so its bookkeeping does not depend on heap allocation. It has an allocation hint to avoid rescanning from physical address zero for every request. There is no SMP locking yet; the kernel is currently a single-CPU experiment without preemptive multitasking.</p>
@@ -81,12 +84,11 @@ u64 pmm_address_limit(void);
 <p>This virtual allocator is deliberately separate from the current fixed 1 MiB <code>kmalloc</code> arena. It provides a safe API for explicitly sized virtual allocations, but does not yet make <code>kmalloc</code> dynamically grow. The static heap's existing semantics remain unchanged.</p>
 <h2 id="kernel-heap">Kernel heap</h2>
 <p><code>kernel/mm/heap.c</code> provides a separate fixed 1 MiB arena. This heap is not automatically backed by PMM pages. It uses 16-byte-aligned payloads and in-arena block headers.</p>
-<pre><code class="language-c">void memory_init(void);
-void *kmalloc(usize size);
-void *kcalloc(usize count, usize size);
-void *krealloc(void *pointer, usize size);
-void kfree(void *pointer);
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> memory_init<span class="op">(</span><span class="dt">void</span><span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span>kmalloc<span class="op">(</span>usize size<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span>kcalloc<span class="op">(</span>usize count<span class="op">,</span> usize size<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span>krealloc<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>pointer<span class="op">,</span> usize size<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> kfree<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>pointer<span class="op">);</span></span></code></pre></div>
 <ul>
 <li><code>kmalloc(0)</code> returns <code>NULL</code>. Other requests are rounded up to 16 bytes.</li>
 <li><code>kcalloc</code> checks <code>count * size</code> for overflow, allocates, then zeroes the requested byte count.</li>
@@ -100,7 +102,7 @@ void kfree(void *pointer);
 <h2 id="current-limitations">Current limitations</h2>
 <p>The PMM still manages only the first 1 GiB and page-table pages are accessed through the bootstrap identity map. The kernel heap remains a fixed 1 MiB arena and is not PMM-backed; the separate 64 MiB <code>kvalloc</code> window is available for explicitly managed kernel mappings but is not wired into <code>kmalloc</code>. The VMM edits the single active CR3 only; it does not provide separate task address spaces, demand paging, copy-on-write, swap, page ownership/refcounts, page-fault recovery, SMP locks, or TLB shootdowns. <code>VMM_USER</code> is a page-table bit, not a security boundary until a protected ring-3 process model exists. A future address-space subsystem must define shared kernel mappings and per-task ownership before switching CR3.</p>
 </article>
-    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+    <footer class="docs-footer"><span>DenOS 0.5.7 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
   </main>
 </div>
 </body></html>

@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111820">
-<title>Exceptions And Panics · DenOS docs</title>
+<meta name="description" content="CPU exceptions and kernel panic diagnostics — DenOS 0.5.7 project documentation.">
+<title>CPU exceptions and kernel panic diagnostics · DenOS 0.5.7 docs</title>
 <link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="docs.css">
 </head>
@@ -14,87 +15,62 @@
   <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
 </header>
 <div class="docs-shell">
-  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
-<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
-<a class="side-link" href="aiden-c.html">Aiden C</a>
-<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
-<a class="side-link" href="building.html">Building</a>
-<a class="side-link" href="cli-tools.html">Cli Tools</a>
-<a class="side-link" href="daily-use.html">Daily Use</a>
-<a class="side-link" href="development-status.html">Development Status</a>
-<a class="side-link" href="drivers.html">Drivers</a>
-<a class="side-link" href="editor.html">Editor</a>
-<a class="side-link" href="events.html">Events</a>
-<a class="side-link active" href="exceptions-and-panics.html">Exceptions And Panics</a>
-<a class="side-link" href="files-and-storage.html">Files And Storage</a>
-<a class="side-link" href="graphics.html">Graphics</a>
-<a class="side-link" href="ipc.html">Ipc</a>
-<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
-<a class="side-link" href="memory-management.html">Memory Management</a>
-<a class="side-link" href="networking.html">Networking</a>
-<a class="side-link" href="performance.html">Performance</a>
-<a class="side-link" href="recovery.html">Recovery</a>
-<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
-<a class="side-link" href="release-9.0.html">Release 9.0</a>
-<a class="side-link" href="release-manifest.html">Release Manifest</a>
-<a class="side-link" href="roadmap.html">Roadmap</a>
-<a class="side-link" href="scheduler.html">Scheduler</a>
-<a class="side-link" href="support-matrix.html">Support Matrix</a>
-<a class="side-link" href="terminal.html">Terminal</a>
-<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
-<a class="side-link" href="user-guide.html">User Guide</a>
-<a class="side-link" href="vfs.html">Vfs</a>
-<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.5.7</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">CURRENT MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding a DenOS system component</a>
+<a class="side-link" href="aiden-c.html">Aiden C 5.3.0 — language and compiler guide</a>
+<a class="side-link" href="aiden-libc-roadmap.html">DenOS userland C library foundation</a>
+<a class="side-link" href="building.html">Building DenOS 0.5.7</a>
+<a class="side-link" href="cli-tools.html">DenOS command-line tools</a>
+<a class="side-link" href="daily-use.html">Everyday use of DenOS 0.5.7</a>
+<a class="side-link" href="development-status.html">DenOS development status — 0.5.7</a>
+<a class="side-link" href="drivers.html">DenOS hardware drivers</a>
+<a class="side-link" href="editor.html">DenOS text editor and C completion</a>
+<a class="side-link" href="events.html">DenOS kernel event queue</a>
+<a class="side-link active" href="exceptions-and-panics.html">CPU exceptions and kernel panic diagnostics</a>
+<a class="side-link" href="files-and-storage.html">Files and Storage — DenFS v4</a>
+<a class="side-link" href="graphics.html">DenOS graphics internals — inactive on normal boot</a>
+<a class="side-link" href="ipc.html">DenOS kernel message queues</a>
+<a class="side-link" href="kernel-architecture.html">DenOS kernel architecture</a>
+<a class="side-link" href="memory-management.html">DenOS 0.5.7 memory management</a>
+<a class="side-link" href="networking.html">DenOS 0.5.7 networking and terminal web reader</a>
+<a class="side-link" href="performance.html">DenOS performance notes</a>
+<a class="side-link" href="recovery.html">DenOS data backup, migration, and recovery</a>
+<a class="side-link" href="release-manifest.html">DenOS 0.5.7 source manifest</a>
+<a class="side-link" href="roadmap.html">DenOS roadmap</a>
+<a class="side-link" href="scheduler.html">DenOS cooperative kernel scheduler</a>
+<a class="side-link" href="support-matrix.html">DenOS 0.5.7 support matrix</a>
+<a class="side-link" href="terminal.html">DenOS 0.5.7 Terminal Guide</a>
+<a class="side-link" href="third-party-notices.html">Third-party notices</a>
+<a class="side-link" href="user-guide.html">DenOS 0.5.7 — User Guide</a>
+<a class="side-link" href="vfs.html">DenOS virtual filesystem namespace</a>
+<a class="side-link" href="virtual-memory.html">DenOS virtual-memory manager (0.5.0)</a>
+
+<div class="side-label">HISTORICAL NOTES</div>
+<a class="side-link" href="release-9.0.html">DenOS 9.0.0 — Release notes · archived</a>
+<a class="side-link" href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement · archived</a>
+
 </aside>
   <main class="docs-main" id="content">
-    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Exceptions And Panics</span></div>
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>CPU exceptions and kernel panic diagnostics</span></div>
     <article class="markdown-body"><h1 id="cpu-exceptions-and-kernel-panic-diagnostics">CPU exceptions and kernel panic diagnostics</h1>
-<p>DenOS 0.4.9 installs CPU exception gates at the first instruction-level entry to <code>kernel_main</code>, before serial/console
-initialization and before memory, filesystem, or device subsystems are started.</p>
+<p>DenOS 0.5.7 installs CPU exception gates at the first instruction-level entry to <code>kernel_main</code>, before serial/console initialization and before memory, filesystem, or device subsystems are started.</p>
 <h2 id="captured-state">Captured state</h2>
-<p>The common assembly entry normalizes the optional CPU error-code slot and
-captures all general-purpose registers plus the architectural return frame.
-The C diagnostic prints the vector/name, error code, RIP, RSP, RBP, RFLAGS,
-CS/SS, and GPR values. Page faults additionally report CR2 and decode the
-present/write/user/reserved/instruction/protection-key/shadow-stack/SGX bits.</p>
-<p>The stack walker follows at most eight frame-pointer links and validates each
-link against the bootstrap kernel stack bounds. Kernel C is compiled with
-<code>-fno-omit-frame-pointer</code> so these links can be useful. The trace prints return
-addresses, not symbol names; use the linker's map/debug information to resolve
-them.</p>
+<p>The common assembly entry normalizes the optional CPU error-code slot and captures all general-purpose registers plus the architectural return frame. The C diagnostic prints the vector/name, error code, RIP, RSP, RBP, RFLAGS, CS/SS, and GPR values. Page faults additionally report CR2 and decode the present/write/user/reserved/instruction/protection-key/shadow-stack/SGX bits.</p>
+<p>The stack walker follows at most eight frame-pointer links and validates each link against the bootstrap kernel stack bounds. Kernel C is compiled with <code>-fno-omit-frame-pointer</code> so these links can be useful. The trace prints return addresses, not symbol names; use the linker's map/debug information to resolve them.</p>
 <h2 id="double-fault-stack">Double-fault stack</h2>
-<p>The bootstrap GDT now includes a 64-bit TSS. Its IST1 points to a dedicated
-16 KiB emergency stack, and IDT vector 8 uses IST1. The regular RSP0 is the
-existing bootstrap stack top. The descriptor is installed and loaded only
-after ordinary exception gates are live, so a TSS setup fault can itself be
-reported.</p>
+<p>The bootstrap GDT now includes a 64-bit TSS. Its IST1 points to a dedicated 16 KiB emergency stack, and IDT vector 8 uses IST1. The regular RSP0 is the existing bootstrap stack top. The descriptor is installed and loaded only after ordinary exception gates are live, so a TSS setup fault can itself be reported.</p>
 <h2 id="dedicated-timer-irq-stack-and-register-preservation">Dedicated timer IRQ stack and register preservation</h2>
-<p>PIT IRQ0 is configured to use TSS IST2, a separate 16 KiB stack. It does not
-consume the interrupted shell or kernel stack while saving its state and calling
-the C handler. IST1 remains reserved for double fault. The PIT IRQ stub now
-preserves every general-purpose register across the asynchronous interrupt. It continues to save/restore the x87/SSE state with
-FXSAVE/FXRSTOR and to issue the PIC EOI after incrementing the tick count.</p>
+<p>PIT IRQ0 is configured to use TSS IST2, a separate 16 KiB stack. It does not consume the interrupted shell or kernel stack while saving its state and calling the C handler. IST1 remains reserved for double fault. The PIT IRQ stub now preserves every general-purpose register across the asynchronous interrupt. It continues to save/restore the x87/SSE state with FXSAVE/FXRSTOR and to issue the PIC EOI after incrementing the tick count.</p>
 <h2 id="limits">Limits</h2>
-<p>This is fatal-kernel diagnostics, not process recovery. There is no user-mode
-fault isolation or page-fault demand pager yet. An exception during the 32-bit Multiboot/long-mode bootstrap before
-<code>kernel_main</code> installs the IDT (for example, during the 32-bit Multiboot bootstrap) can still
-reset the machine. The emergency IST1 is dedicated to double fault and IST2 is dedicated to PIT IRQ0;
-NMI and machine-check recovery are not implemented. Stack traces depend on an
-intact frame chain and may be incomplete after stack corruption.</p>
+<p>This is fatal-kernel diagnostics, not process recovery. There is no user-mode fault isolation or page-fault demand pager yet. An exception during the 32-bit Multiboot/long-mode bootstrap before <code>kernel_main</code> installs the IDT (for example, during the 32-bit Multiboot bootstrap) can still reset the machine. The emergency IST1 is dedicated to double fault and IST2 is dedicated to PIT IRQ0; NMI and machine-check recovery are not implemented. Stack traces depend on an intact frame chain and may be incomplete after stack corruption.</p>
 <h2 id="validation">Validation</h2>
 <p>Run:</p>
-<pre><code class="language-sh">make exception-test
-make test
-make
-</code></pre>
-<p>The host test validates vector names, architectural error-code classification,
-and page-fault error-bit decoding. <code>make</code> also assembles the stubs, links the
-TSS/IDT path, and builds the ISO. A QEMU fault-injection boot test should then
-trigger <code>ud2</code> in a disposable debug build and verify the #UD report, and trigger
-a controlled unmapped access to verify CR2/#PF. Do not place those faults in
-normal release startup.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-f</span> tests/Makefile exception-test</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-f</span> tests/Makefile test</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span></code></pre></div>
+<p>The host test validates vector names, architectural error-code classification, and page-fault error-bit decoding. <code>make</code> also assembles the stubs, links the TSS/IDT path, and builds the ISO. A QEMU fault-injection boot test should then trigger <code>ud2</code> in a disposable debug build and verify the #UD report, and trigger a controlled unmapped access to verify CR2/#PF. Do not place those faults in normal release startup.</p>
 </article>
-    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+    <footer class="docs-footer"><span>DenOS 0.5.7 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
   </main>
 </div>
 </body></html>

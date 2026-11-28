@@ -12,7 +12,7 @@ New kernel code should be a small freestanding C subsystem with a public header,
 - Kernel-wide services belong in `kernel/sys/`.
 - Filesystem backends belong in `kernel/fs/`.
 
-Add the `.c` and `.h` files in the corresponding folders. The Makefile discovers kernel C files recursively, so no source list update is required. Add explicit host test targets and include them in `make test`.
+Add the `.c` and `.h` files in the corresponding folders. The Makefile discovers kernel C files recursively, so no source list update is required. Add explicit host test targets and include them in `make -f tests/Makefile test`.
 
 ## Startup integration
 
@@ -29,4 +29,4 @@ If a subsystem needs initialization, call it from `kernel/kernel.c` after its de
 
 ## Verification
 
-Run the specific host test and then `make test`. Compile every kernel C file with the project freestanding `-Wall -Wextra -Werror` flags. A passing host suite is not equivalent to an ISO build or QEMU boot test; report those separately.
+Run the specific host test and then `make -f tests/Makefile test`. Compile every kernel C file with the project freestanding `-Wall -Wextra -Werror` flags. A passing host suite is not equivalent to an ISO build or QEMU boot test; report those separately.

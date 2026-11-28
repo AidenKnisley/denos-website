@@ -162,17 +162,17 @@
   const demoCommands = {
     help: [
       "Documented demo topics:",
-      "about  version  paging  memory  network  compiler  graphics  clear",
+      "about  version  paging  memory  network  web  compiler  graphics  clear",
       "Also try: net  vmstat  cinfo"
     ],
     about: [
-      "DenOS 0.4.9 — experimental independent x86-64 operating system.",
+      "DenOS 0.5.7 — experimental terminal-first x86-64 operating system.",
       "Boot path: GRUB Multiboot2 → long mode → VGA text console.",
       "This browser panel is a static project tour, not a live OS."
     ],
     version: [
-      "DenOS 0.4.9",
-      "Aiden C 5.2.4",
+      "DenOS 0.5.7",
+      "Aiden C 5.3.0",
       "Bytecode target: AEX6 (interpreted by the in-kernel VM)."
     ],
     paging: [
@@ -192,28 +192,34 @@
       "This tour does not query a running kernel or show live allocation counters."
     ],
     network: [
-      "Network baseline:",
-      "PCI discovery + QEMU E1000 adapter, Ethernet frames, ARP, IPv4 validation and ICMP echo.",
-      "No DHCP, DNS, TCP/UDP sockets, IPv6, Wi-Fi or Bluetooth."
+      "Network client stack:",
+      "QEMU E1000 / ARP / IPv4 / ICMP / UDP, manual DHCP, DNS A+CNAME lookup and one synchronous TCP client.",
+      "HTTP and BearSSL TLS 1.2 HTTPS are available; no IPv6, Wi-Fi, TCP server or concurrent sockets."
     ],
     net: [
-      "Network baseline:",
-      "QEMU E1000 / static guest profile / ARP / IPv4 / ICMP echo.",
-      "The real adapter is polled; host-side protocol tests do not validate DMA or QEMU packet exchange."
+      "Network client stack:",
+      "QEMU E1000 / DHCP / DNS / ARP / IPv4 / ICMP / UDP / TCP.",
+      "The NIC is polled. Host protocol tests do not replace a live QEMU network smoke test."
+    ],
+    web: [
+      "Terminal web reader:",
+      "web https://example.com/ opens a bounded HTTP/HTTPS text page; HTTPS is enabled in the normal build with BearSSL TLS 1.2.",
+      "PageUp/PageDown scroll; L opens the link list; G enters a URL; B/F navigate history; I opens PNG/QOI/BMP images.",
+      "No general JavaScript engine, full CSS layout, forms, cookies, JPEG/SVG/GIF or graphical browser."
     ],
     compiler: [
-      "Aiden C 5.2.4:",
+      "Aiden C 5.3.0:",
       "A bounded C subset compiled to AEX6 bytecode, then interpreted in kernel context.",
       "Not ISO C, not native x86-64 code, and not a security boundary."
     ],
     cinfo: [
-      "Aiden C 5.2.4 · AEX6",
+      "Aiden C 5.3.0 · AEX6",
       "The real shell includes cinfo and cc --version compiler information commands.",
       "This static demo is not invoking the compiler."
     ],
     graphics: [
       "Graphics library:",
-      "Software renderer, framebuffer API, geometry/text helpers, window/event utilities and QOI decoder.",
+      "Software renderer, framebuffer API, geometry/text helpers, and image decoders used by the terminal web image gallery.",
       "The normal CLI boot does not start a desktop; no GPU acceleration is included."
     ],
     clear: []

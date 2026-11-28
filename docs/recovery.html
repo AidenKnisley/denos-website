@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111820">
-<title>Recovery · DenOS docs</title>
+<meta name="description" content="DenOS data backup, migration, and recovery — DenOS 0.5.7 project documentation.">
+<title>DenOS data backup, migration, and recovery · DenOS 0.5.7 docs</title>
 <link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="docs.css">
 </head>
@@ -14,87 +15,76 @@
   <nav><a href="../index.html">Home</a><a href="index.html">Docs library</a><a href="../#releases">Source releases</a></nav>
 </header>
 <div class="docs-shell">
-  <aside class="docs-side"><div class="side-overline">DENOS / 0.4.9</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">MANUALS</div>
-<a class="side-link" href="adding-a-system-component.html">Adding A System Component</a>
-<a class="side-link" href="aiden-c.html">Aiden C</a>
-<a class="side-link" href="aiden-libc-roadmap.html">Aiden Libc Roadmap</a>
-<a class="side-link" href="building.html">Building</a>
-<a class="side-link" href="cli-tools.html">Cli Tools</a>
-<a class="side-link" href="daily-use.html">Daily Use</a>
-<a class="side-link" href="development-status.html">Development Status</a>
-<a class="side-link" href="drivers.html">Drivers</a>
-<a class="side-link" href="editor.html">Editor</a>
-<a class="side-link" href="events.html">Events</a>
-<a class="side-link" href="exceptions-and-panics.html">Exceptions And Panics</a>
-<a class="side-link" href="files-and-storage.html">Files And Storage</a>
-<a class="side-link" href="graphics.html">Graphics</a>
-<a class="side-link" href="ipc.html">Ipc</a>
-<a class="side-link" href="kernel-architecture.html">Kernel Architecture</a>
-<a class="side-link" href="memory-management.html">Memory Management</a>
-<a class="side-link" href="networking.html">Networking</a>
-<a class="side-link" href="performance.html">Performance</a>
-<a class="side-link active" href="recovery.html">Recovery</a>
-<a class="side-link" href="release-9.0.1.html">Release 9.0.1</a>
-<a class="side-link" href="release-9.0.html">Release 9.0</a>
-<a class="side-link" href="release-manifest.html">Release Manifest</a>
-<a class="side-link" href="roadmap.html">Roadmap</a>
-<a class="side-link" href="scheduler.html">Scheduler</a>
-<a class="side-link" href="support-matrix.html">Support Matrix</a>
-<a class="side-link" href="terminal.html">Terminal</a>
-<a class="side-link" href="third-party-notices.html">Third Party Notices</a>
-<a class="side-link" href="user-guide.html">User Guide</a>
-<a class="side-link" href="vfs.html">Vfs</a>
-<a class="side-link" href="virtual-memory.html">Virtual Memory</a>
+  <aside class="docs-side"><div class="side-overline">DENOS / 0.5.7</div><a href="index.html" class="side-home">← All documentation</a><div class="side-label">CURRENT MANUALS</div>
+<a class="side-link" href="adding-a-system-component.html">Adding a DenOS system component</a>
+<a class="side-link" href="aiden-c.html">Aiden C 5.3.0 — language and compiler guide</a>
+<a class="side-link" href="aiden-libc-roadmap.html">DenOS userland C library foundation</a>
+<a class="side-link" href="building.html">Building DenOS 0.5.7</a>
+<a class="side-link" href="cli-tools.html">DenOS command-line tools</a>
+<a class="side-link" href="daily-use.html">Everyday use of DenOS 0.5.7</a>
+<a class="side-link" href="development-status.html">DenOS development status — 0.5.7</a>
+<a class="side-link" href="drivers.html">DenOS hardware drivers</a>
+<a class="side-link" href="editor.html">DenOS text editor and C completion</a>
+<a class="side-link" href="events.html">DenOS kernel event queue</a>
+<a class="side-link" href="exceptions-and-panics.html">CPU exceptions and kernel panic diagnostics</a>
+<a class="side-link" href="files-and-storage.html">Files and Storage — DenFS v4</a>
+<a class="side-link" href="graphics.html">DenOS graphics internals — inactive on normal boot</a>
+<a class="side-link" href="ipc.html">DenOS kernel message queues</a>
+<a class="side-link" href="kernel-architecture.html">DenOS kernel architecture</a>
+<a class="side-link" href="memory-management.html">DenOS 0.5.7 memory management</a>
+<a class="side-link" href="networking.html">DenOS 0.5.7 networking and terminal web reader</a>
+<a class="side-link" href="performance.html">DenOS performance notes</a>
+<a class="side-link active" href="recovery.html">DenOS data backup, migration, and recovery</a>
+<a class="side-link" href="release-manifest.html">DenOS 0.5.7 source manifest</a>
+<a class="side-link" href="roadmap.html">DenOS roadmap</a>
+<a class="side-link" href="scheduler.html">DenOS cooperative kernel scheduler</a>
+<a class="side-link" href="support-matrix.html">DenOS 0.5.7 support matrix</a>
+<a class="side-link" href="terminal.html">DenOS 0.5.7 Terminal Guide</a>
+<a class="side-link" href="third-party-notices.html">Third-party notices</a>
+<a class="side-link" href="user-guide.html">DenOS 0.5.7 — User Guide</a>
+<a class="side-link" href="vfs.html">DenOS virtual filesystem namespace</a>
+<a class="side-link" href="virtual-memory.html">DenOS virtual-memory manager (0.5.0)</a>
+
+<div class="side-label">HISTORICAL NOTES</div>
+<a class="side-link" href="release-9.0.html">DenOS 9.0.0 — Release notes · archived</a>
+<a class="side-link" href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement · archived</a>
+
 </aside>
   <main class="docs-main" id="content">
-    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>Recovery</span></div>
+    <div class="docs-breadcrumb"><a href="../index.html">DenOS</a><span>/</span><a href="index.html">Documentation</a><span>/</span><span>DenOS data backup, migration, and recovery</span></div>
     <article class="markdown-body"><h1 id="denos-data-backup-migration-and-recovery">DenOS data backup, migration, and recovery</h1>
 <p>DenOS is experimental software. Keep a second copy of important files outside the DenOS disk image. DenFS is not a journaling filesystem and does not provide crash-consistent transactions across power loss.</p>
 <h2 id="where-personal-data-lives">Where personal data lives</h2>
-<p>The persistent QEMU disk is <code>denos-data.img</code> in the project directory. The current first-boot layout creates:</p>
-<ul>
-<li><code>/home/user/Documents</code></li>
-<li><code>/home/user/Downloads</code></li>
-<li><code>/home/user/bin</code></li>
-<li><code>/home/user/tmp</code></li>
-<li><code>/var/log</code></li>
-<li><code>/etc</code></li>
-</ul>
-<p>The default shell working directory is <code>/home/user</code>. Configuration and system files live under <code>/etc</code>; there is no desktop-preferences directory in this command-line release.</p>
+<p>The persistent QEMU disk is <code>denos-data.img</code> in the project directory. The current first-boot layout creates <code>/home/user/documents</code>, <code>downloads</code>, <code>projects</code>, <code>examples</code>, <code>utilities</code>, <code>pictures</code>, <code>music</code>, <code>videos</code>, <code>screenshots</code>, <code>games</code>, <code>bin</code>, and <code>tmp</code>, along with <code>/etc/denos</code> and <code>/var/log</code>. Existing capitalized legacy directories on older volumes are left untouched. Sample Aiden C sources are seeded into <code>examples/</code>, <code>games/</code>, and <code>utilities/</code> only when each destination is absent. The shell starts in <code>/home/user</code>; Notes uses <code>/home/user/documents/quick-notes.md</code>.</p>
 <h2 id="make-a-backup">Make a backup</h2>
 <p>Shut down DenOS cleanly with the shell command <code>halt</code>, or close the QEMU session only after the guest has stopped writing. Then copy the image:</p>
-<pre><code class="language-sh">cp -a denos-data.img denos-data.img.manual-backup
-</code></pre>
-<p>For extra protection, keep a copy on another physical device. A backup on the same host disk does not protect against host drive failure.</p>
-<p>To inspect the size:</p>
-<pre><code class="language-sh">ls -lh denos-data.img denos-data.img.manual-backup
-</code></pre>
-<p>Do not copy a live disk image while DenOS is writing to it.</p>
-<h2 id="upgrade-a-v1-v2-image-to-v3">Upgrade a v1/v2 image to v3</h2>
-<p>DenOS 0.4.9 recognizes earlier v1 and v2 fixed-slot directory layouts. The v3 format has 256 directory entries, 65,535 bytes maximum content per file, and a 36-sector directory table. Before migration, the raw image must be at least 16,796,160 bytes. The normal project image is 32 MiB.</p>
-<ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> denos-data.img denos-data.img.manual-backup</span></code></pre></div>
+<p>For extra protection, keep a copy on another physical device. A backup on the same host disk does not protect against host drive failure. Do not copy a live disk image while DenOS is writing to it.</p>
+<h2 id="upgrade-a-v1v2v3-image-to-v4">Upgrade a v1/v2/v3 image to v4</h2>
+<p>DenOS 0.5.7 recognizes v1, v2, and v3 fixed-slot directory layouts and migrates them to DenFS v4. V4 has 256 directory entries, 65,535 bytes maximum content per file, paths up to 255 bytes, and a 132-sector directory table. The minimum disk size is 16,845,312 bytes; the normal project image is 32 MiB.</p>
+<ol type="1">
 <li>Stop the VM.</li>
 <li>Make a manual copy of <code>denos-data.img</code>.</li>
-<li>Run <code>make storage-upgrade</code>.</li>
-<li>Boot DenOS 0.4.9.</li>
+<li>If the image is smaller than 32 MiB, enlarge it with <code>truncate -s 32M denos-data.img</code> after backing it up.</li>
+<li>Run <code>make build</code>, then <code>make run</code>.</li>
 <li>Use <code>ls</code>, <code>cd</code>, and <code>cat</code> to inspect the home folders and important files.</li>
 <li>Use <code>df</code> to inspect capacity.</li>
 <li>Keep the backup until you have verified the important files.</li>
 </ol>
-<p>The upgrade target preserves an adjacent <code>.backup</code> copy if one does not already exist, then expands the image. If that backup file already exists, the command does not overwrite it; create a separately named manual backup first if you are unsure which copy it contains.</p>
+<p>The build never changes an existing data image. The run target refuses undersized images and prints the backup-and-resize commands rather than resizing them automatically.</p>
 <h2 id="unknown-or-malformed-disks">Unknown or malformed disks</h2>
-<p>The filesystem recognizes supported old superblock versions and migrates them. If a disk has an unknown signature/version or malformed metadata, DenOS should refuse to treat it as an old supported volume and may use a RAM-backed fallback. Do not force-format the disk to make the warning disappear. Preserve the original image and report the boot log and serial output.</p>
+<p>The filesystem recognizes supported v1/v2/v3 superblock versions and migrates them to v4. If a disk has an unknown signature/version or malformed metadata, DenOS should refuse to treat it as an old supported volume and may use a RAM-backed fallback. Do not force-format the disk to make the warning disappear. Preserve the original image and report the boot log and serial output.</p>
 <h2 id="rebuild-without-deleting-data">Rebuild without deleting data</h2>
-<p>Use:</p>
-<pre><code class="language-sh">make clean
-make
-</code></pre>
-<p><code>make clean</code> removes only <code>build/</code>. It does not remove <code>denos-data.img</code> or the adjacent migration backup.</p>
-<p><code>make clean-data</code> is intentionally destructive. It deletes the raw and VDI data images. Use it only when you explicitly want to discard all persistent DenOS files.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> clean</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build</span></code></pre></div>
+<p><code>make clean</code> removes generated <code>build/</code> and <code>build-tls/</code> files. It does not remove <code>denos-data.img</code> or any backup.</p>
+<p>To intentionally discard the persistent filesystem, stop the VM and manually remove the image only after verifying your backups:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> denos-data.img</span></code></pre></div>
+<p>The next <code>make build</code> creates a new empty 32 MiB image.</p>
 <h2 id="recovery-limitations">Recovery limitations</h2>
 <p>There is no fsck utility, journaling, snapshots, encryption, permission model, or guaranteed crash recovery in this release. A sudden power-off during a metadata update can damage the filesystem. The safest response to an unexpected mount failure is to stop using the original image, make a sector-level copy, and investigate the copy.</p>
 </article>
-    <footer class="docs-footer"><span>DenOS 0.4.9 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
+    <footer class="docs-footer"><span>DenOS 0.5.7 · Source documentation</span><a href="index.html">Browse all manuals →</a></footer>
   </main>
 </div>
 </body></html>

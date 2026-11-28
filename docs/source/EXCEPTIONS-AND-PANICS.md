@@ -1,6 +1,6 @@
 # CPU exceptions and kernel panic diagnostics
 
-DenOS 0.4.9 installs CPU exception gates at the first instruction-level entry to `kernel_main`, before serial/console
+DenOS 0.5.7 installs CPU exception gates at the first instruction-level entry to `kernel_main`, before serial/console
 initialization and before memory, filesystem, or device subsystems are started.
 
 ## Captured state
@@ -47,8 +47,8 @@ intact frame chain and may be incomplete after stack corruption.
 Run:
 
 ```sh
-make exception-test
-make test
+make -f tests/Makefile exception-test
+make -f tests/Makefile test
 make
 ```
 

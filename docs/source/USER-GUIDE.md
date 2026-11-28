@@ -1,23 +1,14 @@
-# DenOS 0.4.9 — User Guide
+# DenOS 0.5.7 — User Guide
 
-DenOS is an experimental 64-bit command-line OS. It boots to a VGA text console. The kernel graphics library, mouse helpers, UI font, and QOI decoder are retained and expanded in source/build, but the desktop is not started by normal CLI boot.
+DenOS is an experimental 64-bit OS that boots directly to its VGA text console and keyboard-driven shell. The normal boot path is terminal-only: it does not request a framebuffer, start a desktop, or initialize mouse-driven windows.
 
 ## 1. First boot
 
 The kernel initializes the serial/VGA text console, validates Multiboot2 information, attempts to initialize the physical page manager, starts the heap, mounts DenFS and the VFS namespace, configures the PIT clock, and starts cooperative kernel services. An Intel E1000 network adapter is initialized when present unless `safe-mode` was supplied in the boot arguments.
 
-First mount creates:
+First mount creates a home directory with `documents`, `downloads`, `projects`, `examples`, `utilities`, `games`, `pictures`, `music`, `videos`, `screenshots`, `bin`, and `tmp`. It seeds a welcome document, `projects/hello.c`, `documents/quick-notes.md`, and bundled Aiden C source programs in `examples/`, `games/`, and `utilities/`. Existing legacy folders and user files are not overwritten.
 
-```text
-/home/user/
-├── Documents/
-│   └── Welcome to DenOS.txt
-├── Downloads/
-├── bin/
-└── tmp/
-/var/log/
-/etc/
-```
+Use `apps` to list native text-mode apps. `browse` navigates DenFS and previews files, `notes` opens the quick-notes document, `calc` evaluates integer expressions, `monitor` shows live system counters, and `arcade` launches Snake, Breakout, or Maze Runner in colored ASCII.
 
 There is no login or password model. All current commands run in the same kernel address space.
 
@@ -30,7 +21,7 @@ Basic navigation:
 ```text
 pwd
 ls
-cd Documents
+cd documents
 cd /home/user
 ```
 
@@ -43,7 +34,7 @@ cat notes.txt
 edit notes.txt
 ```
 
-`cp`, `mv`, `rm`, `mkdir`, and `rmdir` provide file and empty-directory management. DenFS uses fixed-size metadata and text content slots; it is not a POSIX or binary-safe filesystem.
+`cp`, `mv`, `rm`, `mkdir`, and `rmdir` provide file and empty-directory management. DenFS v4 uses fixed-size metadata and text content slots, supports 255-character paths, and migrates recognized v1/v2/v3 volumes; it is not a POSIX or binary-safe filesystem.
 
 ## 3. Environment and boot configuration
 
@@ -59,7 +50,7 @@ Other inspection commands include `tasks`, `ipc`, `events`, `devices`, `mounts`,
 
 ## 5. Networking
 
-The experimental network path targets QEMU's emulated Intel E1000 adapter with a static user-network IPv4 configuration. `net` prints link/MAC/IP/counters. `ping 10.0.2.2` tests ARP and ICMP with QEMU's user-mode gateway. DHCP, DNS, TCP, UDP sockets, IPv6, Wi-Fi, and arbitrary physical NIC support are not implemented.
+The network path targets the emulated Intel E1000 adapter. QEMU starts with `10.0.2.15/24`, gateway `10.0.2.2`, and DNS `10.0.2.3`; `dhcp` requests a lease on another Ethernet network. Use `dns HOST` to resolve a name, `ping HOST` to test ICMP, and `web https://HOST/PATH` to read a verified HTTPS page in the normal build, or `web http://HOST/PATH` for unencrypted HTTP. HTTPS uses TLS 1.2. The terminal browser supports PageUp/PageDown and arrow-key scrolling, keyboard-operated link navigation (`L`, then select), URL entry (`G`), back/forward navigation (`B`/`F`), basic HTML text blocks, a small CSS visibility subset, literal `document.write()` strings, and non-interlaced 8-bit PNG/QOI/uncompressed BMP image viewing (`I`). It is not a full graphical, JavaScript, or standards-compliant browser; see `NETWORKING.md` for exact limits.
 
 ## 6. Utilities
 
@@ -77,8 +68,8 @@ The ELF64 module validates the structure of a byte buffer, but DenFS and the she
 Aiden C compiles a documented subset of C to AEX6 bytecode, interpreted by the in-kernel VM. The shell workflow is:
 
 ```text
-edit hello.c
-cc hello.c -o hello
+edit examples/hello.c
+cc examples/hello.c -o hello
 run hello
 ```
 
@@ -86,13 +77,13 @@ The compiler supports global/local scalar variables, one-dimensional fixed array
 
 The implementation is still a subset: all scalar values use signed 64-bit VM cells; headers are not loaded, preprocessing is limited, and there are no structs/unions, floating point, function pointers, native code generation, byte-addressable C object layout, or hosted standard library. Arrays are one-dimensional and bounds-checked at runtime. Functions have fixed limits. Programs run with kernel privilege and are not isolated.
 
+## 8. Native terminal apps
+
+Use `apps` to list the built-in terminal applications. `browse [PATH]` navigates DenFS with the keyboard and previews text files; `notes [FILE]` opens the notes document in the native editor; `calc [EXPR]` evaluates integer expressions; `monitor` displays live heap/page/storage counters; and `arcade` launches colored-ASCII Snake, Breakout, or Maze Runner. These apps run in kernel context and are not protected user processes. The lower-level renderer is retained for development/tests but is not initialized by normal boot; see [Graphics internals](GRAPHICS.md).
+
 ## 9. Shutdown and recovery
 
 Use `halt` or `reboot`. DenFS does not have journaling or power-loss recovery. Shut down the VM before copying `denos-data.img`. Do not treat the system as a daily-driver OS while its storage and driver paths remain experimental.
-
-## 8. Graphics library
-
-The source retains an expanded kernel graphics library in `kernel/drivers/graphics.c`, declared by `kernel/include/gfx.h`. It includes framebuffer output, alpha/scaled image blits, polygons, rounded geometry, gradients, anti-aliased text, word wrapping, mouse/event helpers, and QOI decoding. It is compiled and host-tested, but this CLI release does not start the desktop at boot. See [Graphics](GRAPHICS.md).
 
 
 ## Virtual-memory diagnostics

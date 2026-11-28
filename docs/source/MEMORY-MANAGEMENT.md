@@ -1,4 +1,4 @@
-# DenOS 0.4.9 memory management
+# DenOS 0.5.7 memory management
 
 DenOS currently has two allocators with different jobs. The current system is still one kernel-owned execution context; these allocators do not yet provide isolated process address spaces. Do not confuse a physical page address with a kernel heap pointer.
 

@@ -4,16 +4,7 @@ DenOS is experimental software. Keep a second copy of important files outside th
 
 ## Where personal data lives
 
-The persistent QEMU disk is `denos-data.img` in the project directory. The current first-boot layout creates:
-
-- `/home/user/Documents`
-- `/home/user/Downloads`
-- `/home/user/bin`
-- `/home/user/tmp`
-- `/var/log`
-- `/etc`
-
-The default shell working directory is `/home/user`. Configuration and system files live under `/etc`; there is no desktop-preferences directory in this command-line release.
+The persistent QEMU disk is `denos-data.img` in the project directory. The current first-boot layout creates `/home/user/documents`, `downloads`, `projects`, `examples`, `utilities`, `pictures`, `music`, `videos`, `screenshots`, `games`, `bin`, and `tmp`, along with `/etc/denos` and `/var/log`. Existing capitalized legacy directories on older volumes are left untouched. Sample Aiden C sources are seeded into `examples/`, `games/`, and `utilities/` only when each destination is absent. The shell starts in `/home/user`; Notes uses `/home/user/documents/quick-notes.md`.
 
 ## Make a backup
 
@@ -23,46 +14,42 @@ Shut down DenOS cleanly with the shell command `halt`, or close the QEMU session
 cp -a denos-data.img denos-data.img.manual-backup
 ```
 
-For extra protection, keep a copy on another physical device. A backup on the same host disk does not protect against host drive failure.
+For extra protection, keep a copy on another physical device. A backup on the same host disk does not protect against host drive failure. Do not copy a live disk image while DenOS is writing to it.
 
-To inspect the size:
+## Upgrade a v1/v2/v3 image to v4
 
-```sh
-ls -lh denos-data.img denos-data.img.manual-backup
-```
-
-Do not copy a live disk image while DenOS is writing to it.
-
-## Upgrade a v1/v2 image to v3
-
-DenOS 0.4.9 recognizes earlier v1 and v2 fixed-slot directory layouts. The v3 format has 256 directory entries, 65,535 bytes maximum content per file, and a 36-sector directory table. Before migration, the raw image must be at least 16,796,160 bytes. The normal project image is 32 MiB.
+DenOS 0.5.7 recognizes v1, v2, and v3 fixed-slot directory layouts and migrates them to DenFS v4. V4 has 256 directory entries, 65,535 bytes maximum content per file, paths up to 255 bytes, and a 132-sector directory table. The minimum disk size is 16,845,312 bytes; the normal project image is 32 MiB.
 
 1. Stop the VM.
 2. Make a manual copy of `denos-data.img`.
-3. Run `make storage-upgrade`.
-4. Boot DenOS 0.4.9.
+3. If the image is smaller than 32 MiB, enlarge it with `truncate -s 32M denos-data.img` after backing it up.
+4. Run `make build`, then `make run`.
 5. Use `ls`, `cd`, and `cat` to inspect the home folders and important files.
 6. Use `df` to inspect capacity.
 7. Keep the backup until you have verified the important files.
 
-The upgrade target preserves an adjacent `.backup` copy if one does not already exist, then expands the image. If that backup file already exists, the command does not overwrite it; create a separately named manual backup first if you are unsure which copy it contains.
+The build never changes an existing data image. The run target refuses undersized images and prints the backup-and-resize commands rather than resizing them automatically.
 
 ## Unknown or malformed disks
 
-The filesystem recognizes supported old superblock versions and migrates them. If a disk has an unknown signature/version or malformed metadata, DenOS should refuse to treat it as an old supported volume and may use a RAM-backed fallback. Do not force-format the disk to make the warning disappear. Preserve the original image and report the boot log and serial output.
+The filesystem recognizes supported v1/v2/v3 superblock versions and migrates them to v4. If a disk has an unknown signature/version or malformed metadata, DenOS should refuse to treat it as an old supported volume and may use a RAM-backed fallback. Do not force-format the disk to make the warning disappear. Preserve the original image and report the boot log and serial output.
 
 ## Rebuild without deleting data
 
-Use:
-
 ```sh
 make clean
-make
+make build
 ```
 
-`make clean` removes only `build/`. It does not remove `denos-data.img` or the adjacent migration backup.
+`make clean` removes generated `build/` and `build-tls/` files. It does not remove `denos-data.img` or any backup.
 
-`make clean-data` is intentionally destructive. It deletes the raw and VDI data images. Use it only when you explicitly want to discard all persistent DenOS files.
+To intentionally discard the persistent filesystem, stop the VM and manually remove the image only after verifying your backups:
+
+```sh
+rm -f denos-data.img
+```
+
+The next `make build` creates a new empty 32 MiB image.
 
 ## Recovery limitations
 

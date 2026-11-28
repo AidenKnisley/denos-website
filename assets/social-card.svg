@@ -16,7 +16,7 @@
 <text x="754" y="323" font-family="monospace" font-size="17" fill="#92a2ad">ARCHITECTURE  x86_64</text>
 <text x="754" y="356" font-family="monospace" font-size="17" fill="#92a2ad">MEMORY        4-LEVEL</text>
 <text x="754" y="389" font-family="monospace" font-size="17" fill="#92a2ad">BOOT          MULTIBOOT2</text>
-<text x="754" y="422" font-family="monospace" font-size="17" fill="#92a2ad">VERSION       0.4.9</text>
+<text x="754" y="422" font-family="monospace" font-size="17" fill="#92a2ad">VERSION       0.5.7</text>
 <text x="754" y="455" font-family="monospace" font-size="17" fill="#b9ff68">█</text>
 <text x="88" y="560" font-family="monospace" font-size="13" letter-spacing="2" fill="#88939a">FREESTANDING C  /  NASM  /  GRUB  /  QEMU TARGET</text>
 </svg>

@@ -1,91 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#111820"><meta name="description" content="DenOS 0.4.9 documentation library: 30 original project manuals presented as readable web pages.">
-<title>Documentation Library · DenOS</title>
-<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="docs.css"></head>
+<meta name="theme-color" content="#111820"><meta name="description" content="DenOS 0.5.7 documentation library: 28 current manuals and historical release notes.">
+<title>Documentation Library · DenOS 0.5.7</title>
+<link rel="icon" href="../assets/denos-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="docs.css"></head>
 <body class="catalog-page">
 <a class="skip" href="#catalog">Skip to documentation library</a>
-<header class="docs-top">
-  <a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a>
-  <nav><a href="../index.html">Home</a><a href="../#architecture">Architecture</a><a href="../#releases">Source releases</a></nav>
-</header>
+<header class="docs-top"><a class="docs-brand" href="../index.html"><img src="../assets/denos-mark.svg" alt="" width="34" height="34"><span>DENOS <small>DOCUMENTATION</small></span></a><nav><a href="../index.html">Home</a><a href="../#architecture">Architecture</a><a href="../#releases">Source releases</a></nav></header>
 <main class="catalog-main" id="catalog">
-  <div class="catalog-kicker"><span></span> DENOS / SOURCE RELEASE 0.4.9 / MANUALS</div>
-  <div class="catalog-heading"><div><h1>Project<br><em>documentation.</em></h1><p>Thirty manuals extracted from the 0.4.9 source archive and rendered as individual reading pages. The original Markdown files are also preserved alongside them.</p></div>
-  <div class="catalog-aside"><b>30</b><span>MANUALS<br>INCLUDED</span></div></div>
-  <div class="catalog-tools"><span id="docCount">30 DOCUMENTS</span><label>⌕ <input id="docSearch" type="search" placeholder="Search guides, systems, concepts…" aria-label="Search documentation"><kbd>/</kbd></label></div>
-  <div class="catalog-grid" id="catalogGrid"><a class="catalog-card" data-doc data-search="adding a system component a repeatable path for introducing a new kernel subsystem." href="adding-a-system-component.html">
-      <span>ADDING / A / SYSTEM / COMPONENT</span><b>Adding A System Component</b><small>A repeatable path for introducing a new kernel subsystem.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="aiden c language reference for the aiden c 5.2.4 subset and aex6 vm." href="aiden-c.html">
-      <span>AIDEN / C</span><b>Aiden C</b><small>Language reference for the Aiden C 5.2.4 subset and AEX6 VM.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="aiden libc roadmap status and integration plan for the hosted c support library." href="aiden-libc-roadmap.html">
-      <span>AIDEN / LIBC / ROADMAP</span><b>Aiden Libc Roadmap</b><small>Status and integration plan for the hosted C support library.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="building host dependencies, regression tests, iso build, qemu run, and data disks." href="building.html">
-      <span>BUILDING</span><b>Building</b><small>Host dependencies, regression tests, ISO build, QEMU run, and data disks.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="cli tools command-line utilities, inspection commands, and shell usage." href="cli-tools.html">
-      <span>CLI / TOOLS</span><b>Cli Tools</b><small>Command-line utilities, inspection commands, and shell usage.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="daily use how to work with the current cli environment and its constraints." href="daily-use.html">
-      <span>DAILY / USE</span><b>Daily Use</b><small>How to work with the current CLI environment and its constraints.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="development status implemented foundations, explicit gaps, and validation limits." href="development-status.html">
-      <span>DEVELOPMENT / STATUS</span><b>Development Status</b><small>Implemented foundations, explicit gaps, and validation limits.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="drivers current hardware drivers and the maintained emulator target." href="drivers.html">
-      <span>DRIVERS</span><b>Drivers</b><small>Current hardware drivers and the maintained emulator target.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="editor the vim-style editor, completion, and structural checks." href="editor.html">
-      <span>EDITOR</span><b>Editor</b><small>The Vim-style editor, completion, and structural checks.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="events kernel event queue model, event delivery, and lifecycle." href="events.html">
-      <span>EVENTS</span><b>Events</b><small>Kernel event queue model, event delivery, and lifecycle.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="exceptions and panics cpu fault reporting, exception paths, tss stacks, and panic output." href="exceptions-and-panics.html">
-      <span>EXCEPTIONS / AND / PANICS</span><b>Exceptions And Panics</b><small>CPU fault reporting, exception paths, TSS stacks, and panic output.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="files and storage denfs persistence, ata pio storage, migration and recovery notes." href="files-and-storage.html">
-      <span>FILES / AND / STORAGE</span><b>Files And Storage</b><small>DenFS persistence, ATA PIO storage, migration and recovery notes.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="graphics kernel software renderer, framebuffer api, qoi, and graphics limits." href="graphics.html">
-      <span>GRAPHICS</span><b>Graphics</b><small>Kernel software renderer, framebuffer API, QOI, and graphics limits.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="ipc bounded kernel inter-process communication queues and semantics." href="ipc.html">
-      <span>IPC</span><b>Ipc</b><small>Bounded kernel inter-process communication queues and semantics.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="kernel architecture boot sequence, core subsystems, source layout and design." href="kernel-architecture.html">
-      <span>KERNEL / ARCHITECTURE</span><b>Kernel Architecture</b><small>Boot sequence, core subsystems, source layout and design.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="memory management physical memory, heap, page tables, and kernel virtual allocation." href="memory-management.html">
-      <span>MEMORY / MANAGEMENT</span><b>Memory Management</b><small>Physical memory, heap, page tables, and kernel virtual allocation.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="networking qemu e1000 profile, ethernet, arp, ipv4/icmp and missing protocols." href="networking.html">
-      <span>NETWORKING</span><b>Networking</b><small>QEMU E1000 profile, Ethernet, ARP, IPv4/ICMP and missing protocols.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="performance performance instrumentation and current bottlenecks." href="performance.html">
-      <span>PERFORMANCE</span><b>Performance</b><small>Performance instrumentation and current bottlenecks.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="recovery storage fallback, diagnostics, backups and recovery considerations." href="recovery.html">
-      <span>RECOVERY</span><b>Recovery</b><small>Storage fallback, diagnostics, backups and recovery considerations.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="release 9.0.1 historical release notes included in the project archive." href="release-9.0.1.html">
-      <span>RELEASE / 9.0.1</span><b>Release 9.0.1</b><small>Historical release notes included in the project archive.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="release 9.0 historical release notes included in the project archive." href="release-9.0.html">
-      <span>RELEASE / 9.0</span><b>Release 9.0</b><small>Historical release notes included in the project archive.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="release manifest exact inventory and important boundaries of the 0.4.9 source archive." href="release-manifest.html">
-      <span>RELEASE / MANIFEST</span><b>Release Manifest</b><small>Exact inventory and important boundaries of the 0.4.9 source archive.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="roadmap completed milestones, next steps, and release gates." href="roadmap.html">
-      <span>ROADMAP</span><b>Roadmap</b><small>Completed milestones, next steps, and release gates.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="scheduler cooperative scheduler model and current scheduling limitations." href="scheduler.html">
-      <span>SCHEDULER</span><b>Scheduler</b><small>Cooperative scheduler model and current scheduling limitations.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="support matrix hardware, kernel, compiler and protocol support with limitations." href="support-matrix.html">
-      <span>SUPPORT / MATRIX</span><b>Support Matrix</b><small>Hardware, kernel, compiler and protocol support with limitations.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="terminal terminal behavior, console output and shell interaction." href="terminal.html">
-      <span>TERMINAL</span><b>Terminal</b><small>Terminal behavior, console output and shell interaction.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="third party notices third-party components, notices and attribution." href="third-party-notices.html">
-      <span>THIRD / PARTY / NOTICES</span><b>Third Party Notices</b><small>Third-party components, notices and attribution.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="user guide practical guide to the denos command-line environment." href="user-guide.html">
-      <span>USER / GUIDE</span><b>User Guide</b><small>Practical guide to the DenOS command-line environment.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="vfs virtual filesystem routing, mounts and filesystem interfaces." href="vfs.html">
-      <span>VFS</span><b>Vfs</b><small>Virtual filesystem routing, mounts and filesystem interfaces.</small><i>↗</i>
-    </a><a class="catalog-card" data-doc data-search="virtual memory active-cr3 page table design, mapping apis and constraints." href="virtual-memory.html">
-      <span>VIRTUAL / MEMORY</span><b>Virtual Memory</b><small>Active-CR3 page table design, mapping APIs and constraints.</small><i>↗</i>
+  <div class="catalog-kicker"><span></span> DENOS / SOURCE RELEASE 0.5.7 / MANUALS</div>
+  <div class="catalog-heading"><div><h1>Project<br><em>documentation.</em></h1><p>Twenty-eight current manuals rendered from the DenOS 0.5.7 source tree. The original Markdown and license text are included alongside the reading pages.</p></div><div class="catalog-aside"><b>28</b><span>CURRENT<br>MANUALS</span></div></div>
+  <div class="catalog-tools"><span id="docCount">28 DOCUMENTS</span><label>⌕ <input id="docSearch" type="search" placeholder="Search guides, systems, concepts…" aria-label="Search documentation"><kbd>/</kbd></label></div>
+  <div class="catalog-grid" id="catalogGrid"><a class="catalog-card" data-doc data-search="adding a denos system component new kernel code should be a small freestanding c subsystem with a public header, bounded resource use, clear failure paths, and host-side…" href="adding-a-system-component.html">
+      <span>ADDING / A / SYSTEM / COMPONENT</span><b>Adding a DenOS system component</b><small>New kernel code should be a small freestanding C subsystem with a public header, bounded resource use, clear failure paths, and host-side…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="aiden c 5.3.0 — language and compiler guide aiden c is denos&#x27;s freestanding c-subset compiler. it parses a deliberately bounded subset of c, emits textual-hex aex6 bytecode, and…" href="aiden-c.html">
+      <span>AIDEN / C</span><b>Aiden C 5.3.0 — language and compiler guide</b><small>Aiden C is DenOS&#x27;s freestanding C-subset compiler. It parses a deliberately bounded subset of C, emits textual-hex AEX6 bytecode, and…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos userland c library foundation this directory introduces a hosted, namespaced support-library prototype under userland/libc. it is deliberately separate from the kernel.…" href="aiden-libc-roadmap.html">
+      <span>AIDEN / LIBC / ROADMAP</span><b>DenOS userland C library foundation</b><small>This directory introduces a hosted, namespaced support-library prototype under userland/libc. It is deliberately separate from the kernel.…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="building denos 0.5.7 the root makefile intentionally has only three user commands: build, run, and clean. running plain make is equivalent to make build." href="building.html">
+      <span>BUILDING</span><b>Building DenOS 0.5.7</b><small>The root Makefile intentionally has only three user commands: build, run, and clean. Running plain make is equivalent to make build.</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos command-line tools denos boots into a text shell. no desktop or graphical shell is started. the kernel graphics library remains in the build for graphics and…" href="cli-tools.html">
+      <span>CLI / TOOLS</span><b>DenOS command-line tools</b><small>DenOS boots into a text shell. No desktop or graphical shell is started. The kernel graphics library remains in the build for graphics and…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="everyday use of denos 0.5.7 denos boots directly to a vga 80×25 text console and keyboard-driven shell. there is no gui boot path or mouse-driven desktop." href="daily-use.html">
+      <span>DAILY / USE</span><b>Everyday use of DenOS 0.5.7</b><small>DenOS boots directly to a VGA 80×25 text console and keyboard-driven shell. There is no GUI boot path or mouse-driven desktop.</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos development status — 0.5.7 denos is an independent x86-64 hobby operating system. the phrase “modern os” is a long-term target, not a claim that all facilities of a…" href="development-status.html">
+      <span>DEVELOPMENT / STATUS</span><b>DenOS development status — 0.5.7</b><small>DenOS is an independent x86-64 hobby operating system. The phrase “modern OS” is a long-term target, not a claim that all facilities of a…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos hardware drivers the maintained target is a qemu pc machine with an x86-64 cpu, legacy ps/2 keyboard, ide disk, pit/rtc, vga text console, pc speaker, and…" href="drivers.html">
+      <span>DRIVERS</span><b>DenOS hardware drivers</b><small>The maintained target is a QEMU PC machine with an x86-64 CPU, legacy PS/2 keyboard, IDE disk, PIT/RTC, VGA text console, PC speaker, and…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos text editor and c completion the default editor remains a small vga text-mode vim-style editor. it does not start a window manager or gui. c completion is implemented…" href="editor.html">
+      <span>EDITOR</span><b>DenOS text editor and C completion</b><small>The default editor remains a small VGA text-mode Vim-style editor. It does not start a window manager or GUI. C completion is implemented…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos kernel event queue the kernel event service provides a bounded fifo for asynchronous subsystem notifications. events carry a pit tick timestamp, source id,…" href="events.html">
+      <span>EVENTS</span><b>DenOS kernel event queue</b><small>The kernel event service provides a bounded FIFO for asynchronous subsystem notifications. Events carry a PIT tick timestamp, source ID,…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="cpu exceptions and kernel panic diagnostics denos 0.5.7 installs cpu exception gates at the first instruction-level entry to kernelmain, before serial/console initialization and…" href="exceptions-and-panics.html">
+      <span>EXCEPTIONS / AND / PANICS</span><b>CPU exceptions and kernel panic diagnostics</b><small>DenOS 0.5.7 installs CPU exception gates at the first instruction-level entry to kernelmain, before serial/console initialization and…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="files and storage — denfs v4 denos 0.5.7 uses denfs v4, a fixed-slot persistent filesystem with nested directories and long readable paths. it is designed for small…" href="files-and-storage.html">
+      <span>FILES / AND / STORAGE</span><b>Files and Storage — DenFS v4</b><small>DenOS 0.5.7 uses DenFS v4, a fixed-slot persistent filesystem with nested directories and long readable paths. It is designed for small…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos graphics internals — inactive on normal boot denos 0.5.7 is terminal-only. the multiboot2 header no longer requests a framebuffer, kernelmain does not parse or configure a display…" href="graphics.html">
+      <span>GRAPHICS</span><b>DenOS graphics internals — inactive on normal boot</b><small>DenOS 0.5.7 is terminal-only. The Multiboot2 header no longer requests a framebuffer, kernelmain does not parse or configure a display…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos kernel message queues denos includes a bounded message-passing layer intended for kernel services and future isolated tasks. scheduler-created services receive…" href="ipc.html">
+      <span>IPC</span><b>DenOS kernel message queues</b><small>DenOS includes a bounded message-passing layer intended for kernel services and future isolated tasks. Scheduler-created services receive…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos kernel architecture denos 0.5.7 is an experimental single-address-space x86-64 operating system written in freestanding c and nasm. it boots through grub…" href="kernel-architecture.html">
+      <span>KERNEL / ARCHITECTURE</span><b>DenOS kernel architecture</b><small>DenOS 0.5.7 is an experimental single-address-space x86-64 operating system written in freestanding C and NASM. It boots through GRUB…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 memory management denos currently has two allocators with different jobs. the current system is still one kernel-owned execution context; these allocators…" href="memory-management.html">
+      <span>MEMORY / MANAGEMENT</span><b>DenOS 0.5.7 memory management</b><small>DenOS currently has two allocators with different jobs. The current system is still one kernel-owned execution context; these allocators…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 networking and terminal web reader denos 0.5.7 contains an early, bounded ipv4 client stack for the supported intel e1000 device. it is designed for learning and qemu…" href="networking.html">
+      <span>NETWORKING</span><b>DenOS 0.5.7 networking and terminal web reader</b><small>DenOS 0.5.7 contains an early, bounded IPv4 client stack for the supported Intel E1000 device. It is designed for learning and QEMU…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos performance notes denos 0.5.7 boots directly to the vga text console and does not request or initialize a framebuffer desktop. the software renderer remains…" href="performance.html">
+      <span>PERFORMANCE</span><b>DenOS performance notes</b><small>DenOS 0.5.7 boots directly to the VGA text console and does not request or initialize a framebuffer desktop. The software renderer remains…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos data backup, migration, and recovery denos is experimental software. keep a second copy of important files outside the denos disk image. denfs is not a journaling filesystem…" href="recovery.html">
+      <span>RECOVERY</span><b>DenOS data backup, migration, and recovery</b><small>DenOS is experimental software. Keep a second copy of important files outside the DenOS disk image. DenFS is not a journaling filesystem…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 source manifest this is the denos 0.5.7 terminal-edition source archive. it contains no prebuilt boot iso or host regression-test binaries. it includes…" href="release-manifest.html">
+      <span>RELEASE / MANIFEST</span><b>DenOS 0.5.7 source manifest</b><small>This is the DenOS 0.5.7 terminal-edition source archive. It contains no prebuilt boot ISO or host regression-test binaries. It includes…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos roadmap this roadmap prioritizes memory safety, storage integrity, hardware support, and a real user/kernel boundary over decorative interface…" href="roadmap.html">
+      <span>ROADMAP</span><b>DenOS roadmap</b><small>This roadmap prioritizes memory safety, storage integrity, hardware support, and a real user/kernel boundary over decorative interface…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos cooperative kernel scheduler denos now has a fixed-capacity cooperative scheduler for kernel services. it is an intentional stepping stone toward a process scheduler,…" href="scheduler.html">
+      <span>SCHEDULER</span><b>DenOS cooperative kernel scheduler</b><small>DenOS now has a fixed-capacity cooperative scheduler for kernel services. It is an intentional stepping stone toward a process scheduler,…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 support matrix this matrix distinguishes implemented behavior from unsupported or planned features. denos is an experimental independent x86-64 os, not a…" href="support-matrix.html">
+      <span>SUPPORT / MATRIX</span><b>DenOS 0.5.7 support matrix</b><small>This matrix distinguishes implemented behavior from unsupported or planned features. DenOS is an experimental independent x86-64 OS, not a…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 terminal guide denos always boots directly into its vga 80×25 text console. there is no gui, window manager, framebuffer boot mode, or desktop command.…" href="terminal.html">
+      <span>TERMINAL</span><b>DenOS 0.5.7 Terminal Guide</b><small>DenOS always boots directly into its VGA 80×25 text console. There is no GUI, window manager, framebuffer boot mode, or desktop command.…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="third-party notices kernel/include/fontui.h contains a compact 2-bit-coverage rasterization of printable ascii glyphs derived from cantarell. the source font…" href="third-party-notices.html">
+      <span>THIRD / PARTY / NOTICES</span><b>Third-party notices</b><small>kernel/include/fontui.h contains a compact 2-bit-coverage rasterization of printable ASCII glyphs derived from Cantarell. The source font…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos 0.5.7 — user guide denos is an experimental 64-bit os that boots directly to its vga text console and keyboard-driven shell. the normal boot path is…" href="user-guide.html">
+      <span>USER / GUIDE</span><b>DenOS 0.5.7 — User Guide</b><small>DenOS is an experimental 64-bit OS that boots directly to its VGA text console and keyboard-driven shell. The normal boot path is…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos virtual filesystem namespace denos now has a small vfs routing layer between path-based kernel clients and filesystem backends. it gives the kernel one absolute-path…" href="vfs.html">
+      <span>VFS</span><b>DenOS virtual filesystem namespace</b><small>DenOS now has a small VFS routing layer between path-based kernel clients and filesystem backends. It gives the kernel one absolute-path…</small><i>↗</i>
+    </a><a class="catalog-card" data-doc data-search="denos virtual-memory manager (0.5.0) kernel/mm/paging.c is the first general x86-64 page-table manager in denos. it operates on the active four-level page-table root; it does…" href="virtual-memory.html">
+      <span>VIRTUAL / MEMORY</span><b>DenOS virtual-memory manager (0.5.0)</b><small>kernel/mm/paging.c is the first general x86-64 page-table manager in DenOS. It operates on the active four-level page-table root; it does…</small><i>↗</i>
     </a></div>
   <p class="catalog-none" id="catalogNone" hidden>No documentation matched that search.</p>
-  <div class="catalog-original"><span>ORIGINAL SOURCES</span><p>Want the files as authored? The Markdown and text originals are available in the <a href="source/">docs/source/</a> folder.</p><a href="../index.html">← Back to the DenOS project site</a></div>
+  <div class="catalog-original"><span>HISTORICAL RELEASE NOTES</span><p>These older 9.x notes are preserved from the source archive and are not the current 0.5.7 release: <a href="release-9.0.html">DenOS 9.0.0 — Release notes</a><a href="release-9.0.1.html">DenOS 9.0.1 — Kernel Services and Desktop Refinement</a>.</p><span>ORIGINAL SOURCES</span><p>Want the files as authored? The current Markdown and license originals are available in <a href="source/">docs/source/</a>.</p><a href="../index.html">← Back to the DenOS project site</a></div>
 </main>
-<footer class="docs-catalog-footer"><span>DENOS 0.4.9 · ORIGINAL PROJECT DOCUMENTS</span><span>EXPERIMENTAL SOFTWARE / NOT A DAILY-DRIVER OS</span></footer>
-<script>
-(() => {
- const input=document.getElementById('docSearch'),cards=[...document.querySelectorAll('[data-doc]')],count=document.getElementById('docCount'),none=document.getElementById('catalogNone');
- input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();let n=0;cards.forEach(c=>{const show=c.dataset.search.includes(q);c.hidden=!show;if(show)n++;});count.textContent=n+' DOCUMENT'+(n===1?'':'S');none.hidden=n!==0;});
- document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==input){e.preventDefault();input.focus();}});
-})();
-</script>
+<footer class="docs-catalog-footer"><span>DENOS 0.5.7 · CURRENT PROJECT DOCUMENTS</span><span>EXPERIMENTAL SOFTWARE / NOT A DAILY-DRIVER OS</span></footer>
+<script>(() => { const input=document.getElementById('docSearch'),cards=[...document.querySelectorAll('[data-doc]')],count=document.getElementById('docCount'),none=document.getElementById('catalogNone'); input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();let n=0;cards.forEach(c=>{const show=c.dataset.search.includes(q);c.hidden=!show;if(show)n++;});count.textContent=n+' DOCUMENT'+(n===1?'':'S');none.hidden=n!==0;}); document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==input){e.preventDefault();input.focus();}}); })();</script>
 </body></html>
